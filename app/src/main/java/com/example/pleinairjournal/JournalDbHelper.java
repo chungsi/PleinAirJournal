@@ -7,17 +7,30 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class JournalDbHelper extends SQLiteOpenHelper {
 
+    private static final String DATABASE_NAME = "PleinAirJournal.db";
     private Context mContext;
 
+    private static final String CREATE_TABLE =
+            "CREATE TABLE " +
+                    JournalEntry.TABLE_NAME + " (" +
+                    JournalEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    JournalEntry.DATE + " TEXT, " +
+                    JournalEntry.LOCATION + " TEXT, " +
+                    JournalEntry.COMMENT + " TEXT);";
+
+    private static final String DELETE_TABLE =
+            "DROP TABLE IF EXISTS " + JournalEntry.TABLE_NAME;
+
+
     public JournalDbHelper(Context context) {
-        super(context, Entry.DATABASE_NAME, null, Entry.DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, JournalEntry.DATABASE_VERSION);
         mContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(Entry.CREATE_TABLE);
+            db.execSQL(CREATE_TABLE);
         } catch (SQLException e) {
             // catch the exception
         }
@@ -25,8 +38,11 @@ public class JournalDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-//        try {
-//            db.execSQL(DROP_TABLE);
-//        }
+        try {
+            db.execSQL(DELETE_TABLE);
+            onCreate(db);
+        } catch (SQLException e) {
+            // catch exception
+        }
     }
 }
