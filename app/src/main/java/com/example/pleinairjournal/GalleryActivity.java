@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,46 +19,28 @@ import java.util.List;
 
 public class GalleryActivity extends AppCompatActivity {
 
-    private JournalDb mDb;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private GalleryViewModel mGalleryViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        mDb = new JournalDb(this);
+        RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
+        final GalleryAdapter adapter = new GalleryAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        tempShowAllEntries();
+        /*
+        * Working with the ViewModel, and setting a listener on it to observe data changes
+        * */
+        mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
+        mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
+            @Override
+            public void onChanged(List<JournalEntry> journalEntries) {
+                adapter.setEntries(journalEntries);
+            }
+        });
 
-        mRecyclerView = findViewById(R.id.recycler_gallery);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // TODO: make db access in an AsyncTask task, and maybe show loading sign in the meanwhile
-        mAdapter = new GalleryAdapter(this, mDb.getAllEntries());
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        // release the db helper, but need to figure this out
-//        mDbHelper.close();
-        super.onDestroy();
-    }
-
-    /**
-     * Temp function to just list all the entries for testing.
-     *
-     * */
-    private void tempShowAllEntries() {
-        List<JournalEntry> entries = mDb.getAllEntries();
-
-        TextView dump = findViewById(R.id.text_dump);
-        for (JournalEntry entry : entries) {
-            dump.append(entry.getId() + ": " + entry.getLocation() + ", " + entry.getComment() + "\n");
-        }
     }
 }

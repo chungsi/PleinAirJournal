@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,10 @@ public class JournalDb {
     public JournalDb(Context c) {
         mContext = c;
         mHelper = new JournalDbHelper(mContext);
+    }
+
+    public int getEntriesCount() {
+        return 0;
     }
 
     public long insertEntry(String location, String comment) {
@@ -37,8 +44,11 @@ public class JournalDb {
         return 0;
     }
 
-    public void deleteEntry() {
-        //
+    public void deleteEntry(JournalEntry entry) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        db.delete(JournalEntry.TABLE_NAME,
+                JournalEntry._ID + " = ?",
+                new String[]{String.valueOf(entry.getId())});
     }
 
     public JournalEntry getEntry(long id) {
@@ -66,6 +76,36 @@ public class JournalDb {
         cursor.close();
 
         return entry;
+    }
+
+    public LiveData<JournalEntry> getLiveDataEntry(long id) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        String[] thisId = {String.valueOf(id)};
+
+        Cursor cursor = db.query(
+                JournalEntry.TABLE_NAME,
+                mAllColumns,
+                JournalEntry._ID + "=?",
+                thisId,
+                null,
+                null,
+                null
+        );
+
+        if (cursor == null)
+            return new MutableLiveData<>();
+
+        cursor.moveToFirst();
+        JournalEntry entry = new JournalEntry(
+                cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry._ID)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)));
+        cursor.close();
+
+        MutableLiveData<JournalEntry> liveDataEntry = new MutableLiveData<>();
+        liveDataEntry.setValue(entry);
+
+        return liveDataEntry;
     }
 
     public List<JournalEntry> getAllEntries() {
@@ -97,7 +137,36 @@ public class JournalDb {
         return entries;
     }
 
-    public int getEntriesCount() {
-        return 0;
+    /**
+     * TODO: make db access in an AsyncTask task, and maybe show loading sign in the meanwhile
+     * Test method to use LiveData objects with a ViewModel
+     * */
+    public LiveData<List<JournalEntry>> getAllLiveDataEntries() {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+//        String[] columns = {JournalEntry._ID, JournalEntry.DATE, JournalEntry.LOCATION, JournalEntry.COMMENT};
+
+        Cursor cursor = db.query(
+                JournalEntry.TABLE_NAME,
+                mAllColumns,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        List<JournalEntry> entries = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry._ID));
+            String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
+            String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
+            entries.add(new JournalEntry(id, loc, com));
+        }
+        cursor.close();
+
+        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
+        finalEntries.setValue(entries);
+
+        return finalEntries;
     }
 }
