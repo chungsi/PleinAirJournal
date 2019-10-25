@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PleinAirJournal</string>
+    <string name="celsius">&#176;C</string>
+
 </resources>
