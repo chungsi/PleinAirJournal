@@ -27,4 +27,8 @@ public class EntryViewModel extends AndroidViewModel {
         mEntry = mDb.getLiveDataEntry(id);
         return mEntry;
     }
+
+    public void deleteEntry(JournalEntry entry) {
+        mDb.deleteEntry(entry);
+    }
 }

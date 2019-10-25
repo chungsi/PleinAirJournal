@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -39,9 +40,21 @@ public class JournalDb {
         return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
     }
 
-    public int updateEntry() {
-        //
-        return 0;
+    public long updateEntry(JournalEntry entry) {
+        mDb = mHelper.getWritableDatabase();
+
+        JournalEntry thisEntry = getEntry(entry.getId());
+
+        ContentValues cv = new ContentValues();
+        cv.put(JournalEntry.LOCATION, entry.getLocation());
+        cv.put(JournalEntry.COMMENT, entry.getComment());
+
+        return mDb.update(
+                JournalEntry.TABLE_NAME,
+                cv,
+                JournalEntry._ID + " = ?",
+                new String[]{String.valueOf(thisEntry.getId())}
+        );
     }
 
     public void deleteEntry(JournalEntry entry) {
@@ -49,6 +62,7 @@ public class JournalDb {
         db.delete(JournalEntry.TABLE_NAME,
                 JournalEntry._ID + " = ?",
                 new String[]{String.valueOf(entry.getId())});
+        Log.i("PLEINAIR_DEBUG", "An entry has been deleted from the db");
     }
 
     public JournalEntry getEntry(long id) {

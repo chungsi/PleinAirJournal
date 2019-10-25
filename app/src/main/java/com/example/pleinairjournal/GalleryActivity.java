@@ -2,6 +2,7 @@ package com.example.pleinairjournal;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Gallery;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class GalleryActivity extends AppCompatActivity {
 
     private GalleryViewModel mGalleryViewModel;
+    private GalleryAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,20 +29,26 @@ public class GalleryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
-        final GalleryAdapter adapter = new GalleryAdapter(this);
-        recyclerView.setAdapter(adapter);
+        mAdapter = new GalleryAdapter(this);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         /*
-        * Working with the ViewModel, and setting a listener on it to observe data changes
-        * */
+         * Working with the ViewModel, and setting a listener on it to observe data changes
+         * */
         mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
         mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
             @Override
             public void onChanged(List<JournalEntry> journalEntries) {
-                adapter.setEntries(journalEntries);
+                Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
+                mAdapter.setEntries(journalEntries);
             }
         });
-
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mAdapter.notifyDataSetChanged(); // TEMP
+//    }
 }

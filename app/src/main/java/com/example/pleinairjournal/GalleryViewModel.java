@@ -30,4 +30,8 @@ public class GalleryViewModel extends AndroidViewModel {
     public LiveData<List<JournalEntry>> getAllEntries() {
         return mAllEntries;
     }
+
+    public void deleteEntry(JournalEntry entry) {
+        mDb.deleteEntry(entry);
+    }
 }

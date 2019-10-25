@@ -17,6 +17,7 @@ public class JournalEntry {
     private long mId;
     private String mLocation;
     private String mComment;
+    private JournalEntry mEntry;
 
     // Empty JournalEntry
     public JournalEntry() {}
@@ -26,6 +27,11 @@ public class JournalEntry {
         mId = id;
         mLocation = location;
         mComment = comment;
+    }
+
+    public JournalEntry(long id, JournalEntry entry) {
+        mId = id;
+        mEntry = entry;
     }
 
     public long getId() { return mId; }
