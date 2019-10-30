@@ -1,0 +1,23 @@
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/icon_home"
+            android:orderInCategory="1"
+            app:showAsAction="always"
+            android:title=""
+            >
+        </item>
+
+    <item
+        android:id="@+id/createEntry"
+        android:icon="@drawable/icon_home"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:title=""
+        >
+    </item>
+
+
+</menu>

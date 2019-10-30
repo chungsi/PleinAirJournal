@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <!--  Base Application Colours  -->
+    <color name="colorPrimary">#9ACBFF</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!--  Dark Theme Colours  -->
+    <color name="darkWindowBackground">#1C1C1C</color>
+    <color name="darkColorPrimary">#B3B3B3</color>
+    <color name="darkColorAccent">#9ACBFF</color>
+
 </resources>
