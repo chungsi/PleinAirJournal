@@ -3,12 +3,15 @@ package com.example.pleinairjournal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class DashboardActivity extends AppCompatActivity implements SensorEventListener {
@@ -37,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity implements SensorEventL
         mTemperature= mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         mCompass= mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
+        tempButtonsForTesting();
     }
 
     @Override
@@ -62,11 +66,33 @@ public class DashboardActivity extends AppCompatActivity implements SensorEventL
     public void onSensorChanged(SensorEvent sensorEvent) {
         float ambientTemp = sensorEvent.values[0];
         text_ambientTemp.setText("Ambient Temperature:\n " + String.valueOf(ambientTemp) + getResources().getString(R.string.celsius));
-
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
+    public void onAccuracyChanged(Sensor sensor, int i) {}
 
+    public void tempButtonsForTesting() {
+
+        Button button_goToAddEntry = findViewById(R.id.button_goToAddEntry);
+        Button button_goToGallery = findViewById(R.id.button_goToGallery);
+
+        button_goToAddEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), NewEntryActivity.class);
+                // This flag means NewEntryActivity won't be reachable by the back button once the
+                // activity is finished (a new entry is created, or that action is exited)
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivityForResult(i, RESULT_OK);
+            }
+        });
+
+        button_goToGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), GalleryActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

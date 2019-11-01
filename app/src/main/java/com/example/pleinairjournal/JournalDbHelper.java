@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class JournalDbHelper extends SQLiteOpenHelper {
 
+    public static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "PleinAirJournal.db";
     private Context mContext;
 
@@ -15,6 +16,8 @@ public class JournalDbHelper extends SQLiteOpenHelper {
                     JournalEntry.TABLE_NAME + " (" +
                     JournalEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     JournalEntry.DATE + " TEXT, " +
+                    JournalEntry.TIMESTAMP + " TEXT, " +
+                    JournalEntry.IMAGE + " TEXT, " +
                     JournalEntry.LOCATION + " TEXT, " +
                     JournalEntry.COMMENT + " TEXT);";
 
@@ -23,7 +26,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
 
 
     public JournalDbHelper(Context context) {
-        super(context, DATABASE_NAME, null, JournalEntry.DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
 
@@ -37,7 +40,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
             db.execSQL(DELETE_TABLE);
             onCreate(db);

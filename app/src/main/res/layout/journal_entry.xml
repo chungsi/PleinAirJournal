@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_journalEntry"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/text_createEntryLocation"
@@ -18,10 +19,4 @@
         android:layout_weight="1"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/button_deleteEntry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Delete" />
 </LinearLayout>

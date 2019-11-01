@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -17,8 +18,18 @@ public class JournalDb {
     private Context mContext;
     private final JournalDbHelper mHelper;
 
-    private String[] mAllColumns = {JournalEntry._ID, JournalEntry.DATE, JournalEntry.LOCATION, JournalEntry.COMMENT};
+    private String[] mAllColumns = {
+            JournalEntry._ID,
+            JournalEntry.TIMESTAMP,
+            JournalEntry.IMAGEFILEPATH,
+            JournalEntry.LOCATION,
+            JournalEntry.COMMENT,
+    };
 
+    private static final String DELETE_TABLE =
+            "DROP TABLE IF EXISTS " + JournalEntry.TABLE_NAME;
+
+    private static final String ORDER_CHRONOLOGICAL = JournalEntry.TIMESTAMP + " DESC";
 
     public JournalDb(Context c) {
         mContext = c;
@@ -29,25 +40,46 @@ public class JournalDb {
         return 0;
     }
 
-    public long insertEntry(String location, String comment) {
+    /**
+     * Not sure if need this method that inserts with individual strings...
+     * */
+    public long insertEntry(long timestamp, String location, String comment, String imageFilePath) {
         mDb = mHelper.getWritableDatabase();
 
+        Log.i("PLEINAIR_DEBUG", "inside insertEntry, timestamp: " + timestamp);
+
         ContentValues cv = new ContentValues();
+        cv.put(JournalEntry.TIMESTAMP, timestamp);
         cv.put(JournalEntry.LOCATION, location);
         cv.put(JournalEntry.COMMENT, comment);
+        cv.put(JournalEntry.IMAGEFILEPATH, imageFilePath);
 //        cv.put(JournalEntry.DATE, date);
 
         return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
     }
 
-    public long updateEntry(JournalEntry entry) {
+    /**
+     * Or if it's better to just pass in a journal entry object?
+     * */
+    public long insertEntry(JournalEntry entry) {
         mDb = mHelper.getWritableDatabase();
-
-        JournalEntry thisEntry = getEntry(entry.getId());
 
         ContentValues cv = new ContentValues();
         cv.put(JournalEntry.LOCATION, entry.getLocation());
         cv.put(JournalEntry.COMMENT, entry.getComment());
+//        cv.put(JournalEntry.DATE, date);
+
+        return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
+    }
+
+    public long updateEntry(long id, String location, String comment) {
+        mDb = mHelper.getWritableDatabase();
+
+        JournalEntry thisEntry = getEntry(id);
+
+        ContentValues cv = new ContentValues();
+        cv.put(JournalEntry.LOCATION, location);
+        cv.put(JournalEntry.COMMENT, comment);
 
         return mDb.update(
                 JournalEntry.TABLE_NAME,
@@ -55,6 +87,14 @@ public class JournalDb {
                 JournalEntry._ID + " = ?",
                 new String[]{String.valueOf(thisEntry.getId())}
         );
+    }
+
+    public void deleteEntry(long id) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        db.delete(JournalEntry.TABLE_NAME,
+                JournalEntry._ID + " = ?",
+                new String[]{String.valueOf(id)});
+        Log.i("PLEINAIR_DEBUG", "An entry has been deleted from the db");
     }
 
     public void deleteEntry(JournalEntry entry) {
@@ -84,7 +124,8 @@ public class JournalDb {
 
         cursor.moveToFirst();
         JournalEntry entry = new JournalEntry(
-                cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry._ID)),
+                cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID)),
+                cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)));
         cursor.close();
@@ -112,6 +153,7 @@ public class JournalDb {
         cursor.moveToFirst();
         JournalEntry entry = new JournalEntry(
                 cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry._ID)),
+                cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)));
         cursor.close();
@@ -124,7 +166,6 @@ public class JournalDb {
 
     public List<JournalEntry> getAllEntries() {
         SQLiteDatabase db = mHelper.getWritableDatabase();
-//        String[] columns = {JournalEntry._ID, JournalEntry.DATE, JournalEntry.LOCATION, JournalEntry.COMMENT};
 
         Cursor cursor = db.query(
                 JournalEntry.TABLE_NAME,
@@ -133,7 +174,7 @@ public class JournalDb {
                 null,
                 null,
                 null,
-                null
+                ORDER_CHRONOLOGICAL
         );
 
         /*
@@ -141,10 +182,11 @@ public class JournalDb {
         * */
         List<JournalEntry> entries = new ArrayList<>();
         while(cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry._ID));
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID));
+            long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP));
             String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
-            entries.add(new JournalEntry(id, loc, com));
+            entries.add(new JournalEntry(id, timestamp, loc, com));
         }
         cursor.close();
 
@@ -157,7 +199,6 @@ public class JournalDb {
      * */
     public LiveData<List<JournalEntry>> getAllLiveDataEntries() {
         SQLiteDatabase db = mHelper.getWritableDatabase();
-//        String[] columns = {JournalEntry._ID, JournalEntry.DATE, JournalEntry.LOCATION, JournalEntry.COMMENT};
 
         Cursor cursor = db.query(
                 JournalEntry.TABLE_NAME,
@@ -166,15 +207,16 @@ public class JournalDb {
                 null,
                 null,
                 null,
-                null
+                ORDER_CHRONOLOGICAL
         );
 
         List<JournalEntry> entries = new ArrayList<>();
         while(cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry._ID));
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID));
+            long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP));
             String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
-            entries.add(new JournalEntry(id, loc, com));
+            entries.add(new JournalEntry(id, timestamp, loc, com));
         }
         cursor.close();
 

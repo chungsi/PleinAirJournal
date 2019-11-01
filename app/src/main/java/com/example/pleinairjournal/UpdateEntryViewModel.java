@@ -5,30 +5,26 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-public class EntryViewModel extends AndroidViewModel {
+public class UpdateEntryViewModel extends AndroidViewModel {
     private JournalDb mDb;
     private LiveData<JournalEntry> mEntry;
+    private long mId;
 
-    public EntryViewModel(@NonNull Application application) {
+    public UpdateEntryViewModel(@NonNull Application application) {
         super(application);
         mDb = new JournalDb(application);
     }
 
-    public LiveData<JournalEntry> getEntry() {
-        if (mEntry == null) {
-            mEntry = new MutableLiveData<>();
-        }
-        return mEntry;
-    }
-
     public LiveData<JournalEntry> getEntry(long id) {
+        mId = id;
         mEntry = mDb.getLiveDataEntry(id);
+
         return mEntry;
     }
 
-    public void deleteEntry(JournalEntry entry) {
-        mDb.deleteEntry(entry);
+    public long updateEntry(String location, String comment) {
+//        JournalEntry entry = new JournalEntry(/mId, location, comment);
+        return mDb.updateEntry(mId, location, comment);
     }
 }

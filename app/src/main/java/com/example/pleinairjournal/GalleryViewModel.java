@@ -34,4 +34,8 @@ public class GalleryViewModel extends AndroidViewModel {
     public void deleteEntry(JournalEntry entry) {
         mDb.deleteEntry(entry);
     }
+
+    public void refreshEntries() {
+        mAllEntries = mDb.getAllLiveDataEntries();
+    }
 }

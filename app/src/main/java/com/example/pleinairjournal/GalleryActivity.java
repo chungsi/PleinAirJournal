@@ -1,5 +1,6 @@
 package com.example.pleinairjournal;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,9 +34,8 @@ public class GalleryActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        /*
-         * Working with the ViewModel, and setting a listener on it to observe data changes
-         * */
+
+        // Working with the ViewModel, and setting a listener on it to observe data changes
         mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
         mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
             @Override
@@ -46,9 +46,9 @@ public class GalleryActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mAdapter.notifyDataSetChanged(); // TEMP
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mAdapter.onActivityResult(requestCode, resultCode, data);
+    }
 }

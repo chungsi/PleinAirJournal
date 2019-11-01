@@ -4,16 +4,22 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_viewEntryId"
+        android:id="@+id/text_viewId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Entry Id" />
 
     <TextView
-        android:id="@+id/text_viewEntryLocation"
+        android:id="@+id/text_viewLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="location" />
+
+    <TextView
+        android:id="@+id/text_viewComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
     <Button
         android:id="@+id/button_updateEntry"
