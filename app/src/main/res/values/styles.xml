@@ -6,14 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name = "windowNoTitle">true</item>
+        <item name = "windowActionBar">false</item>
     </style>
 
     <!-- Dark App Theme-->
-    <style name="style_dark" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary"></item>
+    <style name="style_dark" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/darkColorPrimary</item>
+        <item name="android:textColorPrimary">@color/darkTextColorPrimary</item>
         <item name="android:windowBackground">@color/darkWindowBackground</item>
         <item name="colorAccent">@color/darkColorAccent</item>
-        <item name="colorPrimaryDark">@color/darkColorPrimary</item>
     </style>
 
 </resources>

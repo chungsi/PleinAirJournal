@@ -4,19 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class AccountPreferences extends JournalMenu implements View.OnClickListener {
 
@@ -24,6 +17,7 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
     TextView text_name;
     Spinner spinner_colourScheme;
     Button button_save;
+    ImageButton imageButton_home, imageButton_gallery, imageButton_settings, imageButton_create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +45,16 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
         button_save = findViewById(R.id.button_save);
         button_save.setOnClickListener(this);
 
+        //Buttons from Toolbar
+        imageButton_home = findViewById(R.id.imageButton_home);
+        imageButton_home.setOnClickListener(this);
+        imageButton_gallery = findViewById(R.id.imageButton_gallery);
+        imageButton_gallery.setOnClickListener(this);
+        imageButton_settings = findViewById(R.id.imageButton_settings);
+        imageButton_settings.setOnClickListener(this);
+        imageButton_create = findViewById(R.id.imageButton_create);
+        imageButton_create.setOnClickListener(this);
+
         SharedPreferences sharedPrefs = getSharedPreferences("MyData",MODE_PRIVATE);
 
         int spinnerColourScheme = sharedPrefs.getInt("SELECTEDCOLOURSCHEME",-1);
@@ -58,6 +62,7 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
             // set the selected value of the spinner
             spinner_colourScheme.setSelection(spinnerColourScheme);
         }
+
 
     }
 
@@ -69,8 +74,24 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putInt("SELECTEDCOLOURSCHEME", selectedColourScheme);
             editor.commit();
+        }
 
+        if(view.equals(imageButton_home)){
+            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+            startActivity(i);
+        }
+        if(view.equals(imageButton_gallery)){
+            Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
+            startActivity(i);
+        }
 
+        if(view.equals(imageButton_settings)){
+            Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
+            startActivity(i);
+        }
+        if(view.equals(imageButton_create)){
+            Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
+            startActivity(i);
         }
     }
 
