@@ -14,10 +14,8 @@ public class JournalEntry {
      * Here starts some test code for instantiating a JournalEntry object.
      * TODO: determine if setter methods are necessary, as we are using the object as an interface
      * */
-    private long mId;
-    private long mTimestamp;
-    private String mLocation;
-    private String mComment;
+    private long mId, mTimestamp;
+    private String mLocation, mComment, mImageFilePath;
     private JournalEntry mEntry;
 
     // Empty JournalEntry
@@ -28,12 +26,14 @@ public class JournalEntry {
             long id,
             long timestamp,
             String location,
-            String comment
+            String comment,
+            String imageFilePath
     ) {
         mId = id;
         mTimestamp = timestamp;
         mLocation = location;
         mComment = comment;
+        mImageFilePath = imageFilePath;
     }
 
     public JournalEntry(long id, JournalEntry entry) {
@@ -43,6 +43,7 @@ public class JournalEntry {
 
     public long getId() { return mId; }
     public long getTimestamp() { return mTimestamp; }
+    public String getImageFilePath() { return mImageFilePath; }
     public String getLocation() { return mLocation; }
 //    public void setLocation(String location) { mLocation = location; }
     public String getComment() { return mComment; }

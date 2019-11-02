@@ -9,9 +9,9 @@ import androidx.lifecycle.LiveData;
 import java.sql.Timestamp;
 
 public class NewEntryViewModel extends AndroidViewModel {
-    public String location, comment;
+    public String location, comment, imageFilePath;
     private JournalDb mDb;
-    private String mLocation, mComment; // maybe it's better to use private vars?
+    private String mLocation, mComment, mPhotoPath; // maybe it's better to use private vars?
     private long mId, mTimestamp;
 //    private JournalEntry mEntry;
 
@@ -21,6 +21,7 @@ public class NewEntryViewModel extends AndroidViewModel {
         mTimestamp = System.currentTimeMillis();
         location = "";
         comment = "";
+        imageFilePath = "";
     }
 
 //    public void setEntry() {
@@ -28,7 +29,7 @@ public class NewEntryViewModel extends AndroidViewModel {
 //    }
 
     public long insertEntry() {
-        return mDb.insertEntry(mTimestamp, location, comment);
+        return mDb.insertEntry(mTimestamp, location, comment, imageFilePath);
     }
 
     public long updateEntry() {

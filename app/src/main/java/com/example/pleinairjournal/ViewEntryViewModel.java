@@ -42,6 +42,8 @@ public class ViewEntryViewModel extends AndroidViewModel {
         return mEntry.getValue().getComment();
     }
 
+    public String getImageFilePath() { return mEntry.getValue().getImageFilePath(); }
+
     public void refreshEntry() {
         mEntry = mDb.getLiveDataEntry(mId);
     }

@@ -19,7 +19,13 @@
         android:id="@+id/text_viewComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="Comment" />
+
+    <TextView
+        android:id="@+id/text_filePath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FilePath" />
 
     <Button
         android:id="@+id/button_updateEntry"

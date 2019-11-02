@@ -19,7 +19,7 @@ public class ViewEntryActivity extends AppCompatActivity {
 
     static final int UPDATE_ENTRY = 2;
 
-    private TextView text_id, text_location, text_comment;
+    private TextView text_id, text_location, text_comment, text_filePath;
     private Button button_deleteEntry, button_updateEntry;
     private ViewEntryViewModel mViewModel;
 
@@ -37,6 +37,7 @@ public class ViewEntryActivity extends AppCompatActivity {
         text_id = findViewById(R.id.text_viewId);
         text_location = findViewById(R.id.text_viewLocation);
         text_comment = findViewById(R.id.text_viewComment);
+        text_filePath = findViewById(R.id.text_filePath);
         button_deleteEntry = findViewById(R.id.button_deleteEntry);
         button_updateEntry = findViewById(R.id.button_updateEntry);
 
@@ -53,6 +54,7 @@ public class ViewEntryActivity extends AppCompatActivity {
                 text_id.setText(String.valueOf(entry.getId()));
                 text_location.setText(entry.getLocation());
                 text_comment.setText(entry.getComment());
+                text_filePath.setText(entry.getImageFilePath());
             }
         });
     }
@@ -65,6 +67,7 @@ public class ViewEntryActivity extends AppCompatActivity {
             mViewModel.refreshEntry();
             text_location.setText(mViewModel.getLocation());
             text_comment.setText(mViewModel.getComment());
+            text_filePath.setText(mViewModel.getImageFilePath());
         }
     }
 

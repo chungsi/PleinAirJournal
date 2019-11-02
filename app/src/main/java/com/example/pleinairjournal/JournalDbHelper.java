@@ -17,7 +17,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
                     JournalEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     JournalEntry.DATE + " TEXT, " +
                     JournalEntry.TIMESTAMP + " TEXT, " +
-                    JournalEntry.IMAGE + " TEXT, " +
+                    JournalEntry.IMAGEFILEPATH + " TEXT, " +
                     JournalEntry.LOCATION + " TEXT, " +
                     JournalEntry.COMMENT + " TEXT);";
 

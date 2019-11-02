@@ -127,7 +127,8 @@ public class JournalDb {
                 cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID)),
                 cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
-                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)));
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)));
         cursor.close();
 
         return entry;
@@ -155,7 +156,9 @@ public class JournalDb {
                 cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry._ID)),
                 cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
-                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)));
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)));
+
         cursor.close();
 
         MutableLiveData<JournalEntry> liveDataEntry = new MutableLiveData<>();
@@ -186,7 +189,8 @@ public class JournalDb {
             long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP));
             String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
-            entries.add(new JournalEntry(id, timestamp, loc, com));
+            String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
+            entries.add(new JournalEntry(id, timestamp, loc, com, fp));
         }
         cursor.close();
 
@@ -216,7 +220,8 @@ public class JournalDb {
             long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP));
             String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
-            entries.add(new JournalEntry(id, timestamp, loc, com));
+            String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
+            entries.add(new JournalEntry(id, timestamp, loc, com, fp));
         }
         cursor.close();
 
