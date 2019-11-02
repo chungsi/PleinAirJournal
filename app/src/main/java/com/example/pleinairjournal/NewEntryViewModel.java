@@ -1,6 +1,7 @@
 package com.example.pleinairjournal;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,12 +12,14 @@ import java.sql.Timestamp;
 public class NewEntryViewModel extends AndroidViewModel {
     public String location, comment, imageFilePath;
     private JournalDb mDb;
-    private String mLocation, mComment, mPhotoPath; // maybe it's better to use private vars?
     private long mId, mTimestamp;
+//    private String mLocation, mComment, mPhotoPath; // maybe it's better to use private vars?
 //    private JournalEntry mEntry;
 
     public NewEntryViewModel(@NonNull Application application) {
         super(application);
+        Log.i("PLEINAIR_DEBUG", "NewEntryViewModel created");
+
         mDb = new JournalDb(application);
         mTimestamp = System.currentTimeMillis();
         location = "";
@@ -29,6 +32,7 @@ public class NewEntryViewModel extends AndroidViewModel {
 //    }
 
     public long insertEntry() {
+        Log.i("PLEINAIR_DEBUG", "insertEntry in NewEntryViewModel");
         return mDb.insertEntry(mTimestamp, location, comment, imageFilePath);
     }
 

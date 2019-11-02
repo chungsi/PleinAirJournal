@@ -82,7 +82,7 @@ public class DashboardActivity extends AppCompatActivity implements SensorEventL
                 Intent i = new Intent(view.getContext(), NewEntryActivity.class);
                 // This flag means NewEntryActivity won't be reachable by the back button once the
                 // activity is finished (a new entry is created, or that action is exited)
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivityForResult(i, RESULT_OK);
             }
         });

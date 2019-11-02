@@ -2,6 +2,7 @@ package com.example.pleinairjournal;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,7 +32,7 @@ import java.util.Date;
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
 public class NewEntryActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_TAKE_PHOTO = 4742;
     private NewEntryViewModel mViewModel;
 
     TextView text_timetamp;
@@ -74,8 +75,6 @@ public class NewEntryActivity extends AppCompatActivity implements View.OnClickL
             }
         }
         if (view.equals(button_takePhoto)) {
-            Log.i("PLEINAIR_DEBUG", "take photo button clicked.");
-
             startCameraActivity();
         }
     }
@@ -83,44 +82,45 @@ public class NewEntryActivity extends AppCompatActivity implements View.OnClickL
     protected void startCameraActivity() {
         Log.i("PLEINAIR_DEBUG", "start camera.");
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
 
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            File photoFile = null;
-//            Log.i("PLEINAIR_DEBUG", "inside takePictureIntent.resolveActivity");
-//
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException e) {
-////                // catch exception if image can't be taken
-//                Log.d("PLEINAIR_DEBUG", e.getMessage());
-//            }
-////
-//            if (photoFile != null) {
-//                Uri photoUri = FileProvider.getUriForFile(
-//                        this,
-//                        "com.example.pleinairjournal.fileprovider",
-//                        photoFile);
-//                Log.i("PLEINAIR_DEBUG", "photo file path created: " + photoUri.toString());
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-//                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-//            }
-//
-//        }
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File photoFile = null;
+            Log.i("PLEINAIR_DEBUG", "inside takePictureIntent.resolveActivity");
+
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                // catch exception if image can't be taken
+                Log.d("PLEINAIR_DEBUG", e.getMessage());
+            }
+
+            if (photoFile != null) {
+                Uri photoUri = FileProvider.getUriForFile(
+                        this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         Log.i("PLEINAIR_DEBUG", "onAcitivityResult returned");
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
             Log.i("PLEINAIR_DEBUG", "onAcitivityResult successfull");
-//
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            image_photoThumb.setImageBitmap(imageBitmap);
+            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+            bmpFactoryOptions.inJustDecodeBounds = false;
+
+            // Need to decode the image from a file path because the camera intent will put
+            // the data into the URI passed to it
+            Bitmap bmp = BitmapFactory.decodeFile(mViewModel.imageFilePath, bmpFactoryOptions);
+            image_photoThumb.setImageBitmap(bmp);
         }
     }
 
@@ -128,10 +128,13 @@ public class NewEntryActivity extends AppCompatActivity implements View.OnClickL
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        File storageDir = new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "PleinAirJournal");
+        if (!storageDir.exists()) storageDir.mkdir();
+
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
+                ".jpg",   /* suffix */
                 storageDir      /* directory */
         );
 

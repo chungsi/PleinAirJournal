@@ -46,7 +46,7 @@ public class JournalDb {
     public long insertEntry(long timestamp, String location, String comment, String imageFilePath) {
         mDb = mHelper.getWritableDatabase();
 
-        Log.i("PLEINAIR_DEBUG", "inside insertEntry, timestamp: " + timestamp);
+        Log.i("PLEINAIR_DEBUG", "inside insertEntry, imagefilepath: " + imageFilePath);
 
         ContentValues cv = new ContentValues();
         cv.put(JournalEntry.TIMESTAMP, timestamp);
@@ -61,16 +61,16 @@ public class JournalDb {
     /**
      * Or if it's better to just pass in a journal entry object?
      * */
-    public long insertEntry(JournalEntry entry) {
-        mDb = mHelper.getWritableDatabase();
-
-        ContentValues cv = new ContentValues();
-        cv.put(JournalEntry.LOCATION, entry.getLocation());
-        cv.put(JournalEntry.COMMENT, entry.getComment());
-//        cv.put(JournalEntry.DATE, date);
-
-        return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
-    }
+//    public long insertEntry(JournalEntry entry) {
+//        mDb = mHelper.getWritableDatabase();
+//
+//        ContentValues cv = new ContentValues();
+//        cv.put(JournalEntry.LOCATION, entry.getLocation());
+//        cv.put(JournalEntry.COMMENT, entry.getComment());
+////        cv.put(JournalEntry.DATE, date);
+//
+//        return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
+//    }
 
     public long updateEntry(long id, String location, String comment) {
         mDb = mHelper.getWritableDatabase();

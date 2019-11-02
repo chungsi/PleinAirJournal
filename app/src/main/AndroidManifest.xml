@@ -3,6 +3,7 @@
     package="com.example.pleinairjournal">
     <uses-feature android:name="android.hardware.camera"
         android:required="true"></uses-feature>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -14,7 +15,7 @@
         android:theme="@style/AppTheme">
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.pleinairjournal.fileprovider"
+            android:authorities="com.example.android.fileprovider"
             android:enabled="true"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -31,7 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OnboardingActivity"></activity>
+        <activity android:name=".OnboardingActivity">
+<!--            <intent-filter>-->
+<!--            </intent-filter>-->
+        </activity>
         <activity android:name=".MainActivity">
 
             <!-- <intent-filter> -->
@@ -41,7 +45,12 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".NewEntryActivity" />
+        <activity android:name=".NewEntryActivity">
+            <intent-filter>
+                <action android:name="android.media.action.IMAGE_CAPTURE"></action>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ViewEntryActivity" />
         <activity android:name=".UpdateEntryActivity" />
         <activity android:name=".GalleryActivity" />
