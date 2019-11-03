@@ -25,7 +25,9 @@
         </provider>
 
         <activity android:name=".JournalMenu"></activity>
-        <activity android:name=".AccountPreferences"></activity>
+        <activity android:name=".AccountPreferences">
+
+        </activity>
         <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,10 +48,10 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".NewEntryActivity">
-            <intent-filter>
-                <action android:name="android.media.action.IMAGE_CAPTURE"></action>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.media.action.IMAGE_CAPTURE"></action>-->
+<!--                <category android:name="android.intent.category.DEFAULT"/>-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".ViewEntryActivity" />
         <activity android:name=".UpdateEntryActivity" />

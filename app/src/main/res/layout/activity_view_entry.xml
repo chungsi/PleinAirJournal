@@ -10,42 +10,49 @@
         android:id="@+id/text_viewId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/bodyTextSize"
         android:text="Entry Id" />
 
     <TextView
         android:id="@+id/text_viewLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/bodyTextSize"
         android:text="location" />
 
     <TextView
         android:id="@+id/text_viewComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/bodyTextSize"
         android:text="Comment" />
 
     <TextView
         android:id="@+id/text_filePath"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/bodyTextSize"
         android:text="FilePath" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/bodyTextSize"
         android:text="Date" />
 
     <TextView
         android:id="@+id/text_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/bodyTextSize"
         android:text="Date" />
 
     <TextView
         android:id="@+id/text_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/bodyTextSize"
         android:text="TextView" />
 
     <ImageView

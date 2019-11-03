@@ -14,7 +14,7 @@ android:padding="20dp">
         android:gravity="center"
         android:paddingBottom="20dp"
         android:text="Welcome to Plein Air Journal"
-        android:textSize="30sp" />
+        android:textSize="@dimen/largeHeadingTextSize" />
 
     <EditText
         android:id="@+id/edit_name"
@@ -22,6 +22,7 @@ android:padding="20dp">
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
+        android:textSize="@dimen/bodyTextSize"
         android:hint="Please enter your name."
         android:inputType="textPersonName" />
 

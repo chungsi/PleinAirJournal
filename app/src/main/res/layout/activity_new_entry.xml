@@ -22,12 +22,14 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date" />
+            android:text="Date"
+            android:textSize="@dimen/bodyTextSize"/>
 
         <TextView
             android:id="@+id/text_timestamp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/bodyTextSize"/>
     </LinearLayout>
 
     <LinearLayout
@@ -40,6 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/bodyTextSize"
             android:text="Location" />
 
         <EditText
@@ -61,6 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/bodyTextSize"
             android:text="Comment" />
 
         <EditText
