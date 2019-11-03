@@ -2,12 +2,12 @@ package com.example.pleinairjournal;
 
 import android.app.Application;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
 
 public class ViewEntryViewModel extends AndroidViewModel {
     private JournalDb mDb;
@@ -49,6 +49,9 @@ public class ViewEntryViewModel extends AndroidViewModel {
     public String getImageFilePath() { return mEntry.getValue().getImageFilePath(); }
 
     public Bitmap getBitmapImage() { return mImage; }
+
+    public String getDate() { return mEntry.getValue().getDate(); }
+    public String getTime() { return mEntry.getValue().getTime(); }
 
     public void refreshEntry() {
         mEntry = mDb.getLiveDataEntry(mId);

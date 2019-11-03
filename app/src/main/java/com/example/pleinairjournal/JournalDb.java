@@ -20,6 +20,7 @@ public class JournalDb {
 
     private String[] mAllColumns = {
             JournalEntry._ID,
+            JournalEntry.DATE,
             JournalEntry.TIMESTAMP,
             JournalEntry.IMAGEFILEPATH,
             JournalEntry.LOCATION,
@@ -50,6 +51,7 @@ public class JournalDb {
 
         ContentValues cv = new ContentValues();
         cv.put(JournalEntry.TIMESTAMP, timestamp);
+//        cv.put(JournalEntry.DATE, )
         cv.put(JournalEntry.LOCATION, location);
         cv.put(JournalEntry.COMMENT, comment);
         cv.put(JournalEntry.IMAGEFILEPATH, imageFilePath);

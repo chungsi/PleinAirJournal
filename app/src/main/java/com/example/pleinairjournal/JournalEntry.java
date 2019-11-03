@@ -3,6 +3,9 @@ package com.example.pleinairjournal;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class JournalEntry {
     public static final String TABLE_NAME = "entry";
     public static final String _ID = "_id";
@@ -18,7 +21,8 @@ public class JournalEntry {
      * TODO: determine if setter methods are necessary, as we are using the object as an interface
      * */
     private long mId, mTimestamp;
-    private String mLocation, mComment, mImageFilePath;
+    private String mLocation, mComment, mImageFilePath, mDate, mTime;
+    private Date mSqlDate;
     private JournalEntry mEntry;
 
     // Empty JournalEntry
@@ -34,6 +38,9 @@ public class JournalEntry {
     ) {
         mId = id;
         mTimestamp = timestamp;
+        mDate = new SimpleDateFormat("EEEE, LLLL d, YYYY").format(timestamp);
+        mTime = new SimpleDateFormat("h:mm a").format(timestamp);
+        mSqlDate = new Date(timestamp);
         mLocation = location;
         mComment = comment;
         mImageFilePath = imageFilePath;
@@ -46,6 +53,9 @@ public class JournalEntry {
 
     public long getId() { return mId; }
     public long getTimestamp() { return mTimestamp; }
+    public String getDate() { return mDate; }
+    public String getTime() { return mTime; }
+
     public String getImageFilePath() { return mImageFilePath; }
     // TODO: cleanup the Bitmap Factory stuff, and find out what's the best way to conserve memory
     public Bitmap getBitmapImage() {
