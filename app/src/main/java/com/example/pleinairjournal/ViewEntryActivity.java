@@ -1,10 +1,13 @@
 package com.example.pleinairjournal;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ public class ViewEntryActivity extends AppCompatActivity {
     private TextView text_id, text_location, text_comment, text_filePath;
     private Button button_deleteEntry, button_updateEntry;
     private ViewEntryViewModel mViewModel;
+    private ImageView image_photoPreview;
 
     long mEntryId;
     int mGalleryAdapterPosition;
@@ -40,6 +44,7 @@ public class ViewEntryActivity extends AppCompatActivity {
         text_filePath = findViewById(R.id.text_filePath);
         button_deleteEntry = findViewById(R.id.button_deleteEntry);
         button_updateEntry = findViewById(R.id.button_updateEntry);
+        image_photoPreview = findViewById(R.id.image_photoPreview);
 
         buttonClickListeners();
 
@@ -55,6 +60,7 @@ public class ViewEntryActivity extends AppCompatActivity {
                 text_location.setText(entry.getLocation());
                 text_comment.setText(entry.getComment());
                 text_filePath.setText(entry.getImageFilePath());
+                image_photoPreview.setImageBitmap(entry.getBitmapImage());
             }
         });
     }
@@ -65,9 +71,11 @@ public class ViewEntryActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == UPDATE_ENTRY) {
             Toast.makeText(this, "Entry updated", Toast.LENGTH_SHORT).show();
             mViewModel.refreshEntry();
+            text_id.setText(String.valueOf(mViewModel.getEntryId()));
             text_location.setText(mViewModel.getLocation());
             text_comment.setText(mViewModel.getComment());
             text_filePath.setText(mViewModel.getImageFilePath());
+            image_photoPreview.setImageBitmap(mViewModel.getBitmapImage());
         }
     }
 

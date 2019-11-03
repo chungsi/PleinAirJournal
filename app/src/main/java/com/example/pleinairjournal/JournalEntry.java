@@ -1,5 +1,8 @@
 package com.example.pleinairjournal;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 public class JournalEntry {
     public static final String TABLE_NAME = "entry";
     public static final String _ID = "_id";
@@ -44,6 +47,12 @@ public class JournalEntry {
     public long getId() { return mId; }
     public long getTimestamp() { return mTimestamp; }
     public String getImageFilePath() { return mImageFilePath; }
+    // TODO: cleanup the Bitmap Factory stuff, and find out what's the best way to conserve memory
+    public Bitmap getBitmapImage() {
+        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+        bmpFactoryOptions.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(mImageFilePath, bmpFactoryOptions);
+    }
     public String getLocation() { return mLocation; }
 //    public void setLocation(String location) { mLocation = location; }
     public String getComment() { return mComment; }
