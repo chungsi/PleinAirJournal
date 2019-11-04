@@ -37,7 +37,7 @@
             android:id="@+id/text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:textSize="@dimen/bodyTextSize" />
 
         <TextView
@@ -47,11 +47,36 @@
             android:text="Colour Scheme"
             android:textSize="@dimen/bodyTextSize" />
 
-        <Spinner
-            android:id="@+id/spinner_colourScheme"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp" />
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/radioGroup_colourScheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Light Mode"
+                    android:textColor="?android:attr/textColor" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dark Mode"
+                    android:textColor="?android:attr/textColor"/>
+            </RadioGroup>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,14 +88,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:backgroundTint="?android:attr/buttonTint"/>
 
             <Button
                 android:id="@+id/button_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="Save" />
+                android:text="Save"
+                android:backgroundTint="?android:attr/buttonTint"/>
 
         </LinearLayout>
 

@@ -3,19 +3,25 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
+        <!--colours-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:buttonTint">@color/buttonColor</item>
     </style>
 
     <!-- Dark App Theme-->
     <style name="style_dark" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/darkColorPrimary</item>
+        <item name="android:textColor">@color/darkTextColorPrimary</item>
         <item name="android:textColorPrimary">@color/darkTextColorPrimary</item>
-        <item name="android:windowBackground">@color/darkWindowBackground</item>
+        <item name="android:background">@color/darkWindowBackground</item>
         <item name="colorAccent">@color/darkColorAccent</item>
+        <item name="android:buttonTint">@color/darkColorAccent</item>
     </style>
 
 </resources>

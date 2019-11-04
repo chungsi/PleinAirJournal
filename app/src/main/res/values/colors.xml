@@ -3,10 +3,12 @@
     <!--  Base Application Colours  -->
     <color name="colorPrimary">#9ACBFF</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#9ACBFF</color>
+    <color name="textColor">#2F2F2F</color>
+    <color name="buttonColor">#BCBCBC</color>
 
     <!--  Dark Theme Colours  -->
-    <color name="darkWindowBackground">#000000</color>
+    <color name="darkWindowBackground">#242424</color>
     <color name="darkColorPrimary">#1E1E1E</color>
     <color name="darkTextColorPrimary">#FFFFFF</color>
     <color name="darkColorAccent">#9ACBFF</color>
