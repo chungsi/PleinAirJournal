@@ -6,6 +6,7 @@
     <color name="colorAccent">#9ACBFF</color>
     <color name="textColor">#2F2F2F</color>
     <color name="buttonColor">#BCBCBC</color>
+    <color name="white">#FFFFFF</color>
 
     <!--  Dark Theme Colours  -->
     <color name="darkWindowBackground">#242424</color>

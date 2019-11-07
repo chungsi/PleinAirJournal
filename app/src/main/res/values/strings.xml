@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">PleinAirJournal</string>
     <string name="celsius">&#176;C</string>
+    <string name="description">Plein Air Journal encourages a practice called plein air, the act of creating art outdoors, and allows you to keep track of your creations in a journal.</string>
 
 </resources>

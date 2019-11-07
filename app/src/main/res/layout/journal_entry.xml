@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_journalEntry"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="20dp">
 
-    <TextView
-        android:id="@+id/text_createEntryLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="@dimen/bodyTextSize"
-        android:text="TextView" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_createEntryComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="@dimen/bodyTextSize"
-        android:text="TextView" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/text_createEntryLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Location"
+            android:textSize="@dimen/bodyTextSize" />
+
+        <TextView
+            android:id="@+id/text_createEntryComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Comment"
+            android:textSize="@dimen/bodyTextSize" />
+    </LinearLayout>
 
 </LinearLayout>

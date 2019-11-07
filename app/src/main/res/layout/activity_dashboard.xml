@@ -4,18 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/mToolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/activity_menu"/>
 
     <TextView
         android:id="@+id/text_hello"
-        android:layout_width="231dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
         android:gravity="center"
-        android:paddingBottom="20dp"
-        android:text="Hello"
+        android:paddingBottom="15dp"
+        android:text="Welcome back,"
         android:textSize="@dimen/largeHeadingTextSize" />
 
     <TextView
@@ -25,49 +30,40 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="(Name)"
-        android:textSize="@dimen/bodyTextSize" />
+        android:textSize="@dimen/headingTextSize" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="122dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
         android:gravity="bottom"
         android:orientation="horizontal"
+        android:padding="20dp"
         android:paddingTop="20dp">
 
         <TextView
             android:id="@+id/text_ambientTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="2.5dp"
             android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:drawableLeft="@drawable/ic_icon_temp"
+            android:padding="3dp"
             android:text="Current Temperature:"
-            android:textSize="@dimen/bodyTextSize"/>
+            android:textSize="@dimen/bodyTextSize" />
 
         <TextView
             android:id="@+id/text_compass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2.5dp"
             android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:drawableLeft="@drawable/ic_icon_compass"
+            android:padding="3dp"
             android:text="Current Direction:"
-            android:textSize="@dimen/bodyTextSize"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        tools:context=".MainActivity">
-
-        <Button
-            android:id="@+id/button_goToAddEntry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add an Entry" />
-
-        <Button
-            android:id="@+id/button_goToGallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gallery" />
+            android:textSize="@dimen/bodyTextSize" />
     </LinearLayout>
 
 </LinearLayout>

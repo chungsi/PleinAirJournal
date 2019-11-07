@@ -3,12 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp">
+    >
+
+    <include
+        android:id="@+id/mToolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/activity_menu"/>
 
     <TextView
         android:id="@+id/text_dump"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_gallery"

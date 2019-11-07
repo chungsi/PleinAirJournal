@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class AccountPreferences extends JournalMenu implements View.OnClickListener {
 
-    private SharedPreferences sharedPrefs;
+    SharedPreferences sharedPrefs;
     TextView text_name;
     RadioGroup radioGroup_colourScheme;
     RadioButton radioButton_light, radioButton_dark;

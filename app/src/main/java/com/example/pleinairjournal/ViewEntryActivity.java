@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class ViewEntryActivity extends AppCompatActivity {
+public class ViewEntryActivity extends JournalMenu {
 //    private JournalDb mDb;
 //    private long mEntryId;
 
@@ -69,6 +69,8 @@ public class ViewEntryActivity extends AppCompatActivity {
                         "; date: " + entry.getDate());
             }
         });
+
+        findMenuButtons();
     }
 
     @Override

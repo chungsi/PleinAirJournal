@@ -25,9 +25,9 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
-
         boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
 
+        //checks if user has entered name at onboarding already, skips onboarding if they have
         if(isLoggedIn){
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Gallery;
 import android.widget.TextView;
 
@@ -19,7 +20,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryActivity extends AppCompatActivity {
+public class GalleryActivity extends JournalMenu implements View.OnClickListener {
 
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
@@ -44,6 +45,8 @@ public class GalleryActivity extends AppCompatActivity {
                 mAdapter.setEntries(journalEntries);
             }
         });
+
+        findMenuButtons();
     }
 
     @Override

@@ -31,13 +31,13 @@ import java.util.Date;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
-public class NewEntryActivity extends AppCompatActivity implements View.OnClickListener {
+public class NewEntryActivity extends NewEntryMenu implements View.OnClickListener {
     private static final int REQUEST_TAKE_PHOTO = 4742;
     private NewEntryViewModel mViewModel;
 
     TextView text_timetamp;
     EditText edit_location, edit_comment;
-    Button button_createNewEntry, button_takePhoto;
+    Button button_createEntry, button_takePhoto;
     ImageView image_photoThumb;
 
     @Override
@@ -47,10 +47,13 @@ public class NewEntryActivity extends AppCompatActivity implements View.OnClickL
 
         mViewModel = ViewModelProviders.of(this).get(NewEntryViewModel.class);
 
+
+        button_cancel = findViewById(R.id.button_cancel);
+        button_cancel.setOnClickListener(this);
         edit_location = findViewById(R.id.edit_location);
         edit_comment = findViewById(R.id.edit_comment);
-        button_createNewEntry = findViewById(R.id.button_createNewEntry);
-        button_createNewEntry.setOnClickListener(this);
+        button_createEntry = findViewById(R.id.button_createEntry);
+        button_createEntry.setOnClickListener(this);
         button_takePhoto = findViewById(R.id.button_takePhoto);
         button_takePhoto.setOnClickListener(this);
         image_photoThumb = findViewById(R.id.image_photoThumbnail);
@@ -63,7 +66,12 @@ public class NewEntryActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        if (view.equals(button_createNewEntry)) {
+        if (view.equals(button_cancel)) {
+            Intent i = new Intent(this, DashboardActivity.class);
+            startActivity(i);
+        }
+
+        if (view.equals(button_createEntry)) {
             // send data to a data filtering/cleaning function first, to return a status code?
             // then can see if something is left blank that shouldn't be
             long id = mViewModel.insertEntry();
