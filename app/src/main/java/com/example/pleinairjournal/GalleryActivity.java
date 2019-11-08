@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
 
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
+    private Button button_testFilter, button_resetFilters;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +37,6 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         // Working with the ViewModel, and setting a listener on it to observe data changes
         mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
         mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
@@ -46,6 +47,8 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
             }
         });
 
+        initFilterButtons();
+
         findMenuButtons();
     }
 
@@ -53,5 +56,28 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mAdapter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * Initializes the buttons that filter results.
+     * OnClickListeners are attached to the buttons as well.
+     * */
+    private void initFilterButtons() {
+        button_testFilter = findViewById(R.id.button_testFilter);
+        button_testFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGalleryViewModel.filterByYear("2018");
+            }
+        });
+
+        // Reset all filters to see all entries in default settings
+        button_resetFilters = findViewById(R.id.button_resetFilters);
+        button_resetFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGalleryViewModel.refreshEntries();
+            }
+        });
     }
 }
