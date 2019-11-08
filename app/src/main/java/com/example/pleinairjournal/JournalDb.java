@@ -25,6 +25,8 @@ public class JournalDb {
             JournalEntry.IMAGEFILEPATH,
             JournalEntry.LOCATION,
             JournalEntry.COMMENT,
+            JournalEntry.CARDINAL_DEGREE,
+            JournalEntry.CARDINAL_DIRECTION
     };
 
     private static final String DELETE_TABLE =
@@ -44,18 +46,26 @@ public class JournalDb {
     /**
      * Not sure if need this method that inserts with individual strings...
      * */
-    public long insertEntry(long timestamp, String location, String comment, String imageFilePath) {
+    public long insertEntry(
+            long timestamp,
+            String location,
+            String comment,
+            String imageFilePath,
+            int cardinalDegree,
+            String cardinalDirec
+    ) {
         mDb = mHelper.getWritableDatabase();
 
         Log.i("PLEINAIR_DEBUG", "inside insertEntry, imagefilepath: " + imageFilePath);
 
         ContentValues cv = new ContentValues();
         cv.put(JournalEntry.TIMESTAMP, timestamp);
-//        cv.put(JournalEntry.DATE, )
+//        cv.put(JournalEntry.DATE, date);
         cv.put(JournalEntry.LOCATION, location);
         cv.put(JournalEntry.COMMENT, comment);
         cv.put(JournalEntry.IMAGEFILEPATH, imageFilePath);
-//        cv.put(JournalEntry.DATE, date);
+        cv.put(JournalEntry.CARDINAL_DEGREE, cardinalDegree);
+        cv.put(JournalEntry.CARDINAL_DIRECTION, cardinalDirec);
 
         return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
     }
@@ -130,7 +140,9 @@ public class JournalDb {
                 cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)),
-                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)));
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION)));
         cursor.close();
 
         return entry;
@@ -159,7 +171,9 @@ public class JournalDb {
                 cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)),
-                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)));
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION)));
 
         cursor.close();
 
@@ -192,7 +206,9 @@ public class JournalDb {
             String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
             String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
-            entries.add(new JournalEntry(id, timestamp, loc, com, fp));
+            int degree = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE));
+            String cardinalDirec = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION));
+            entries.add(new JournalEntry(id, timestamp, loc, com, fp, degree, cardinalDirec));
         }
         cursor.close();
 
@@ -223,7 +239,9 @@ public class JournalDb {
             String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
             String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
-            entries.add(new JournalEntry(id, timestamp, loc, com, fp));
+            int degree = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE));
+            String cardinalDirec = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION));
+            entries.add(new JournalEntry(id, timestamp, loc, com, fp, degree, cardinalDirec));
         }
         cursor.close();
 

@@ -72,6 +72,13 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         });
 
         addTextChangeListeners();
+
+
+
+        button_cancel = findViewById(R.id.button_cancel);
+        button_cancel.setOnClickListener(this);
+        button_createEntry = findViewById(R.id.button_createEntry);
+        button_createEntry.setOnClickListener(this);
     }
 
     @Override
@@ -86,8 +93,12 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        super.onClick(view);
+//        super.onClick(view);
 
+        if (view.equals(button_cancel)) {
+            Intent i = new Intent(this, DashboardActivity.class);
+            startActivity(i);
+        }
         // this buttons are instantiated in the NewEntryMenu, but since they need the viewModel,
         // not so sure how best to abstract it out yet...
         if (view.equals(button_createEntry)) {

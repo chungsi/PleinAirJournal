@@ -31,19 +31,9 @@ public class NewEntryMenu extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().setTitle("");
         }
 
-
-        button_cancel = findViewById(R.id.button_cancel);
-        button_cancel.setOnClickListener(this);
-        button_createEntry = findViewById(R.id.button_createEntry);
-        button_createEntry.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.equals(button_cancel)) {
-            Intent i = new Intent(this, DashboardActivity.class);
-            startActivity(i);
-        }
-
     }
 }

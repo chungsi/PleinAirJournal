@@ -36,7 +36,7 @@ public class NewEntryViewModel extends AndroidViewModel {
 
     public long insertEntry() {
         Log.i("PLEINAIR_DEBUG", "insertEntry in NewEntryViewModel");
-        return mDb.insertEntry(mTimestamp, location, comment, imageFilePath);
+        return mDb.insertEntry(mTimestamp, location, comment, imageFilePath, cardinalDegree, cardinal);
     }
 
     public long updateEntry() {

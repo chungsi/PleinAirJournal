@@ -22,7 +22,7 @@ public class ViewEntryActivity extends JournalMenu {
 
     static final int UPDATE_ENTRY = 2;
 
-    private TextView text_id, text_location, text_comment, text_filePath, text_date, text_time;
+    private TextView text_id, text_location, text_comment, text_filePath, text_date, text_time, text_cardinal;
     private Button button_deleteEntry, button_updateEntry;
     private ViewEntryViewModel mViewModel;
     private ImageView image_photoPreview;
@@ -44,6 +44,7 @@ public class ViewEntryActivity extends JournalMenu {
         text_filePath = findViewById(R.id.text_filePath);
         text_date = findViewById(R.id.text_date);
         text_time = findViewById(R.id.text_time);
+        text_cardinal = findViewById(R.id.text_cardinal);
         button_deleteEntry = findViewById(R.id.button_deleteEntry);
         button_updateEntry = findViewById(R.id.button_updateEntry);
         image_photoPreview = findViewById(R.id.image_photoPreview);
@@ -61,10 +62,11 @@ public class ViewEntryActivity extends JournalMenu {
                 text_id.setText(String.valueOf(entry.getId()));
                 text_location.setText(entry.getLocation());
                 text_comment.setText(entry.getComment());
-                text_filePath.setText(entry.getImageFilePath());
+//                text_filePath.setText(entry.getImageFilePath());
                 text_date.setText(entry.getDate());
                 text_time.setText(entry.getTime());
                 image_photoPreview.setImageBitmap(entry.getBitmapImage());
+                text_cardinal.setText(entry.getCardinalString());
                 Log.i("PLEINAIR_DEBUG", "timestamp: " + entry.getTimestamp() +
                         "; date: " + entry.getDate());
             }
@@ -82,10 +84,11 @@ public class ViewEntryActivity extends JournalMenu {
             text_id.setText(String.valueOf(mViewModel.getEntryId()));
             text_location.setText(mViewModel.getLocation());
             text_comment.setText(mViewModel.getComment());
-            text_filePath.setText(mViewModel.getImageFilePath());
+//            text_filePath.setText(mViewModel.getImageFilePath());
             text_date.setText(mViewModel.getDate());
             text_time.setText(mViewModel.getTime());
             image_photoPreview.setImageBitmap(mViewModel.getBitmapImage());
+            text_cardinal.setText(mViewModel.getCardinalString());
         }
     }
 
