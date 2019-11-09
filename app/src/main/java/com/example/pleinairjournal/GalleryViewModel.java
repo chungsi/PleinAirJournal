@@ -1,6 +1,7 @@
 package com.example.pleinairjournal;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,24 +12,29 @@ import java.util.List;
 
 public class GalleryViewModel extends AndroidViewModel {
     private JournalDb mDb;
-    private LiveData<List<JournalEntry>> mAllEntries;
+    private MutableLiveData<List<JournalEntry>> mAllEntries = new MutableLiveData<>();
 
-    /*
-    * TODO: Make fragment classes that call this shared ViewModel.
-    *
+    /**
     * This is a class to handle data and data changes while keeping the data bound to the views.
     * The database queries won't need to be called every time there's an orientation change, and
     * allows data to be changed on the fly and still reflect in the UI.
     * */
-
     public GalleryViewModel(@NonNull Application application) {
         super(application);
         mDb = new JournalDb(application);
-        mAllEntries = mDb.getAllLiveDataEntries();
+        mAllEntries.setValue(mDb.getAllLiveDataEntries().getValue());
     }
 
     public LiveData<List<JournalEntry>> getAllEntries() {
         return mAllEntries;
+    }
+
+    public void filterByYear(String year) {
+        mAllEntries.setValue(mDb.filterByYear(year));
+    }
+
+    public void filterByCardinalDirection(String cardinal) {
+        mAllEntries.setValue(mDb.filterByCardinalDirection(cardinal));
     }
 
     public void deleteEntry(JournalEntry entry) {
@@ -36,6 +42,6 @@ public class GalleryViewModel extends AndroidViewModel {
     }
 
     public void refreshEntries() {
-        mAllEntries = mDb.getAllLiveDataEntries();
+        mAllEntries.setValue(mDb.getAllLiveDataEntries().getValue());
     }
 }

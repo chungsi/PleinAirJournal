@@ -10,7 +10,8 @@ import androidx.lifecycle.LiveData;
 import java.sql.Timestamp;
 
 public class NewEntryViewModel extends AndroidViewModel {
-    public String location, comment, imageFilePath;
+    public String location, comment, imageFilePath, cardinal;
+    public int cardinalDegree;
     private JournalDb mDb;
     private long mId, mTimestamp;
 //    private String mLocation, mComment, mPhotoPath; // maybe it's better to use private vars?
@@ -25,6 +26,8 @@ public class NewEntryViewModel extends AndroidViewModel {
         location = "";
         comment = "";
         imageFilePath = "";
+        cardinal = "";
+        cardinalDegree = 0;
     }
 
 //    public void setEntry() {
@@ -33,7 +36,7 @@ public class NewEntryViewModel extends AndroidViewModel {
 
     public long insertEntry() {
         Log.i("PLEINAIR_DEBUG", "insertEntry in NewEntryViewModel");
-        return mDb.insertEntry(mTimestamp, location, comment, imageFilePath);
+        return mDb.insertEntry(mTimestamp, location, comment, imageFilePath, cardinalDegree, cardinal);
     }
 
     public long updateEntry() {

@@ -25,12 +25,15 @@ public class JournalDb {
             JournalEntry.IMAGEFILEPATH,
             JournalEntry.LOCATION,
             JournalEntry.COMMENT,
+            JournalEntry.CARDINAL_DEGREE,
+            JournalEntry.CARDINAL_DIRECTION
     };
 
     private static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + JournalEntry.TABLE_NAME;
 
     private static final String ORDER_CHRONOLOGICAL = JournalEntry.TIMESTAMP + " DESC";
+//    private static final String FILTER_MONTH
 
     public JournalDb(Context c) {
         mContext = c;
@@ -44,18 +47,26 @@ public class JournalDb {
     /**
      * Not sure if need this method that inserts with individual strings...
      * */
-    public long insertEntry(long timestamp, String location, String comment, String imageFilePath) {
+    public long insertEntry(
+            long timestamp,
+            String location,
+            String comment,
+            String imageFilePath,
+            int cardinalDegree,
+            String cardinalDirec
+    ) {
         mDb = mHelper.getWritableDatabase();
 
         Log.i("PLEINAIR_DEBUG", "inside insertEntry, imagefilepath: " + imageFilePath);
 
         ContentValues cv = new ContentValues();
         cv.put(JournalEntry.TIMESTAMP, timestamp);
-//        cv.put(JournalEntry.DATE, )
+//        cv.put(JournalEntry.DATE, date);
         cv.put(JournalEntry.LOCATION, location);
         cv.put(JournalEntry.COMMENT, comment);
         cv.put(JournalEntry.IMAGEFILEPATH, imageFilePath);
-//        cv.put(JournalEntry.DATE, date);
+        cv.put(JournalEntry.CARDINAL_DEGREE, cardinalDegree);
+        cv.put(JournalEntry.CARDINAL_DIRECTION, cardinalDirec);
 
         return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
     }
@@ -130,7 +141,9 @@ public class JournalDb {
                 cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)),
-                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)));
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION)));
         cursor.close();
 
         return entry;
@@ -159,7 +172,9 @@ public class JournalDb {
                 cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT)),
-                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)));
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION)));
 
         cursor.close();
 
@@ -169,35 +184,37 @@ public class JournalDb {
         return liveDataEntry;
     }
 
-    public List<JournalEntry> getAllEntries() {
-        SQLiteDatabase db = mHelper.getWritableDatabase();
-
-        Cursor cursor = db.query(
-                JournalEntry.TABLE_NAME,
-                mAllColumns,
-                null,
-                null,
-                null,
-                null,
-                ORDER_CHRONOLOGICAL
-        );
-
-        /*
-        * Loops through query with Cursor object to create a new List of JournalEntries
-        * */
-        List<JournalEntry> entries = new ArrayList<>();
-        while(cursor.moveToNext()) {
-            long id = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID));
-            long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP));
-            String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
-            String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
-            String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
-            entries.add(new JournalEntry(id, timestamp, loc, com, fp));
-        }
-        cursor.close();
-
-        return entries;
-    }
+//    public List<JournalEntry> getAllEntries() {
+//        SQLiteDatabase db = mHelper.getWritableDatabase();
+//
+//        Cursor cursor = db.query(
+//                JournalEntry.TABLE_NAME,
+//                mAllColumns,
+//                null,
+//                null,
+//                null,
+//                null,
+//                ORDER_CHRONOLOGICAL
+//        );
+//
+//        /*
+//        * Loops through query with Cursor object to create a new List of JournalEntries
+//        * */
+//        List<JournalEntry> entries = new ArrayList<>();
+//        while(cursor.moveToNext()) {
+//            long id = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID));
+//            long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP));
+//            String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
+//            String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
+//            String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
+//            int degree = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE));
+//            String cardinalDirec = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION));
+//            entries.add(new JournalEntry(id, timestamp, loc, com, fp, degree, cardinalDirec));
+//        }
+//        cursor.close();
+//
+//        return entries;
+//    }
 
     /**
      * TODO: make db access in an AsyncTask task, and maybe show loading sign in the meanwhile
@@ -216,6 +233,62 @@ public class JournalDb {
                 ORDER_CHRONOLOGICAL
         );
 
+        List<JournalEntry> entries = getJournalEntriesFromCursor(cursor);
+
+        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
+        finalEntries.setValue(entries);
+
+        return finalEntries;
+    }
+
+    public List<JournalEntry> filterByYear(String year) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        String selection = "strftime('%y', '" + JournalEntry.TIMESTAMP + "') = ?";
+        String[] selectionArgs = { year };
+
+        Cursor cursor = db.query(
+                JournalEntry.TABLE_NAME,
+                mAllColumns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                ORDER_CHRONOLOGICAL
+        );
+
+        List<JournalEntry> entries = getJournalEntriesFromCursor(cursor);
+//        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
+//        finalEntries.setValue(entries);
+
+        return entries;
+    }
+
+    public List<JournalEntry> filterByCardinalDirection(String cardinal) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        String selection = JournalEntry.CARDINAL_DIRECTION + " = ?";
+        String[] selectionArgs = { cardinal };
+
+        Cursor cursor = db.query(
+                JournalEntry.TABLE_NAME,
+                mAllColumns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                ORDER_CHRONOLOGICAL
+        );
+
+        List<JournalEntry> entries = getJournalEntriesFromCursor(cursor);
+//        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
+//        finalEntries.setValue(entries);
+
+        return entries;
+    }
+
+    /**
+     * Loops through cursor to create a list of JournalEntries.
+     * */
+    private List<JournalEntry> getJournalEntriesFromCursor(Cursor cursor) {
         List<JournalEntry> entries = new ArrayList<>();
         while(cursor.moveToNext()) {
             long id = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID));
@@ -223,13 +296,12 @@ public class JournalDb {
             String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
             String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
-            entries.add(new JournalEntry(id, timestamp, loc, com, fp));
+            int degree = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE));
+            String cardinalDirec = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION));
+            entries.add(new JournalEntry(id, timestamp, loc, com, fp, degree, cardinalDirec));
         }
         cursor.close();
 
-        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
-        finalEntries.setValue(entries);
-
-        return finalEntries;
+        return entries;
     }
 }

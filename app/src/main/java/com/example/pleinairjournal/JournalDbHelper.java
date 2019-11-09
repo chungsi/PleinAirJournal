@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class JournalDbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "PleinAirJournal.db";
     private Context mContext;
 
@@ -19,6 +19,8 @@ public class JournalDbHelper extends SQLiteOpenHelper {
                     JournalEntry.TIMESTAMP + " TEXT, " +
                     JournalEntry.IMAGEFILEPATH + " TEXT, " +
                     JournalEntry.LOCATION + " TEXT, " +
+                    JournalEntry.CARDINAL_DEGREE + " TEXT, " +
+                    JournalEntry.CARDINAL_DIRECTION + " TEXT, " +
                     JournalEntry.COMMENT + " TEXT);";
 
     private static final String DELETE_TABLE =

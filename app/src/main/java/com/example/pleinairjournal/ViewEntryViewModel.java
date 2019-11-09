@@ -37,26 +37,21 @@ public class ViewEntryViewModel extends AndroidViewModel {
     public long getEntryId() {
         return mEntry.getValue().getId();
     }
-
     public String getLocation() {
         return mEntry.getValue().getLocation();
     }
-
     public String getComment() {
         return mEntry.getValue().getComment();
     }
-
     public String getImageFilePath() { return mEntry.getValue().getImageFilePath(); }
-
     public Bitmap getBitmapImage() { return mImage; }
-
     public String getDate() { return mEntry.getValue().getDate(); }
     public String getTime() { return mEntry.getValue().getTime(); }
+    public String getCardinalString() { return mEntry.getValue().getCardinalString(); }
 
     public void refreshEntry() {
         mEntry = mDb.getLiveDataEntry(mId);
     }
-
     public void deleteEntry(long id) {
         mDb.deleteEntry(id);
     }

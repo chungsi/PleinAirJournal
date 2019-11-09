@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import org.w3c.dom.Text;
@@ -34,10 +35,11 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
 public class NewEntryActivity extends NewEntryMenu implements View.OnClickListener {
     private static final int REQUEST_TAKE_PHOTO = 4742;
     private NewEntryViewModel mViewModel;
+    private CompassViewModel mCompassViewModel;
 
-    TextView text_timetamp;
+    TextView text_timetamp, text_viewCardinal, text_setCardinal;
     EditText edit_location, edit_comment;
-    Button button_createEntry, button_takePhoto;
+    Button button_createEntry, button_takePhoto, button_setCardinal;
     ImageView image_photoThumb;
 
     @Override
@@ -47,30 +49,58 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 
         mViewModel = ViewModelProviders.of(this).get(NewEntryViewModel.class);
 
-
-        button_cancel = findViewById(R.id.button_cancel);
-        button_cancel.setOnClickListener(this);
-        edit_location = findViewById(R.id.edit_location);
-        edit_comment = findViewById(R.id.edit_comment);
-        button_createEntry = findViewById(R.id.button_createEntry);
-        button_createEntry.setOnClickListener(this);
+        button_setCardinal = findViewById(R.id.button_setCardinal);
+        button_setCardinal.setOnClickListener(this);
         button_takePhoto = findViewById(R.id.button_takePhoto);
         button_takePhoto.setOnClickListener(this);
+
+        edit_location = findViewById(R.id.edit_location);
+        edit_comment = findViewById(R.id.edit_comment);
         image_photoThumb = findViewById(R.id.image_photoThumbnail);
 
         text_timetamp = findViewById(R.id.text_timestamp);
         text_timetamp.setText(String.valueOf(mViewModel.getTimestamp()));
+        text_viewCardinal = findViewById(R.id.text_viewCardinal);
+        text_setCardinal = findViewById(R.id.text_setCardinal);
+
+        mCompassViewModel = ViewModelProviders.of(this).get(CompassViewModel.class);
+        mCompassViewModel.compassLiveData.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                text_viewCardinal.setText(s);
+            }
+        });
 
         addTextChangeListeners();
+
+
+
+        button_cancel = findViewById(R.id.button_cancel);
+        button_cancel.setOnClickListener(this);
+        button_createEntry = findViewById(R.id.button_createEntry);
+        button_createEntry.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
     public void onClick(View view) {
+//        super.onClick(view);
+
         if (view.equals(button_cancel)) {
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);
         }
-
+        // this buttons are instantiated in the NewEntryMenu, but since they need the viewModel,
+        // not so sure how best to abstract it out yet...
         if (view.equals(button_createEntry)) {
             // send data to a data filtering/cleaning function first, to return a status code?
             // then can see if something is left blank that shouldn't be
@@ -81,20 +111,36 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
                 Intent i = new Intent(this, GalleryActivity.class);
                 startActivity(i);
             }
-        }
-        if (view.equals(button_takePhoto)) {
+        } else if (view.equals(button_takePhoto)) {
             startCameraActivity();
+        } else if (view.equals(button_setCardinal)) {
+            Log.i("PLEINAIR_DEBUG", "Set cardinal clicked: " + mCompassViewModel.compassLiveData.getCardinalMessage());
+            text_setCardinal.setText(mCompassViewModel.compassLiveData.getCardinalMessage());
+
+            // sets the cardinal direction and degree of the new entry in the viewModel
+            mViewModel.cardinal = mCompassViewModel.compassLiveData.getCardinalDirection();
+            mViewModel.cardinalDegree = mCompassViewModel.compassLiveData.getCardinalDegree();
         }
     }
 
-    protected void startCameraActivity() {
-        Log.i("PLEINAIR_DEBUG", "start camera.");
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
+            Log.i("PLEINAIR_DEBUG", "onAcitivityResult successfull");
+            displayImagePreview();
+        }
+    }
+
+    /**
+     * Starts the camera intent if a camera function is available.
+     * */
+    protected void startCameraActivity() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
-            Log.i("PLEINAIR_DEBUG", "inside takePictureIntent.resolveActivity");
 
             try {
                 photoFile = createImageFile();
@@ -115,24 +161,9 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.i("PLEINAIR_DEBUG", "onAcitivityResult returned");
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            Log.i("PLEINAIR_DEBUG", "onAcitivityResult successfull");
-            BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-            bmpFactoryOptions.inJustDecodeBounds = false;
-
-            // Need to decode the image from a file path because the camera intent will put
-            // the data into the URI passed to it
-            Bitmap bmp = BitmapFactory.decodeFile(mViewModel.imageFilePath, bmpFactoryOptions);
-            image_photoThumb.setImageBitmap(bmp);
-        }
-    }
-
-    // Create an image file name
+    /**
+     * Creates a filename for a new camera photo, and returns a File object for use.
+     * */
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -148,10 +179,22 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 
         // Save a file: path for use with ACTION_VIEW intents
         mViewModel.imageFilePath = image.getAbsolutePath();
-//        mViewModel.imageFilePath = "";
         Log.i("PLEINAIR_DEBUG", "photo file path: " + mViewModel.imageFilePath);
 
         return image;
+    }
+
+    /**
+     * Displays the photo preview from the camera intent by using the saved image filepath.
+     * */
+    private void displayImagePreview() {
+        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+        bmpFactoryOptions.inJustDecodeBounds = false;
+
+        // Need to decode the image from a file path because the camera intent will put
+        // the data into the URI passed to it
+        Bitmap bmp = BitmapFactory.decodeFile(mViewModel.imageFilePath, bmpFactoryOptions);
+        image_photoThumb.setImageBitmap(bmp);
     }
 
     /**
