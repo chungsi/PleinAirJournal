@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -27,6 +28,11 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     private GalleryAdapter mAdapter;
     private Button button_testFilter, button_resetFilters;
 
+    private ImageView image_photoPreview;
+
+    long mEntryId;
+    int mGalleryAdapterPosition;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +43,12 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        mEntryId = getIntent().getLongExtra("id", -1);
+        mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);
+
+        image_photoPreview = findViewById(R.id.image_photoPreview);
+
+
         // Working with the ViewModel, and setting a listener on it to observe data changes
         mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
         mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
@@ -44,6 +56,7 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
             public void onChanged(List<JournalEntry> journalEntries) {
                 Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
                 mAdapter.setEntries(journalEntries);
+                image_photoPreview.setImageBitmap(journalEntries.getBitmapImage());
             }
         });
 
@@ -56,6 +69,8 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mAdapter.onActivityResult(requestCode, resultCode, data);
+        image_photoPreview.setImageBitmap(mGalleryViewModel.getBitmapImage());
+
     }
 
     /**

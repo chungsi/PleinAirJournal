@@ -1,6 +1,7 @@
 package com.example.pleinairjournal;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import java.util.List;
 public class GalleryViewModel extends AndroidViewModel {
     private JournalDb mDb;
     private MutableLiveData<List<JournalEntry>> mAllEntries = new MutableLiveData<>();
+    private Bitmap mImage;
+
 
     /**
     * This is a class to handle data and data changes while keeping the data bound to the views.
@@ -32,6 +35,9 @@ public class GalleryViewModel extends AndroidViewModel {
     public void filterByYear(String year) {
         mAllEntries.setValue(mDb.filterByYear(year));
     }
+
+    public Bitmap getBitmapImage() { return mImage; }
+
 
     public void filterByCardinalDirection(String cardinal) {
         mAllEntries.setValue(mDb.filterByCardinalDirection(cardinal));
