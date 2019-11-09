@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -24,11 +25,21 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
 
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
+    private ImageView image_photoPreview;
+
+    long mEntryId;
+    int mGalleryAdapterPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
+        mEntryId = getIntent().getLongExtra("id", -1);
+        mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);
+
+        image_photoPreview = findViewById(R.id.image_photoPreview);
+
 
         RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
         mAdapter = new GalleryAdapter(this);
@@ -43,6 +54,8 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
             public void onChanged(List<JournalEntry> journalEntries) {
                 Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
                 mAdapter.setEntries(journalEntries);
+                image_photoPreview.setImageBitmap(journalEntries.getBitmapImages());
+
             }
         });
 
@@ -53,5 +66,7 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mAdapter.onActivityResult(requestCode, resultCode, data);
+        image_photoPreview.setImageBitmap(mGalleryViewModel.getBitmapImage());
+
     }
 }

@@ -20,10 +20,8 @@
             android:layout_marginLeft="10dp"
             android:background="?android:selectableItemBackground"
             android:baselineAlignBottom="false"
-            android:clickable="true"
-            android:fitsSystemWindows="true"
-            android:focusable="true"
-            android:src="@drawable/ic_icon_home"></ImageButton>
+            android:src="@drawable/ic_icon_home"
+            android:backgroundTint="@color/white"></ImageButton>
 
         <ImageButton
             android:id="@+id/imageButton_gallery"
@@ -31,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/white"
             android:src="@drawable/ic_icon_gallery" />
 
         <ImageButton
@@ -39,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/white"
             android:src="@drawable/ic_icon_settings" />
 
         <ImageButton
@@ -48,6 +48,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="10dp"
             android:background="?android:selectableItemBackground"
+            android:backgroundTint="@color/white"
             android:src="@drawable/ic_icon_create" />
     </androidx.appcompat.widget.Toolbar>
 

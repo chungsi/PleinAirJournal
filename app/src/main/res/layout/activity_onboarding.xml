@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="20dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/text_hello"
         android:layout_width="231dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:paddingBottom="20dp"
         android:text="Welcome to Plein Air Journal"
+        android:textColor="#474747"
         android:textSize="@dimen/largeHeadingTextSize" />
 
     <TextView
@@ -21,18 +24,31 @@ android:padding="20dp">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textStyle="italic"
-        android:text="@string/description" />
+        android:text="@string/description"
+        android:textColor="#474747"
+        android:textSize="12sp"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/ic_onboarding1" />
 
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="Please enter your name."
         android:inputType="textPersonName"
+        android:textColor="#474747"
+        android:textColorLink="@color/white"
         android:textSize="@dimen/bodyTextSize" />
 
     <Button
@@ -41,6 +57,8 @@ android:padding="20dp">
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Save" />
+        android:backgroundTint="@color/white"
+        android:text="Save"
+        android:textColor="@color/colorPrimary" />
 
 </LinearLayout>
