@@ -14,7 +14,6 @@ import java.util.List;
 public class GalleryViewModel extends AndroidViewModel {
     private JournalDb mDb;
     private MutableLiveData<List<JournalEntry>> mAllEntries = new MutableLiveData<>();
-    private Bitmap mImage;
 
 
     /**
@@ -32,12 +31,17 @@ public class GalleryViewModel extends AndroidViewModel {
         return mAllEntries;
     }
 
+    public void filterBy(String year, String month) {
+        String query = "";
+
+        Log.i("PLEINAIR_DEBUG", "query: " + query);
+
+        mAllEntries.setValue(mDb.filterBy(year, month));
+    }
+
     public void filterByYear(String year) {
         mAllEntries.setValue(mDb.filterByYear(year));
     }
-
-    public Bitmap getBitmapImage() { return mImage; }
-
 
     public void filterByCardinalDirection(String cardinal) {
         mAllEntries.setValue(mDb.filterByCardinalDirection(cardinal));

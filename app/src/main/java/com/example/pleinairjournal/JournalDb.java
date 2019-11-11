@@ -10,6 +10,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +47,6 @@ public class JournalDb {
         return 0;
     }
 
-    /**
-     * Not sure if need this method that inserts with individual strings...
-     * */
     public long insertEntry(
             long timestamp,
             String location,
@@ -61,7 +61,7 @@ public class JournalDb {
 
         ContentValues cv = new ContentValues();
         cv.put(JournalEntry.TIMESTAMP, timestamp);
-//        cv.put(JournalEntry.DATE, date);
+//        cv.put(JournalEntry.DATE, );
         cv.put(JournalEntry.LOCATION, location);
         cv.put(JournalEntry.COMMENT, comment);
         cv.put(JournalEntry.IMAGEFILEPATH, imageFilePath);
@@ -70,20 +70,6 @@ public class JournalDb {
 
         return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
     }
-
-    /**
-     * Or if it's better to just pass in a journal entry object?
-     * */
-//    public long insertEntry(JournalEntry entry) {
-//        mDb = mHelper.getWritableDatabase();
-//
-//        ContentValues cv = new ContentValues();
-//        cv.put(JournalEntry.LOCATION, entry.getLocation());
-//        cv.put(JournalEntry.COMMENT, entry.getComment());
-////        cv.put(JournalEntry.DATE, date);
-//
-//        return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
-//    }
 
     public long updateEntry(long id, String location, String comment) {
         mDb = mHelper.getWritableDatabase();
@@ -184,38 +170,6 @@ public class JournalDb {
         return liveDataEntry;
     }
 
-//    public List<JournalEntry> getAllEntries() {
-//        SQLiteDatabase db = mHelper.getWritableDatabase();
-//
-//        Cursor cursor = db.query(
-//                JournalEntry.TABLE_NAME,
-//                mAllColumns,
-//                null,
-//                null,
-//                null,
-//                null,
-//                ORDER_CHRONOLOGICAL
-//        );
-//
-//        /*
-//        * Loops through query with Cursor object to create a new List of JournalEntries
-//        * */
-//        List<JournalEntry> entries = new ArrayList<>();
-//        while(cursor.moveToNext()) {
-//            long id = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry._ID));
-//            long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(JournalEntry.TIMESTAMP));
-//            String loc = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
-//            String com = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.COMMENT));
-//            String fp = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.IMAGEFILEPATH));
-//            int degree = cursor.getInt(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DEGREE));
-//            String cardinalDirec = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.CARDINAL_DIRECTION));
-//            entries.add(new JournalEntry(id, timestamp, loc, com, fp, degree, cardinalDirec));
-//        }
-//        cursor.close();
-//
-//        return entries;
-//    }
-
     /**
      * TODO: make db access in an AsyncTask task, and maybe show loading sign in the meanwhile
      * Test method to use LiveData objects with a ViewModel
@@ -241,9 +195,47 @@ public class JournalDb {
         return finalEntries;
     }
 
+    public List<JournalEntry> filterBy(String year, String month) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        ArrayList<String> selectionList = new ArrayList<>();
+        String selection = "";
+
+        /*
+        * Here is filtering the year and month values passed, to be sure they're not empty.
+        * A query is built up from what valid values are passed.
+        * */
+        if (!year.isEmpty()) {
+            selectionList.add(getYearQuery("'" + year + "'"));
+        }
+        if (!month.isEmpty()) {
+            month = getMonthNumFromName(month);
+            selectionList.add(getMonthQuery("'" + month + "'"));
+        }
+        for (int i = 0; i < selectionList.size(); i++) {
+            if (i == 0) selection += selectionList.get(i);
+            else selection += " AND " + selectionList.get(i);
+        }
+
+        Log.i("PLEINAIR_DEBUG", "query: " + selection + "; value: " + year);
+
+        Cursor cursor = db.query(
+                JournalEntry.TABLE_NAME,
+                mAllColumns,
+                selection,
+                null,
+                null,
+                null,
+                ORDER_CHRONOLOGICAL
+        );
+
+        Log.i("PLEINAIR_DEBUG", "how many returned: " + cursor.getCount());
+
+        return getJournalEntriesFromCursor(cursor);
+    }
+
     public List<JournalEntry> filterByYear(String year) {
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        String selection = "strftime('%y', '" + JournalEntry.TIMESTAMP + "') = ?";
+        String selection = "strftime('%Y', '" + JournalEntry.TIMESTAMP + "') = ?";
         String[] selectionArgs = { year };
 
         Cursor cursor = db.query(
@@ -256,11 +248,7 @@ public class JournalDb {
                 ORDER_CHRONOLOGICAL
         );
 
-        List<JournalEntry> entries = getJournalEntriesFromCursor(cursor);
-//        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
-//        finalEntries.setValue(entries);
-
-        return entries;
+        return getJournalEntriesFromCursor(cursor);
     }
 
     public List<JournalEntry> filterByCardinalDirection(String cardinal) {
@@ -278,15 +266,12 @@ public class JournalDb {
                 ORDER_CHRONOLOGICAL
         );
 
-        List<JournalEntry> entries = getJournalEntriesFromCursor(cursor);
-//        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
-//        finalEntries.setValue(entries);
-
-        return entries;
+        return getJournalEntriesFromCursor(cursor);
     }
 
     /**
      * Loops through cursor to create a list of JournalEntries.
+     * A method mostly to reduce redundancy in other db calling methods.
      * */
     private List<JournalEntry> getJournalEntriesFromCursor(Cursor cursor) {
         List<JournalEntry> entries = new ArrayList<>();
@@ -304,4 +289,25 @@ public class JournalDb {
 
         return entries;
     }
+
+    /**
+     * @param value The value appended at the end of the query. Can be '?' or a literal string.
+     * @return The query string for filtering again a year value.
+     *
+     * The below date-time query methods are to handle timestamps for SQLite.
+     * Currently, timestamps are stored as milliseconds, but SQLite parses seconds, so that is
+     * computed. As well, the timestamps are formatted to be in unixepoch format.
+     * */
+    private String getYearQuery(String value) {
+        return "strftime('%Y', date(" + JournalEntry.TIMESTAMP + "/1000, 'unixepoch')) = " + value;
+    }
+
+    private String getMonthQuery(String value) {
+        return "strftime('%m', date(" + JournalEntry.TIMESTAMP + "/1000, 'unixepoch')) = " + value;
+    }
+
+    private String getMonthNumFromName(String name) {
+        return String.valueOf(Month.valueOf(name.toUpperCase()).getValue());
+    }
+
 }

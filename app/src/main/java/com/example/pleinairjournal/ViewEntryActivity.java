@@ -16,10 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class ViewEntryActivity extends JournalMenu {
-//    private JournalDb mDb;
-//    private long mEntryId;
+import com.bumptech.glide.Glide;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
+public class ViewEntryActivity extends JournalMenu {
     static final int UPDATE_ENTRY = 2;
 
     private TextView text_id, text_location, text_comment, text_filePath, text_date, text_time, text_cardinal;
@@ -51,10 +52,8 @@ public class ViewEntryActivity extends JournalMenu {
 
         buttonClickListeners();
 
-        /*
-        * There's a ViewModel is use here for now, so that when we implement "edit" and "delete"
-        * buttons, the changes will automatically show up in this activity.
-        * */
+
+        // ViewModel to handle updating of information when "Update" action is performed by the user.
         mViewModel = ViewModelProviders.of(this).get(ViewEntryViewModel.class);
         mViewModel.getEntry(mEntryId).observe(this, new Observer<JournalEntry>() {
             @Override
@@ -62,13 +61,18 @@ public class ViewEntryActivity extends JournalMenu {
                 text_id.setText(String.valueOf(entry.getId()));
                 text_location.setText(entry.getLocation());
                 text_comment.setText(entry.getComment());
-//                text_filePath.setText(entry.getImageFilePath());
                 text_date.setText(entry.getDate());
                 text_time.setText(entry.getTime());
-                image_photoPreview.setImageBitmap(entry.getBitmapImage());
                 text_cardinal.setText(entry.getCardinalString());
-                Log.i("PLEINAIR_DEBUG", "timestamp: " + entry.getTimestamp() +
-                        "; date: " + entry.getDate());
+
+                // Here we use the Glide library to efficiently load Bitmap images at the right
+                // size to avoid memory overload and slow performance issues.
+                Glide.with(getApplicationContext())
+                        .load(entry.getImageFilePath())
+                        .transition(withCrossFade())
+                        .into(image_photoPreview);
+
+//                text_filePath.setText(entry.getImageFilePath());
             }
         });
 
@@ -78,17 +82,23 @@ public class ViewEntryActivity extends JournalMenu {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK && requestCode == UPDATE_ENTRY) {
             Toast.makeText(this, "Entry updated", Toast.LENGTH_SHORT).show();
             mViewModel.refreshEntry();
             text_id.setText(String.valueOf(mViewModel.getEntryId()));
             text_location.setText(mViewModel.getLocation());
             text_comment.setText(mViewModel.getComment());
-//            text_filePath.setText(mViewModel.getImageFilePath());
             text_date.setText(mViewModel.getDate());
             text_time.setText(mViewModel.getTime());
-            image_photoPreview.setImageBitmap(mViewModel.getBitmapImage());
             text_cardinal.setText(mViewModel.getCardinalString());
+
+            Glide.with(getApplicationContext())
+                    .load(mViewModel.getImageFilePath())
+                    .transition(withCrossFade())
+                    .into(image_photoPreview);
+
+//            text_filePath.setText(mViewModel.getImageFilePath());
         }
     }
 

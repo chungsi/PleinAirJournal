@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private Context mContext;
@@ -61,6 +66,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         holder.text_entryLocation.setText(entry.getLocation());
         holder.text_entryComment.setText(entry.getComment());
 
+        Glide.with(mContext)
+                .load(entry.getImageFilePath())
+                .transition(withCrossFade())
+                .into(holder.image_photoPreview);
+//        holder.image_photoPreview.setImageBitmap(entry.getBitmapImage());
+
         // TODO: remove this code because no longer needed, I think?
         // create a binding to the GalleryViewModel for every RecyclerView item so that we can
         // make changes to the database from within each view
@@ -94,6 +105,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 //        private GalleryViewModel mViewModel;
 
         private TextView text_entryLocation, text_entryComment;
+        private ImageView image_photoPreview;
 //        private Button button_deleteEntry;
         private final Context mContext;
 
@@ -105,6 +117,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
             text_entryLocation = mLayout.findViewById(R.id.text_createEntryComment);
             text_entryComment = mLayout.findViewById(R.id.text_createEntryLocation);
+            image_photoPreview = mLayout.findViewById(R.id.image_photoPreview);
 //            button_deleteEntry = mLayout.findViewById(R.id.button_deleteEntry);
 //            button_deleteEntry.setOnClickListener(this);
 

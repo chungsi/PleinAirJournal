@@ -5,9 +5,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,9 +29,9 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
 
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
-    private Button button_testFilter, button_resetFilters;
+    private Button button_testFilter, button_resetFilters, button_applyFilters;
 
-    private ImageView image_photoPreview;
+    private Spinner spinner_year, spinner_month, spinner_cardinal;
 
     long mEntryId;
     int mGalleryAdapterPosition;
@@ -41,13 +44,10 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
         RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
         mAdapter = new GalleryAdapter(this);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         mEntryId = getIntent().getLongExtra("id", -1);
         mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);
-
-        image_photoPreview = findViewById(R.id.image_photoPreview);
-
 
         // Working with the ViewModel, and setting a listener on it to observe data changes
         mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
@@ -56,11 +56,10 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
             public void onChanged(List<JournalEntry> journalEntries) {
                 Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
                 mAdapter.setEntries(journalEntries);
-                image_photoPreview.setImageBitmap(journalEntries.getBitmapImage());
             }
         });
 
-        initFilterButtons();
+        initFilters();
 
         findMenuButtons();
     }
@@ -69,20 +68,30 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mAdapter.onActivityResult(requestCode, resultCode, data);
-        image_photoPreview.setImageBitmap(mGalleryViewModel.getBitmapImage());
-
     }
 
     /**
      * Initializes the buttons that filter results.
      * OnClickListeners are attached to the buttons as well.
      * */
-    private void initFilterButtons() {
+    private void initFilters() {
+        initFilterSpinners();
+
         button_testFilter = findViewById(R.id.button_testFilter);
         button_testFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGalleryViewModel.filterByYear("2018");
+                mGalleryViewModel.filterByCardinalDirection("S");
+            }
+        });
+
+        button_applyFilters = findViewById(R.id.button_applyFilters);
+        button_applyFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGalleryViewModel.filterBy(
+                        spinner_year.getSelectedItem().toString(),
+                        spinner_month.getSelectedItem().toString());
             }
         });
 
@@ -92,7 +101,27 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 mGalleryViewModel.refreshEntries();
+                spinner_year.setSelection(0, true);
+                spinner_month.setSelection(0, true);
             }
         });
+    }
+
+    private void initFilterSpinners() {
+        spinner_year = findViewById(R.id.spinner_year);
+        spinner_month = findViewById(R.id.spinner_month);
+//        spinner_cardinal = findViewById(R.id.sp)
+
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.year_array,
+                android.R.layout.simple_spinner_dropdown_item);
+        spinner_year.setAdapter(arrayAdapter);
+
+        arrayAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.month_array,
+                android.R.layout.simple_spinner_dropdown_item);
+        spinner_month.setAdapter(arrayAdapter);
     }
 }

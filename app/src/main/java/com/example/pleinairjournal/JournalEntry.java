@@ -10,6 +10,11 @@ public class JournalEntry {
     public static final String TABLE_NAME = "entry";
     public static final String _ID = "_id";
     public static final String DATE = "date";
+    // SQLite doesn't support Date formats, so must use ints
+//    public static final String YEAR = "year";
+//    public static final String MONTH = "month";
+//    public static final String Day = "day";
+//    public static final String TIME = "time";
     public static final String TIMESTAMP = "timestamp";
     public static final String LOCATION = "location";
     public static final String LONGLAT = "longlat";
