@@ -30,12 +30,14 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
+        //checks if user has selected dark colour scheme preference, sets theme if yes
         boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
         if(darkModeChecked){
             setTheme(R.style.style_dark);
             Toast.makeText(this, "Dark Mode Checked", Toast.LENGTH_SHORT).show();
         }
 
+        //checks if user has selected light colour scheme preference, sets theme if yes
         boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
         if(lightModeChecked){
             setTheme(R.style.AppTheme);
@@ -79,7 +81,7 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        //MENU BAR BUTTONS
+        //Checks if tool bar buttons have been pressed
         if(view.equals(imageButton_home)){
             Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
             startActivity(i);

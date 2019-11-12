@@ -26,14 +26,12 @@ public class JournalMenu extends AppCompatActivity implements View.OnClickListen
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_home);
-//            toolbar.setNavigationIcon(R.drawable.icon_home);
-            getSupportActionBar().setTitle("");
+            getSupportActionBar().setTitle(""); //gets rid of default title
         }
 
     }
 
-
+    //connects to buttons in XML, listens for clicks
     public void findMenuButtons(){
         imageButton_home = findViewById(R.id.imageButton_home);
         imageButton_home.setOnClickListener(this);
@@ -57,7 +55,7 @@ public class JournalMenu extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
 
-        //MENU BAR BUTTONS
+        //Checks if tool bar buttons have been pressed
         if (view.equals(imageButton_home)) {
             Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
             startActivity(i);

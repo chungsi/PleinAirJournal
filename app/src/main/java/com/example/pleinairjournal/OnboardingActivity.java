@@ -27,24 +27,25 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
 
+        //changes background image
         LinearLayout linearLayout_background = (LinearLayout) findViewById(R.id.linearLayout_background);
         linearLayout_background.setBackgroundResource(R.drawable.ic_bg_onboarding);
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
-        boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
-
         //checks if user has entered name at onboarding already, skips onboarding if they have
+        boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
         if(isLoggedIn){
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);
         }
 
+        //creates an array for 3 images in drawable folder
         imageView2 = findViewById(R.id.imageView2);
-
         final int[] imageArray = { R.drawable.ic_onboarding1, R.drawable.ic_onboarding2,
                 R.drawable.ic_onboarding3 };
 
+        //runs the 3 images in array to display one at a time w/delay in ImageView
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int i = 0;
@@ -68,7 +69,7 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         if (view.equals(button_saveName)) {
-            // saves name to shared preferences
+            // saves name to shared preferences, then goes to dashboard activity
             sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putString("USERNAME", edit_name.getText().toString());
