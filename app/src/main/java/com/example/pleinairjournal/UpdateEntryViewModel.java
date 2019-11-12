@@ -24,7 +24,6 @@ public class UpdateEntryViewModel extends AndroidViewModel {
     }
 
     public long updateEntry(String location, String comment) {
-//        JournalEntry entry = new JournalEntry(/mId, location, comment);
         return mDb.updateEntry(mId, location, comment);
     }
 }

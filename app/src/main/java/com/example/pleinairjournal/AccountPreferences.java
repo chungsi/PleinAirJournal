@@ -31,13 +31,13 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
         boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
-        if(darkModeChecked == true){
+        if(darkModeChecked){
             setTheme(R.style.style_dark);
             Toast.makeText(this, "Dark Mode Checked", Toast.LENGTH_SHORT).show();
         }
 
         boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
-        if(lightModeChecked == true){
+        if(lightModeChecked){
             setTheme(R.style.AppTheme);
             Toast.makeText(this, "Light Mode Checked", Toast.LENGTH_SHORT).show();
         }

@@ -21,14 +21,16 @@ public class CompassViewModel extends AndroidViewModel {
         super(application);
     }
 
+    /**
+     * A LiveData object for the compass data, that can be reused in views.
+     * */
     public class CompassLiveData extends LiveData<String> implements SensorEventListener {
         private float[] mGravity = new float[3];
         private float[] mGeomagnetic = new float[3];
         private float[] mOrientation = new float[3];
-        private float mAzimut, rotation, cardinalDegree;
-        private float[] rotationMatrix = new float[9];
-        private float[] inclinationMatrix = new float[9];
-        private String mCardinalDirection = "North";
+        private float[] mRotationMatrix = new float[9];
+        private float[] mInclinationMatrix = new float[9];
+        private float mAzimut;
 
         private SensorManager mSensorManager;
         private Sensor mCompass, mAccel;
@@ -43,8 +45,8 @@ public class CompassViewModel extends AndroidViewModel {
         public void onSensorChanged(SensorEvent event) {
             final float alpha = 0.97f;
 
+            // Apply an alpha filtering to accelerometer values to isolate gravity
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-//            mGravity = event.values;
                 for (int i = 0; i < event.values.length; i++) {
                     mGravity[i] = alpha * mGravity[i] + (1 - alpha) * event.values[i];
                 }
@@ -54,19 +56,15 @@ public class CompassViewModel extends AndroidViewModel {
                 mGeomagnetic = event.values;
             }
 
+            // Get the orientation values to convert into cardinal values
             if (mGravity != null && mGeomagnetic != null
-                    && SensorManager.getRotationMatrix(rotationMatrix, inclinationMatrix, mGravity, mGeomagnetic)) {
+                    && SensorManager.getRotationMatrix(mRotationMatrix, mInclinationMatrix, mGravity, mGeomagnetic)) {
 
                 // mOrientation contains azimut, pitch and roll
-                SensorManager.getOrientation(rotationMatrix, mOrientation);
-
+                SensorManager.getOrientation(mRotationMatrix, mOrientation);
                 mAzimut = mOrientation[0];
-//                Log.i("PLEINAIR_DEBUG", "mAzimut: " + mAzimut
-//                        + "; mAzimut to degrees: " + getCardinalDegree(mAzimut)
-//                        + "; cardinal: " + getCardinalDirection(getCardinalDegree(mAzimut))
-//                        + "; inclination: " + SensorManager.getInclination(inclinationMatrix));
 
-                postValue(getCardinalMessage());
+                postValue(getCardinalMessage()); // posts value to the LiveData object
             }
         }
 
@@ -77,19 +75,25 @@ public class CompassViewModel extends AndroidViewModel {
             return getCardinalDegree() + "° " + getCardinalDirection();
         }
 
+        /**
+         * Gets cardinal direction from last saved azimut value from sensor readings.
+         * */
         public String getCardinalDirection() {
             float degrees = getCardinalDegree(mAzimut);
-            mCardinalDirection = getCardinalDirection(degrees);
-            return mCardinalDirection;
+            return getCardinalDirection(degrees);
         }
 
+        /**
+         * Get the rotation degree (0-360°) based on last saved orientation.
+         * */
         public int getCardinalDegree() {
             return Math.round(getCardinalDegree(mAzimut));
         }
 
-        protected float getCardinalDegree(float rad) {
-            return ((float) Math.toDegrees(rad) + 360) % 360;
-        }
+        /**
+         * Private method to get the rotation degree from inputted radians.
+         * */
+        protected float getCardinalDegree(float rad) { return ((float) Math.toDegrees(rad) + 360) % 360; }
 
         protected String getCardinalDirection(float degree) {
             if (degree >= 337.5) return "N";

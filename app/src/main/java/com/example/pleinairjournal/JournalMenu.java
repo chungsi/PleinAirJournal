@@ -18,7 +18,7 @@ public class JournalMenu extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_menu);
 
         // Find the toolbar view inside the activity layout
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mToolbar);
+        Toolbar toolbar = findViewById(R.id.mToolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
@@ -29,7 +29,6 @@ public class JournalMenu extends AppCompatActivity implements View.OnClickListen
 //            getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_home);
 //            toolbar.setNavigationIcon(R.drawable.icon_home);
             getSupportActionBar().setTitle("");
-
         }
 
     }
@@ -58,24 +57,24 @@ public class JournalMenu extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
 
-            //MENU BAR BUTTONS
-            if(view.equals(imageButton_home)){
-                Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-                startActivity(i);
-            }
-            if(view.equals(imageButton_gallery)){
-                Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
-                startActivity(i);
-            }
+        //MENU BAR BUTTONS
+        if (view.equals(imageButton_home)) {
+            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+            startActivity(i);
+        }
+        if (view.equals(imageButton_gallery)) {
+            Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
+            startActivity(i);
+        }
 
-            if(view.equals(imageButton_settings)){
-                Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
-                startActivity(i);
-            }
-            if(view.equals(imageButton_create)){
-                Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
-                startActivity(i);
-            }
+        if (view.equals(imageButton_settings)) {
+            Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
+            startActivity(i);
+        }
+        if (view.equals(imageButton_create)) {
+            Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
+            startActivity(i);
+        }
 
     }
 }

@@ -36,13 +36,15 @@ public class JournalDb {
             "DROP TABLE IF EXISTS " + JournalEntry.TABLE_NAME;
 
     private static final String ORDER_CHRONOLOGICAL = JournalEntry.TIMESTAMP + " DESC";
-//    private static final String FILTER_MONTH
 
     public JournalDb(Context c) {
         mContext = c;
         mHelper = new JournalDbHelper(mContext);
     }
 
+    /**
+     * TODO: fill out this function to return number of db entries.
+     * */
     public int getEntriesCount() {
         return 0;
     }
@@ -57,7 +59,7 @@ public class JournalDb {
     ) {
         mDb = mHelper.getWritableDatabase();
 
-        Log.i("PLEINAIR_DEBUG", "inside insertEntry, imagefilepath: " + imageFilePath);
+//        Log.i("PLEINAIR_DEBUG", "inside insertEntry, imagefilepath: " + imageFilePath);
 
         ContentValues cv = new ContentValues();
         cv.put(JournalEntry.TIMESTAMP, timestamp);
@@ -195,6 +197,9 @@ public class JournalDb {
         return finalEntries;
     }
 
+    /**
+     * Filter by certain parameters in a "AND" relationship.
+     * */
     public List<JournalEntry> filterBy(String year, String month) {
         SQLiteDatabase db = mHelper.getWritableDatabase();
         ArrayList<String> selectionList = new ArrayList<>();

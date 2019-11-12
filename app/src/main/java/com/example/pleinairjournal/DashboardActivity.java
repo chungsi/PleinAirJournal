@@ -5,12 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,11 +33,12 @@ public class DashboardActivity extends JournalMenu implements View.OnClickListen
 
         text_viewCardinal = findViewById(R.id.text_compass);
 
+        // Compass view model to display and update the cardinal direction view
         mCompassViewModel = ViewModelProviders.of(this).get(CompassViewModel.class);
         mCompassViewModel.compassLiveData.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                text_viewCardinal.setText(s);
+                text_viewCardinal.setText("You're facing " + s);
             }
         });
 

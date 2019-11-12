@@ -15,7 +15,6 @@ public class GalleryViewModel extends AndroidViewModel {
     private JournalDb mDb;
     private MutableLiveData<List<JournalEntry>> mAllEntries = new MutableLiveData<>();
 
-
     /**
     * This is a class to handle data and data changes while keeping the data bound to the views.
     * The database queries won't need to be called every time there's an orientation change, and
@@ -31,11 +30,15 @@ public class GalleryViewModel extends AndroidViewModel {
         return mAllEntries;
     }
 
+    public void deleteEntry(JournalEntry entry) {
+        mDb.deleteEntry(entry);
+    }
+
+    public void refreshEntries() {
+        mAllEntries.setValue(mDb.getAllLiveDataEntries().getValue());
+    }
+
     public void filterBy(String year, String month) {
-        String query = "";
-
-        Log.i("PLEINAIR_DEBUG", "query: " + query);
-
         mAllEntries.setValue(mDb.filterBy(year, month));
     }
 
@@ -45,13 +48,5 @@ public class GalleryViewModel extends AndroidViewModel {
 
     public void filterByCardinalDirection(String cardinal) {
         mAllEntries.setValue(mDb.filterByCardinalDirection(cardinal));
-    }
-
-    public void deleteEntry(JournalEntry entry) {
-        mDb.deleteEntry(entry);
-    }
-
-    public void refreshEntries() {
-        mAllEntries.setValue(mDb.getAllLiveDataEntries().getValue());
     }
 }

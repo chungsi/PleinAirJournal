@@ -42,18 +42,6 @@
         android:paddingTop="20dp">
 
         <TextView
-            android:id="@+id/text_ambientTemp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2.5dp"
-            android:layout_weight="1"
-            android:background="@color/colorAccent"
-            android:drawableLeft="@drawable/ic_icon_temp"
-            android:padding="3dp"
-            android:text="Current Temperature:"
-            android:textSize="@dimen/bodyTextSize" />
-
-        <TextView
             android:id="@+id/text_compass"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -61,8 +49,9 @@
             android:layout_weight="1"
             android:background="@color/colorAccent"
             android:drawableLeft="@drawable/ic_icon_compass"
+            android:gravity="center_vertical"
             android:padding="3dp"
-            android:text="Current Direction:"
+            android:text="You're facing ..."
             android:textSize="@dimen/bodyTextSize" />
     </LinearLayout>
 

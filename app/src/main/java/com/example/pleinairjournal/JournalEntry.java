@@ -10,11 +10,6 @@ public class JournalEntry {
     public static final String TABLE_NAME = "entry";
     public static final String _ID = "_id";
     public static final String DATE = "date";
-    // SQLite doesn't support Date formats, so must use ints
-//    public static final String YEAR = "year";
-//    public static final String MONTH = "month";
-//    public static final String Day = "day";
-//    public static final String TIME = "time";
     public static final String TIMESTAMP = "timestamp";
     public static final String LOCATION = "location";
     public static final String LONGLAT = "longlat";
@@ -25,14 +20,14 @@ public class JournalEntry {
 //    public static final String CARDINAL_STRING = "cardinal_string";
 
     /**
-     * Here starts some test code for instantiating a JournalEntry object.
+     * The JournalEntry object
      * TODO: determine if setter methods are necessary, as we are using the object as an interface
      * */
     private long mId, mTimestamp;
     private String mLocation, mComment, mImageFilePath, mDate, mTime;
     private String mCardinalDirection, mCardinalString;
     private int mCardinalDegree;
-    private Date mSqlDate;
+//    private Date mSqlDate;
     private JournalEntry mEntry;
 
     // Empty JournalEntry
@@ -52,7 +47,7 @@ public class JournalEntry {
         mTimestamp = timestamp;
         mDate = new SimpleDateFormat("EEEE, LLLL d, YYYY").format(timestamp);
         mTime = new SimpleDateFormat("h:mm a").format(timestamp);
-        mSqlDate = new Date(timestamp);
+//        mSqlDate = new Date(timestamp);
         mLocation = location;
         mComment = comment;
         mImageFilePath = imageFilePath;
@@ -65,6 +60,9 @@ public class JournalEntry {
         mEntry = entry;
     }
 
+    /**
+     * Getter methods for a JournalEntry object.
+     * */
     public long getId() { return mId; }
     public long getTimestamp() { return mTimestamp; }
     public String getDate() { return mDate; }
@@ -74,12 +72,11 @@ public class JournalEntry {
     public String getCardinalDirection() { return mCardinalDirection; }
     public int getCardinalDegree() { return mCardinalDegree; }
     public String getCardinalString() { return mCardinalDegree + "° " + mCardinalDirection; }
-
     public String getImageFilePath() { return mImageFilePath; }
-    // TODO: cleanup the Bitmap Factory stuff, and find out what's the best way to conserve memory
-    public Bitmap getBitmapImage() {
-        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-        bmpFactoryOptions.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(mImageFilePath, bmpFactoryOptions);
-    }
+
+//    public Bitmap getBitmapImage() {
+//        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+//        bmpFactoryOptions.inJustDecodeBounds = false;
+//        return BitmapFactory.decodeFile(mImageFilePath, bmpFactoryOptions);
+//    }
 }

@@ -72,8 +72,8 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
             sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putString("USERNAME", edit_name.getText().toString());
-            sharedPrefs.edit().putBoolean("isLoggedIn", true).commit();
-            editor.commit();
+            sharedPrefs.edit().putBoolean("isLoggedIn", true).apply();
+            editor.apply();
 
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);

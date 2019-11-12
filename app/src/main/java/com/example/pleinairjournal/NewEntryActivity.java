@@ -63,6 +63,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         text_viewCardinal = findViewById(R.id.text_viewCardinal);
         text_setCardinal = findViewById(R.id.text_setCardinal);
 
+        // ViewModel for the compass
         mCompassViewModel = ViewModelProviders.of(this).get(CompassViewModel.class);
         mCompassViewModel.compassLiveData.observe(this, new Observer<String>() {
             @Override
@@ -73,8 +74,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 
         addTextChangeListeners();
 
-
-
+        // Buttons for toolbar
         button_cancel = findViewById(R.id.button_cancel);
         button_cancel.setOnClickListener(this);
         button_createEntry = findViewById(R.id.button_createEntry);

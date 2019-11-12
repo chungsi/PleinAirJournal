@@ -70,13 +70,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
                 .load(entry.getImageFilePath())
                 .transition(withCrossFade())
                 .into(holder.image_photoPreview);
-//        holder.image_photoPreview.setImageBitmap(entry.getBitmapImage());
-
-        // TODO: remove this code because no longer needed, I think?
-        // create a binding to the GalleryViewModel for every RecyclerView item so that we can
-        // make changes to the database from within each view
-//        GalleryViewModel viewModel = ViewModelProviders.of((FragmentActivity)holder.getContext()).get(GalleryViewModel.class);
-//        holder.setViewModel(viewModel);
     }
 
     @Override
@@ -86,8 +79,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.i("PLEINAIR_DEBUG", "Gallery received intent from deleted entry");
+
+        // An intent has been returned that an entry has been deleted
         if (resultCode == Activity.RESULT_OK && requestCode == DELETE_ENTRY) {
-            // this should only be called when an activity has been deleted
             int position = data.getIntExtra("position", -1);
 
             if (position != -1) {
@@ -102,11 +96,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public static class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private LinearLayout mLayout;
         private GalleryAdapter mAdapter;
-//        private GalleryViewModel mViewModel;
 
         private TextView text_entryLocation, text_entryComment;
         private ImageView image_photoPreview;
-//        private Button button_deleteEntry;
         private final Context mContext;
 
         public GalleryViewHolder(View v, GalleryAdapter adapter) {
@@ -118,15 +110,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             text_entryLocation = mLayout.findViewById(R.id.text_createEntryComment);
             text_entryComment = mLayout.findViewById(R.id.text_createEntryLocation);
             image_photoPreview = mLayout.findViewById(R.id.image_photoPreview);
-//            button_deleteEntry = mLayout.findViewById(R.id.button_deleteEntry);
-//            button_deleteEntry.setOnClickListener(this);
 
             v.setOnClickListener(this);
         }
-
-//        public void setViewModel(GalleryViewModel viewModel) {
-//            mViewModel = viewModel;
-//        }
 
         public Context getContext() {
             return mContext;
@@ -144,12 +130,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
                 i.putExtra("id", entry.getId());
                 ((Activity)mContext).startActivityForResult(i, DELETE_ENTRY);
             }
-
-//            if (view.equals(button_deleteEntry)) {
-//                Toast.makeText(mContext, "item should delete!", Toast.LENGTH_SHORT).show();
-//                mAdapter.deleteEntry(getLayoutPosition());
-//                mViewModel.deleteEntry(entry);
-//            }
         }
 
     }
