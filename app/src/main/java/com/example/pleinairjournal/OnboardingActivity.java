@@ -32,6 +32,10 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
         linearLayout_background.setBackgroundResource(R.drawable.ic_bg_onboarding);
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        // Test function below call to clear SharedPrefs to show the onboarding module!
+//        editor.clear().apply();
 
         //checks if user has entered name at onboarding already, skips onboarding if they have
         boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);

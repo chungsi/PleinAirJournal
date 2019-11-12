@@ -25,7 +25,7 @@ public class DashboardActivity extends JournalMenu implements View.OnClickListen
         setContentView(R.layout.activity_dashboard);
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPrefs.edit();
+        SharedPreferences.Editor editor = sharedPrefs.edit();
 
         text_name = findViewById(R.id.text_name);
         String username = sharedPrefs.getString("USERNAME", "");
