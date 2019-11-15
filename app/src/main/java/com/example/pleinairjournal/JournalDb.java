@@ -218,7 +218,7 @@ public class JournalDb {
     /**
      * Filter by certain parameters in a "AND" relationship.
      * */
-    public List<JournalEntry> filterBy(String year, String month) {
+    public List<JournalEntry> filterBy(String year, String month, String location) {
         SQLiteDatabase db = mHelper.getWritableDatabase();
         ArrayList<String> selectionList = new ArrayList<>();
         String selection = "";
@@ -228,11 +228,14 @@ public class JournalDb {
         * A query is built up from what valid values are passed.
         * */
         if (!year.isEmpty()) {
-            selectionList.add(getYearQuery("'" + year + "'"));
+            selectionList.add(getYearQuery(year));
         }
         if (!month.isEmpty()) {
             month = getMonthNumFromName(month);
-            selectionList.add(getMonthQuery("'" + month + "'"));
+            selectionList.add(getMonthQuery(month));
+        }
+        if (!location.isEmpty()) {
+            selectionList.add(getLocationQuery(location));
         }
         for (int i = 0; i < selectionList.size(); i++) {
             if (i == 0) selection += selectionList.get(i);
@@ -303,15 +306,18 @@ public class JournalDb {
      * computed. As well, the timestamps are formatted to be in unixepoch format.
      * */
     private String getYearQuery(String value) {
-        return "strftime('%Y', date(" + JournalEntry.TIMESTAMP + "/1000, 'unixepoch')) = " + value;
+        return "strftime('%Y', date(" + JournalEntry.TIMESTAMP + "/1000, 'unixepoch')) = '" + value + "'";
     }
 
     private String getMonthQuery(String value) {
-        return "strftime('%m', date(" + JournalEntry.TIMESTAMP + "/1000, 'unixepoch')) = " + value;
+        return "strftime('%m', date(" + JournalEntry.TIMESTAMP + "/1000, 'unixepoch')) = '" + value + "'";
     }
 
     private String getMonthNumFromName(String name) {
         return String.valueOf(Month.valueOf(name.toUpperCase()).getValue());
     }
 
+    private String getLocationQuery(String loc) {
+        return JournalEntry.LOCATION + " = '" + loc + "'";
+    }
 }

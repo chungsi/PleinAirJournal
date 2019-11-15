@@ -56,15 +56,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4" />
 
-            <EditText
-                android:id="@+id/edit_location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:visibility="gone" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -123,6 +114,25 @@
                 android:layout_weight="1"
                 android:text="SetDirection" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tags" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/multiAutoComplete_tags"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
         </LinearLayout>
 
         <LinearLayout

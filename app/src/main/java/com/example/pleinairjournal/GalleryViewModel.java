@@ -38,8 +38,8 @@ public class GalleryViewModel extends AndroidViewModel {
         mAllEntries.setValue(mDb.getAllLiveDataEntries().getValue());
     }
 
-    public void filterBy(String year, String month) {
-        mAllEntries.setValue(mDb.filterBy(year, month));
+    public void filterBy(String year, String month, String location) {
+        mAllEntries.setValue(mDb.filterBy(year, month, location));
     }
 
     public List<String> getAllLocations() {

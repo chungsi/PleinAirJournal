@@ -83,7 +83,8 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
             public void onClick(View view) {
                 mGalleryViewModel.filterBy(
                         spinner_year.getSelectedItem().toString(),
-                        spinner_month.getSelectedItem().toString());
+                        spinner_month.getSelectedItem().toString(),
+                        spinner_location.getSelectedItem().toString());
             }
         });
 
@@ -95,6 +96,7 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
                 mGalleryViewModel.refreshEntries();
                 spinner_year.setSelection(0, true);
                 spinner_month.setSelection(0, true);
+                spinner_location.setSelection(0, true);
             }
         });
     }
