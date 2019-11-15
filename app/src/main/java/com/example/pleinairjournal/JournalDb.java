@@ -172,16 +172,30 @@ public class JournalDb {
         return liveDataEntry;
     }
 
+
     /**
      * TODO: make db access in an AsyncTask task, and maybe show loading sign in the meanwhile
      * Test method to use LiveData objects with a ViewModel
      * */
     public LiveData<List<JournalEntry>> getAllLiveDataEntries() {
+        List<JournalEntry> entries = getAllEntries();
+
+        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
+        finalEntries.setValue(entries);
+
+        return finalEntries;
+    }
+
+    /**
+     * Gets all locations entered by the user.
+     * */
+    public List<String> getAllLocations() {
         SQLiteDatabase db = mHelper.getWritableDatabase();
+        String[] column = { JournalEntry.LOCATION };
 
         Cursor cursor = db.query(
                 JournalEntry.TABLE_NAME,
-                mAllColumns,
+                column,
                 null,
                 null,
                 null,
@@ -189,12 +203,16 @@ public class JournalDb {
                 ORDER_CHRONOLOGICAL
         );
 
-        List<JournalEntry> entries = getJournalEntriesFromCursor(cursor);
+        List<String> locations = new ArrayList<>();
+        locations.add(""); // instantiate a default empty value
+        while(cursor.moveToNext()) {
+            String thisLocation = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
+            // only add the location if it hasn't been already added
+            if (!locations.contains(thisLocation)) locations.add(thisLocation);
+        }
+        cursor.close();
 
-        MutableLiveData<List<JournalEntry>> finalEntries = new MutableLiveData<>();
-        finalEntries.setValue(entries);
-
-        return finalEntries;
+        return locations;
     }
 
     /**
@@ -238,39 +256,20 @@ public class JournalDb {
         return getJournalEntriesFromCursor(cursor);
     }
 
-    public List<JournalEntry> filterByYear(String year) {
+    /**
+     * Get all entries and return them in a list.
+     * */
+    private List<JournalEntry> getAllEntries() {
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        String selection = "strftime('%Y', '" + JournalEntry.TIMESTAMP + "') = ?";
-        String[] selectionArgs = { year };
-
         Cursor cursor = db.query(
                 JournalEntry.TABLE_NAME,
                 mAllColumns,
-                selection,
-                selectionArgs,
+                null,
+                null,
                 null,
                 null,
                 ORDER_CHRONOLOGICAL
         );
-
-        return getJournalEntriesFromCursor(cursor);
-    }
-
-    public List<JournalEntry> filterByCardinalDirection(String cardinal) {
-        SQLiteDatabase db = mHelper.getWritableDatabase();
-        String selection = JournalEntry.CARDINAL_DIRECTION + " = ?";
-        String[] selectionArgs = { cardinal };
-
-        Cursor cursor = db.query(
-                JournalEntry.TABLE_NAME,
-                mAllColumns,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                ORDER_CHRONOLOGICAL
-        );
-
         return getJournalEntriesFromCursor(cursor);
     }
 

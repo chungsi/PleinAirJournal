@@ -47,9 +47,10 @@ public class CompassViewModel extends AndroidViewModel {
 
             // Apply an alpha filtering to accelerometer values to isolate gravity
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                for (int i = 0; i < event.values.length; i++) {
-                    mGravity[i] = alpha * mGravity[i] + (1 - alpha) * event.values[i];
-                }
+                mGravity = event.values;
+//                for (int i = 0; i < event.values.length; i++) {
+//                    mGravity[i] = alpha * mGravity[i] + (1 - alpha) * event.values[i];
+//                }
             }
 
             if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
@@ -104,7 +105,7 @@ public class CompassViewModel extends AndroidViewModel {
             else if (degree >= 112.5) return "SE";
             else if (degree >= 67.5) return "E";
             else if (degree >= 22.5) return "NE";
-            else return "North";
+            else return "N";
         }
 
         @Override

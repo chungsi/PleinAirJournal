@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -29,9 +30,8 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
 
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
-    private Button button_testFilter, button_resetFilters, button_applyFilters;
-
-    private Spinner spinner_year, spinner_month, spinner_cardinal;
+    private Button button_resetFilters, button_applyFilters;
+    private Spinner spinner_year, spinner_month, spinner_location;
 
     long mEntryId;
     int mGalleryAdapterPosition;
@@ -77,14 +77,6 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     private void initFilters() {
         initFilterSpinners();
 
-        button_testFilter = findViewById(R.id.button_testFilter);
-        button_testFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mGalleryViewModel.filterByCardinalDirection("S");
-            }
-        });
-
         button_applyFilters = findViewById(R.id.button_applyFilters);
         button_applyFilters.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +102,7 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     private void initFilterSpinners() {
         spinner_year = findViewById(R.id.spinner_year);
         spinner_month = findViewById(R.id.spinner_month);
-//        spinner_cardinal = findViewById(R.id.sp)
+        spinner_location = findViewById(R.id.spinner_location);
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -123,5 +115,13 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
                 R.array.month_array,
                 android.R.layout.simple_spinner_dropdown_item);
         spinner_month.setAdapter(arrayAdapter);
+
+        // To get all locations, need to call the viewModel's function to get all locations from db.
+        List<String> locationsList = mGalleryViewModel.getAllLocations();
+        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                locationsList);
+        spinner_location.setAdapter(locationArrayAdapter);
     }
 }

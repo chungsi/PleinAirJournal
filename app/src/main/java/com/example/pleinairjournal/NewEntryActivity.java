@@ -11,6 +11,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,12 +25,15 @@ import androidx.core.content.FileProvider;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
+
 import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
@@ -39,6 +44,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 
     TextView text_timetamp, text_viewCardinal, text_setCardinal;
     EditText edit_location, edit_comment;
+    AutoCompleteTextView autoComplete_location;
     Button button_createEntry, button_takePhoto, button_setCardinal;
     ImageView image_photoThumb;
 
@@ -54,8 +60,9 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         button_takePhoto = findViewById(R.id.button_takePhoto);
         button_takePhoto.setOnClickListener(this);
 
-        edit_location = findViewById(R.id.edit_location);
-        edit_comment = findViewById(R.id.edit_comment);
+        initCommentField();
+        initLocationField();
+
         image_photoThumb = findViewById(R.id.image_photoThumbnail);
 
         text_timetamp = findViewById(R.id.text_timestamp);
@@ -71,8 +78,6 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
                 text_viewCardinal.setText(s);
             }
         });
-
-        addTextChangeListeners();
 
         // Buttons for toolbar
         button_cancel = findViewById(R.id.button_cancel);
@@ -118,8 +123,8 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
             text_setCardinal.setText(mCompassViewModel.compassLiveData.getCardinalMessage());
 
             // sets the cardinal direction and degree of the new entry in the viewModel
-            mViewModel.cardinal = mCompassViewModel.compassLiveData.getCardinalDirection();
-            mViewModel.cardinalDegree = mCompassViewModel.compassLiveData.getCardinalDegree();
+            mViewModel.setCardinal(mCompassViewModel.compassLiveData.getCardinalDirection());
+            mViewModel.setCardinalDegree(mCompassViewModel.compassLiveData.getCardinalDegree());
         }
     }
 
@@ -143,7 +148,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
             File photoFile = null;
 
             try {
-                photoFile = createImageFile();
+                photoFile = mViewModel.createImageFile();
             } catch (IOException e) {
                 // catch exception if image can't be taken
                 Log.d("PLEINAIR_DEBUG", e.getMessage());
@@ -162,66 +167,58 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
     }
 
     /**
-     * Creates a filename for a new camera photo, and returns a File object for use.
-     * */
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-
-        File storageDir = new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "PleinAirJournal");
-        if (!storageDir.exists()) storageDir.mkdir();
-
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",   /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mViewModel.imageFilePath = image.getAbsolutePath();
-        Log.i("PLEINAIR_DEBUG", "photo file path: " + mViewModel.imageFilePath);
-
-        return image;
-    }
-
-    /**
      * Displays the photo preview from the camera intent by using the saved image filepath.
      * */
     private void displayImagePreview() {
-        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-        bmpFactoryOptions.inJustDecodeBounds = false;
+//        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
+//        bmpFactoryOptions.inJustDecodeBounds = false;
+//
+//        // Need to decode the image from a file path because the camera intent will put
+//        // the data into the URI passed to it
+//        Bitmap bmp = BitmapFactory.decodeFile(mViewModel.imageFilePath, bmpFactoryOptions);
+//        image_photoThumb.setImageBitmap(bmp);
 
-        // Need to decode the image from a file path because the camera intent will put
-        // the data into the URI passed to it
-        Bitmap bmp = BitmapFactory.decodeFile(mViewModel.imageFilePath, bmpFactoryOptions);
-        image_photoThumb.setImageBitmap(bmp);
+        Glide.with(this)
+                .load(mViewModel.getImageFilePath())
+                .into(image_photoThumb);
     }
 
-    /**
-     * Adds a textChangeListener to the EditTexts, so that the value is changed as the user types.
-     * This way, stuff isn't lost when the screen is rotated.
-     * */
-    private void addTextChangeListeners() {
-        edit_location.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mViewModel.location = charSequence.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
-
+    private void initCommentField() {
+        edit_comment = findViewById(R.id.edit_comment);
         edit_comment.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mViewModel.comment = charSequence.toString();
+                mViewModel.setComment(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+    }
+
+    private void initLocationField() {
+        autoComplete_location = findViewById(R.id.autoComplete_location);
+        List<String> locationsList = mViewModel.getAllLocations();
+
+        ArrayAdapter<String> locationsArrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                locationsList);
+
+        autoComplete_location.setAdapter(locationsArrayAdapter);
+        autoComplete_location.setThreshold(1); // just put one letter?
+
+        // textChangeListener to save to ViewModel
+        autoComplete_location.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mViewModel.setLocation(charSequence.toString());
             }
 
             @Override

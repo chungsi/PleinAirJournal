@@ -42,11 +42,7 @@ public class GalleryViewModel extends AndroidViewModel {
         mAllEntries.setValue(mDb.filterBy(year, month));
     }
 
-    public void filterByYear(String year) {
-        mAllEntries.setValue(mDb.filterByYear(year));
-    }
-
-    public void filterByCardinalDirection(String cardinal) {
-        mAllEntries.setValue(mDb.filterByCardinalDirection(cardinal));
+    public List<String> getAllLocations() {
+        return mDb.getAllLocations();
     }
 }
