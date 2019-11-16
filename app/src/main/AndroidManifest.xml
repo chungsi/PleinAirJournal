@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewEntryMenu"></activity>
+        <activity android:name=".ViewEntryMenu"></activity>
+        <activity android:name=".NewEntryMenu" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -30,10 +31,8 @@
         </provider>
 
         <activity android:name=".JournalMenu" />
-        <activity android:name=".AccountPreferences">
-
-        </activity>
-        <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".AccountPreferences"></activity>
+        <activity android:name=".DashboardActivity" />
         <activity android:name=".OnboardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

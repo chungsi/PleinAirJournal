@@ -1,6 +1,8 @@
 package com.example.pleinairjournal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,9 +22,10 @@ import com.bumptech.glide.Glide;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-public class ViewEntryActivity extends JournalMenu {
+public class ViewEntryActivity extends ViewEntryMenu {
     static final int UPDATE_ENTRY = 2;
 
+    private SharedPreferences sharedPrefs;
     private TextView text_id, text_location, text_comment, text_filePath, text_date, text_time, text_cardinal;
     private Button button_deleteEntry, button_updateEntry;
     private ViewEntryViewModel mViewModel;
@@ -34,6 +37,24 @@ public class ViewEntryActivity extends JournalMenu {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Checks which theme the user has selected
+        //Theme can only be changed before setContentView
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        //checks if user has selected dark colour scheme preference, sets theme if yes
+        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
+        if(darkModeChecked){
+            setTheme(R.style.style_dark);
+        }
+
+        //checks if user has selected light colour scheme preference, sets theme if yes
+        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
+        if(lightModeChecked){
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_view_entry);
 
         mEntryId = getIntent().getLongExtra("id", -1);

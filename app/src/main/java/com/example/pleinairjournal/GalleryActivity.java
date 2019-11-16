@@ -1,6 +1,8 @@
 package com.example.pleinairjournal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ import java.util.List;
 
 public class GalleryActivity extends JournalMenu implements View.OnClickListener {
 
+    private SharedPreferences sharedPrefs;
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
     private Button button_resetFilters, button_applyFilters;
@@ -39,6 +42,24 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Checks which theme the user has selected
+        //Theme can only be changed before setContentView
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        //checks if user has selected dark colour scheme preference, sets theme if yes
+        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
+        if(darkModeChecked){
+            setTheme(R.style.style_dark);
+        }
+
+        //checks if user has selected light colour scheme preference, sets theme if yes
+        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
+        if(lightModeChecked){
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_gallery);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_gallery);

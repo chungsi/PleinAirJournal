@@ -1,6 +1,8 @@
 package com.example.pleinairjournal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -38,6 +40,7 @@ import java.util.List;
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
 public class NewEntryActivity extends NewEntryMenu implements View.OnClickListener {
+    private SharedPreferences sharedPrefs;
     private static final int REQUEST_TAKE_PHOTO = 4742;
     private NewEntryViewModel mViewModel;
     private CompassViewModel mCompassViewModel;
@@ -51,6 +54,24 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Checks which theme the user has selected
+        //Theme can only be changed before setContentView
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        //checks if user has selected dark colour scheme preference, sets theme if yes
+        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
+        if(darkModeChecked){
+            setTheme(R.style.style_dark);
+        }
+
+        //checks if user has selected light colour scheme preference, sets theme if yes
+        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
+        if(lightModeChecked){
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_new_entry);
 
         mViewModel = ViewModelProviders.of(this).get(NewEntryViewModel.class);

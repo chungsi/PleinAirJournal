@@ -1,6 +1,8 @@
 package com.example.pleinairjournal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,8 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class UpdateEntryActivity extends AppCompatActivity {
+public class UpdateEntryActivity extends ViewEntryMenu {
 
+    private SharedPreferences sharedPrefs;
     private Button button_updateEntry;
     private EditText edit_updateLocation, edit_updateComment;
     private long mEntryId;
@@ -22,7 +25,27 @@ public class UpdateEntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Checks which theme the user has selected
+        //Theme can only be changed before setContentView
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        //checks if user has selected dark colour scheme preference, sets theme if yes
+        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
+        if(darkModeChecked){
+            setTheme(R.style.style_dark);
+        }
+
+        //checks if user has selected light colour scheme preference, sets theme if yes
+        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
+        if(lightModeChecked){
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_update_entry);
+
+        findMenuButtons();
 
         mEntryId = getIntent().getLongExtra("id", -1);
         Log.i("PLEINAIR_DEBUG", "intent id from UpdateEntry: " + mEntryId);

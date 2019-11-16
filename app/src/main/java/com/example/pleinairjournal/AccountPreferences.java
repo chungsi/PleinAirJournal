@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 public class AccountPreferences extends JournalMenu implements View.OnClickListener {
 
     SharedPreferences sharedPrefs;
-    TextView text_name;
+    EditText editText_name;
     RadioGroup radioGroup_colourScheme;
     RadioButton radioButton_light, radioButton_dark;
     Button button_save;
@@ -34,21 +35,19 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
         boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
         if(darkModeChecked){
             setTheme(R.style.style_dark);
-            Toast.makeText(this, "Dark Mode Checked", Toast.LENGTH_SHORT).show();
         }
 
         //checks if user has selected light colour scheme preference, sets theme if yes
         boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
         if(lightModeChecked){
             setTheme(R.style.AppTheme);
-            Toast.makeText(this, "Light Mode Checked", Toast.LENGTH_SHORT).show();
         }
 
         setContentView(R.layout.activity_account_preferences);
 
-        text_name = findViewById(R.id.text_name);
+        editText_name = findViewById(R.id.editText_name);
         String username = sharedPrefs.getString("USERNAME", "");
-        text_name.setText(username);
+        editText_name.setText(username);
 
         radioButton_light = findViewById(R.id.radioButton_light);
         radioButton_dark = findViewById(R.id.radioButton_dark);
@@ -61,6 +60,7 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
             public void onClick(View v) {
                 sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString("USERNAME", editText_name.getText().toString());
                 editor.putBoolean("LIGHTBUTTONCHECKED", radioButton_light.isChecked());
                 editor.putBoolean("DARKBUTTONCHECKED", radioButton_dark.isChecked());
                 editor.commit();

@@ -33,12 +33,12 @@
             android:text="Name"
             android:textSize="@dimen/bodyTextSize" />
 
-        <TextView
-            android:id="@+id/text_name"
+        <EditText
+            android:id="@+id/editText_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:textSize="@dimen/bodyTextSize" />
+            android:ems="10"
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/text_colourSchemeLabel"
@@ -65,7 +65,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Light Mode"
-                    android:textColor="?android:attr/textColor" />
+                    android:textColor="?android:attr/textColor"
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/radioButton_dark"
