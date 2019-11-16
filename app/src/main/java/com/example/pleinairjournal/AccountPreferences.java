@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 public class AccountPreferences extends JournalMenu implements View.OnClickListener {
 
     SharedPreferences sharedPrefs;
@@ -68,37 +70,11 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
             }
         });
 
-        //Buttons from Toolbar
-        imageButton_home = findViewById(R.id.imageButton_home);
-        imageButton_home.setOnClickListener(this);
-        imageButton_gallery = findViewById(R.id.imageButton_gallery);
-        imageButton_gallery.setOnClickListener(this);
+        findMenuButtons();
+
+        //Changes colour of icon for current page
         imageButton_settings = findViewById(R.id.imageButton_settings);
-        imageButton_settings.setOnClickListener(this);
-        imageButton_create = findViewById(R.id.imageButton_create);
-        imageButton_create.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        //Checks if tool bar buttons have been pressed
-        if(view.equals(imageButton_home)){
-            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-            startActivity(i);
-        }
-        if(view.equals(imageButton_gallery)){
-            Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
-            startActivity(i);
-        }
-
-        if(view.equals(imageButton_settings)){
-            Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
-            startActivity(i);
-        }
-        if(view.equals(imageButton_create)){
-            Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
-            startActivity(i);
-        }
+        imageButton_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
     }
 
 

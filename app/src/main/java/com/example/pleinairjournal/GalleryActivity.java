@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -83,6 +84,10 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
         initFilters();
 
         findMenuButtons();
+
+        //Changes colour of icon for current page
+        imageButton_gallery = findViewById(R.id.imageButton_gallery);
+        imageButton_gallery.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
     }
 
     @Override

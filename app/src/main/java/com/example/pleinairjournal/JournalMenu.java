@@ -59,19 +59,23 @@ public class JournalMenu extends AppCompatActivity implements View.OnClickListen
         if (view.equals(imageButton_home)) {
             Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
             startActivity(i);
+            overridePendingTransition(0, 0); //removes sliding animation
         }
         if (view.equals(imageButton_gallery)) {
             Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
             startActivity(i);
+            overridePendingTransition(0, 0); //removes sliding animation
         }
 
         if (view.equals(imageButton_settings)) {
             Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
             startActivity(i);
+            overridePendingTransition(0, 0); //removes sliding animation
         }
         if (view.equals(imageButton_create)) {
             Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
             startActivity(i);
+            overridePendingTransition(0, 0); //removes sliding animation
         }
 
     }

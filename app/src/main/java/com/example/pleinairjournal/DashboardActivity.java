@@ -1,6 +1,7 @@
 package com.example.pleinairjournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -58,6 +59,10 @@ public class DashboardActivity extends JournalMenu implements View.OnClickListen
         });
 
         findMenuButtons();
+
+        //Changes colour of icon for current page
+        imageButton_home = findViewById(R.id.imageButton_home);
+        imageButton_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
     }
 
     @Override

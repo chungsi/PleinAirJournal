@@ -122,8 +122,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 //        super.onClick(view);
 
         if (view.equals(button_cancel)) {
-            Intent i = new Intent(this, DashboardActivity.class);
-            startActivity(i);
+            finish();
         }
         // this buttons are instantiated in the NewEntryMenu, but since they need the viewModel,
         // not so sure how best to abstract it out yet...
