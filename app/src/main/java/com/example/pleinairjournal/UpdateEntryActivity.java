@@ -1,6 +1,8 @@
 package com.example.pleinairjournal;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,12 +22,13 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class UpdateEntryActivity extends AppCompatActivity {
+public class UpdateEntryActivity extends ViewEntryMenu {
 
     private TextView text_date, text_time, text_cardinal;
     private ImageView image_photoPreview;
     private EditText edit_updateComment;
     private AutoCompleteTextView autoComplete_location;
+    private SharedPreferences sharedPrefs;
     private Button button_updateEntry;
     private long mEntryId;
     private UpdateEntryViewModel mViewModel;
@@ -33,7 +36,27 @@ public class UpdateEntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Checks which theme the user has selected
+        //Theme can only be changed before setContentView
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        //checks if user has selected dark colour scheme preference, sets theme if yes
+        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
+        if(darkModeChecked){
+            setTheme(R.style.style_dark);
+        }
+
+        //checks if user has selected light colour scheme preference, sets theme if yes
+        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
+        if(lightModeChecked){
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_update_entry);
+
+        findMenuButtons();
 
         mEntryId = getIntent().getLongExtra("id", -1);
         mViewModel = ViewModelProviders.of(this).get(UpdateEntryViewModel.class);

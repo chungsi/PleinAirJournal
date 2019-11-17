@@ -1,6 +1,7 @@
 package com.example.pleinairjournal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DashboardActivity extends JournalMenu implements View.OnClickListener {
     private CompassViewModel mCompassViewModel;
@@ -22,10 +24,24 @@ public class DashboardActivity extends JournalMenu implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
 
+        //Checks which theme the user has selected
+        //Theme can only be changed before setContentView
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        //checks if user has selected dark colour scheme preference, sets theme if yes
+        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
+        if(darkModeChecked){
+            setTheme(R.style.style_dark);
+        }
+
+        //checks if user has selected light colour scheme preference, sets theme if yes
+        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
+        if(lightModeChecked){
+            setTheme(R.style.AppTheme);
+        }
+        setContentView(R.layout.activity_dashboard);
 
         text_name = findViewById(R.id.text_name);
         String username = sharedPrefs.getString("USERNAME", "");
@@ -43,6 +59,10 @@ public class DashboardActivity extends JournalMenu implements View.OnClickListen
         });
 
         findMenuButtons();
+
+        //Changes colour of icon for current page
+        imageButton_home = findViewById(R.id.imageButton_home);
+        imageButton_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
     }
 
     @Override
