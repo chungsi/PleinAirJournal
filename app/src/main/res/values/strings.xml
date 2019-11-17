@@ -3,6 +3,15 @@
     <string name="celsius">&#176;C</string>
     <string name="description">Plein Air Journal encourages a practice called plein air, the act of creating art outdoors, and allows you to keep track of your creations in a journal.</string>
 
+    <string name="spinner_prompt_month">Month</string>
+    <string name="spinner_prompt_year">Year</string>
+    <string name="spinner_prompt_location">Location</string>
+
+    <string name="button_take_photo">Take a photo</string>
+    <string name="button_retake_photo">Retake the photo</string>
+
+    <string name="prompt_comment">How was your drawing session?</string>
+    <string name="prompt_location">Where did you draw at?</string>
 
     <string-array name="year_array">
         <item></item>

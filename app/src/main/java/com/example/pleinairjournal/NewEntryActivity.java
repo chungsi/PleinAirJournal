@@ -1,11 +1,8 @@
 package com.example.pleinairjournal;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,27 +17,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
-import static android.os.Environment.getExternalStoragePublicDirectory;
 
 public class NewEntryActivity extends NewEntryMenu implements View.OnClickListener {
     private static final int REQUEST_TAKE_PHOTO = 4742;
     private NewEntryViewModel mViewModel;
     private CompassViewModel mCompassViewModel;
+    private boolean mHasTakenFirstPhoto = false;
 
     TextView text_timetamp, text_viewCardinal, text_setCardinal;
     EditText edit_location, edit_comment;
@@ -60,13 +53,12 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         button_takePhoto = findViewById(R.id.button_takePhoto);
         button_takePhoto.setOnClickListener(this);
 
+        initImagePreview();
         initCommentField();
         initLocationField();
 
-        image_photoThumb = findViewById(R.id.image_photoThumbnail);
-
-        text_timetamp = findViewById(R.id.text_timestamp);
-        text_timetamp.setText(String.valueOf(mViewModel.getTimestamp()));
+//        text_timetamp = findViewById(R.id.text_timestamp);
+//        text_timetamp.setText(String.valueOf(mViewModel.getTimestamp()));
         text_viewCardinal = findViewById(R.id.text_viewCardinal);
         text_setCardinal = findViewById(R.id.text_setCardinal);
 
@@ -170,17 +162,54 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
      * Displays the photo preview from the camera intent by using the saved image filepath.
      * */
     private void displayImagePreview() {
-//        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-//        bmpFactoryOptions.inJustDecodeBounds = false;
-//
-//        // Need to decode the image from a file path because the camera intent will put
-//        // the data into the URI passed to it
-//        Bitmap bmp = BitmapFactory.decodeFile(mViewModel.imageFilePath, bmpFactoryOptions);
-//        image_photoThumb.setImageBitmap(bmp);
+        handleFirstPhotoTaken();
 
         Glide.with(this)
                 .load(mViewModel.getImageFilePath())
                 .into(image_photoThumb);
+    }
+
+    /**
+     * Handles the case after the first photo has been taken, because the image preview will be
+     * updated. The button is also moved, and the text inside changes.
+     * */
+    private void handleFirstPhotoTaken() {
+        if (!mHasTakenFirstPhoto) {
+            mHasTakenFirstPhoto = true;
+            resetImagePreviewAndButtonConstraints();
+
+            button_takePhoto.setText(R.string.button_retake_photo);
+        }
+    }
+
+    /**
+     * The ratio of the image preview has been set to be a square when no photo has been taken yet.
+     * This function can be called to reset the ratio and have the preview fit the image's real
+     * dimensions.
+     * */
+    private void resetImagePreviewAndButtonConstraints() {
+        ConstraintSet c = new ConstraintSet();
+        ConstraintLayout mConstraint = findViewById(R.id.constraint_newEntryImagePreview);
+        c.clone(mConstraint);
+
+        c.setDimensionRatio(R.id.image_newPhotoPreview, "");
+        c.constrainHeight(R.id.image_newPhotoPreview, ConstraintSet.WRAP_CONTENT);
+
+        // Sets button to be on the bottom right of the photo preview
+        c.removeFromHorizontalChain(R.id.button_takePhoto);
+        c.removeFromVerticalChain(R.id.button_takePhoto);
+        c.connect(R.id.button_takePhoto, ConstraintSet.BOTTOM,
+                R.id.image_newPhotoPreview, ConstraintSet.BOTTOM,
+                16);
+        c.connect(R.id.button_takePhoto, ConstraintSet.RIGHT,
+                R.id.image_newPhotoPreview, ConstraintSet.RIGHT,
+                16);
+
+        c.applyTo(mConstraint);
+    }
+
+    private void initImagePreview() {
+        image_photoThumb = findViewById(R.id.image_newPhotoPreview);
     }
 
     private void initCommentField() {

@@ -44,7 +44,7 @@ public class GalleryActivity extends JournalMenu implements View.OnClickListener
         RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
         mAdapter = new GalleryAdapter(this);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         mEntryId = getIntent().getLongExtra("id", -1);
         mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);

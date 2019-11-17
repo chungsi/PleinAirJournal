@@ -3,23 +3,16 @@ package com.example.pleinairjournal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -64,12 +57,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public void onBindViewHolder(@NonNull GalleryViewHolder holder, int position) {
         final JournalEntry entry = mEntriesList.get(position);
         holder.text_entryLocation.setText(entry.getLocation());
-        holder.text_entryComment.setText(entry.getComment());
+        holder.text_entryDate.setText(entry.getDate());
 
         Glide.with(mContext)
                 .load(entry.getImageFilePath())
                 .transition(withCrossFade())
-                .into(holder.image_photoPreview);
+                .into(holder.squareImage_photoPreview);
+//                .into(holder.image_photoPreview);
     }
 
     @Override
@@ -97,8 +91,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         private LinearLayout mLayout;
         private GalleryAdapter mAdapter;
 
-        private TextView text_entryLocation, text_entryComment;
+        private TextView text_entryLocation, text_entryDate, text_entryDaysSinceCreated;
         private ImageView image_photoPreview;
+        private SquareImageView squareImage_photoPreview;
         private final Context mContext;
 
         public GalleryViewHolder(View v, GalleryAdapter adapter) {
@@ -107,16 +102,17 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             mAdapter = adapter;
             mContext = v.getContext();
 
-            text_entryLocation = mLayout.findViewById(R.id.text_createEntryComment);
-            text_entryComment = mLayout.findViewById(R.id.text_createEntryLocation);
-            image_photoPreview = mLayout.findViewById(R.id.image_photoPreview);
+            text_entryLocation = mLayout.findViewById(R.id.text_galleryEntryLocation);
+            text_entryDate = mLayout.findViewById(R.id.text_galleryEntryDate);
+            image_photoPreview = mLayout.findViewById(R.id.image_viewPhotoPreview);
+            squareImage_photoPreview = mLayout.findViewById(R.id.squareImage_photoPreview);
 
             v.setOnClickListener(this);
         }
 
-        public Context getContext() {
-            return mContext;
-        }
+//        public Context getContext() {
+//            return mContext;
+//        }
 
         @Override
         public void onClick(View view) {

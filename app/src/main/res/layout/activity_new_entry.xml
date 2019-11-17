@@ -18,68 +18,40 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_newEntryImagePreview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView5"
+            <ImageView
+                android:id="@+id/image_newPhotoPreview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="#E0E0E0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_constraintLeft_toLeftOf="parent" />
+
+            <Button
+                android:id="@+id/button_takePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date"
-                android:textSize="@dimen/bodyTextSize" />
-
-            <TextView
-                android:id="@+id/text_timestamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/bodyTextSize" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Location"
-                android:textSize="@dimen/bodyTextSize" />
-
-            <AutoCompleteTextView
-                android:id="@+id/autoComplete_location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Comment"
-                android:textSize="@dimen/bodyTextSize" />
-
-            <EditText
-                android:id="@+id/edit_comment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
-        </LinearLayout>
+                android:layout_margin="10dp"
+                android:backgroundTint="?android:attr/buttonTint"
+                android:gravity="center"
+                android:text="@string/button_take_photo"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/image_newPhotoPreview"
+                app:layout_constraintEnd_toEndOf="@id/image_newPhotoPreview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_newPhotoPreview" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,6 +94,27 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Location"
+                android:textSize="@dimen/bodyTextSize" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoComplete_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
                 android:id="@+id/textView10"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -138,26 +131,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/image_photoThumbnail"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:adjustViewBounds="true"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:text="Comment"
+                android:textSize="@dimen/bodyTextSize" />
 
-            <Button
-                android:id="@+id/button_takePhoto"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/edit_comment"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:backgroundTint="?android:attr/buttonTint"
-                android:textColor="@color/white"
-                android:text="Take a Photo" />
+                android:layout_weight="4"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/prompt_comment"
+                android:inputType="textMultiLine"
+                android:singleLine="false" />
+
         </LinearLayout>
 
     </LinearLayout>

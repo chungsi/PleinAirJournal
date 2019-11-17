@@ -1,8 +1,6 @@
 package com.example.pleinairjournal;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -23,7 +20,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 public class ViewEntryActivity extends JournalMenu {
     static final int UPDATE_ENTRY = 2;
 
-    private TextView text_id, text_location, text_comment, text_filePath, text_date, text_time, text_cardinal;
+    private TextView text_location, text_comment, text_date, text_time, text_cardinal;
     private Button button_deleteEntry, button_updateEntry;
     private ViewEntryViewModel mViewModel;
     private ImageView image_photoPreview;
@@ -39,16 +36,14 @@ public class ViewEntryActivity extends JournalMenu {
         mEntryId = getIntent().getLongExtra("id", -1);
         mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);
 
-        text_id = findViewById(R.id.text_viewId);
         text_location = findViewById(R.id.text_viewLocation);
         text_comment = findViewById(R.id.text_viewComment);
-        text_filePath = findViewById(R.id.text_filePath);
         text_date = findViewById(R.id.text_date);
         text_time = findViewById(R.id.text_time);
         text_cardinal = findViewById(R.id.text_cardinal);
         button_deleteEntry = findViewById(R.id.button_deleteEntry);
         button_updateEntry = findViewById(R.id.button_updateEntry);
-        image_photoPreview = findViewById(R.id.image_photoPreview);
+        image_photoPreview = findViewById(R.id.image_viewPhotoPreview);
 
         buttonClickListeners();
 
@@ -58,7 +53,6 @@ public class ViewEntryActivity extends JournalMenu {
         mViewModel.getEntry(mEntryId).observe(this, new Observer<JournalEntry>() {
             @Override
             public void onChanged(JournalEntry entry) {
-                text_id.setText(String.valueOf(entry.getId()));
                 text_location.setText(entry.getLocation());
                 text_comment.setText(entry.getComment());
                 text_date.setText(entry.getDate());
@@ -86,7 +80,6 @@ public class ViewEntryActivity extends JournalMenu {
         if (resultCode == RESULT_OK && requestCode == UPDATE_ENTRY) {
             Toast.makeText(this, "Entry updated", Toast.LENGTH_SHORT).show();
             mViewModel.refreshEntry();
-            text_id.setText(String.valueOf(mViewModel.getEntryId()));
             text_location.setText(mViewModel.getLocation());
             text_comment.setText(mViewModel.getComment());
             text_date.setText(mViewModel.getDate());

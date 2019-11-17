@@ -41,9 +41,9 @@ public class NewEntryViewModel extends AndroidViewModel {
     public void setCardinalDegree(int deg) { mCardinalDegree = deg; }
     public void setCardinal(String cardinal) { mCardinal = cardinal; }
     public void setImageFilePath(String fp) { mImageFilePath = fp; }
-    public long getTimestamp() {
-        return mTimestamp;
-    }
+//    public long getTimestamp() {
+//        return mTimestamp;
+//    }
     public String getImageFilePath() { return mImageFilePath; }
     public List<String> getAllLocations() { return mDb.getAllLocations(); }
 
