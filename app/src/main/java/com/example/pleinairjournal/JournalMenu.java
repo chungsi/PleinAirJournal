@@ -7,8 +7,9 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
-public class JournalMenu extends AppCompatActivity implements View.OnClickListener{
+public class JournalMenu extends MasterActivity {
 
     ImageButton imageButton_home, imageButton_gallery, imageButton_settings, imageButton_create;
 
@@ -17,66 +18,76 @@ public class JournalMenu extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        // Find the toolbar view inside the activity layout
-        Toolbar toolbar = findViewById(R.id.mToolbar);
-        // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
-        setSupportActionBar(toolbar);
-
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(""); //gets rid of default title
-        }
-
+        super.initToolbar();
+        super.applyColourScheme();
     }
 
-    //connects to buttons in XML, listens for clicks
-    public void findMenuButtons(){
-        imageButton_home = findViewById(R.id.imageButton_home);
-        imageButton_home.setOnClickListener(this);
-        imageButton_gallery = findViewById(R.id.imageButton_gallery);
-        imageButton_gallery.setOnClickListener(this);
-        imageButton_settings = findViewById(R.id.imageButton_settings);
-        imageButton_settings.setOnClickListener(this);
-        imageButton_create = findViewById(R.id.imageButton_create);
-        imageButton_create.setOnClickListener(this);
+    /**
+     * @param act is the string of the active activity. Accepted values are: gallery, dashboard,
+     *            and settings.
+     *
+     * Public method to be called that sets one of the items as the active activity by changing the
+     * icon colour.
+     * */
+    public void initMenuButtonsWithActive(String act) {
+        initMenuButtons();
+
+        if (act.equals("gallery")) {
+            imageButton_gallery.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+        } else if (act.equals("dashboard")) {
+            imageButton_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+        } else if (act.equals("settings")) {
+            imageButton_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+        }
     }
 
     // JournalMenu icons are inflated just as they were with actionbar
+
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        Log.i("iris", "onCreateOptionsMenuCalled");
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
-    @Override
-    public void onClick(View view) {
+    /**
+     * Public function that must be called in child activities to instantiate the buttons.
+     * */
+    private void initMenuButtons(){
+        imageButton_settings = findViewById(R.id.imageButton_settings);
+        imageButton_home = findViewById(R.id.imageButton_home);
+        imageButton_gallery = findViewById(R.id.imageButton_gallery);
+        imageButton_create = findViewById(R.id.imageButton_create);
 
-        //Checks if tool bar buttons have been pressed
-        if (view.equals(imageButton_home)) {
-            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-            startActivity(i);
-            overridePendingTransition(0, 0); //removes sliding animation
-        }
-        if (view.equals(imageButton_gallery)) {
-            Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
-            startActivity(i);
-            overridePendingTransition(0, 0); //removes sliding animation
-        }
-
-        if (view.equals(imageButton_settings)) {
-            Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
-            startActivity(i);
-            overridePendingTransition(0, 0); //removes sliding animation
-        }
-        if (view.equals(imageButton_create)) {
-            Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
-            startActivity(i);
-            overridePendingTransition(0, 0); //removes sliding animation
-        }
-
+        imageButton_home.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0); //removes sliding animation
+            }
+        });
+        imageButton_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0); //removes sliding animation
+            }
+        });
+        imageButton_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
+                startActivity(i);
+                overridePendingTransition(0, 0); //removes sliding animation
+            }
+        });
+        imageButton_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0); //removes sliding animation
+            }
+        });
     }
 }

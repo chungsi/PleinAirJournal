@@ -34,40 +34,23 @@ import java.io.IOException;
 import java.util.List;
 
 public class NewEntryActivity extends NewEntryMenu implements View.OnClickListener {
-    private SharedPreferences sharedPrefs;
     private static final int REQUEST_TAKE_PHOTO = 4742;
     private NewEntryViewModel mViewModel;
     private CompassViewModel mCompassViewModel;
     private boolean mHasTakenFirstPhoto = false;
 
-    TextView text_timetamp, text_viewCardinal, text_setCardinal;
-    EditText edit_location, edit_comment;
+    TextView text_viewCardinal, text_setCardinal;
+    EditText edit_comment;
     AutoCompleteTextView autoComplete_location;
-    Button button_createEntry, button_takePhoto, button_setCardinal;
+    Button button_takePhoto, button_setCardinal;
     ImageView image_photoThumb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Checks which theme the user has selected
-        //Theme can only be changed before setContentView
-        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-        //checks if user has selected dark colour scheme preference, sets theme if yes
-        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
-        if(darkModeChecked){
-            setTheme(R.style.style_dark);
-        }
-
-        //checks if user has selected light colour scheme preference, sets theme if yes
-        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
-        if(lightModeChecked){
-            setTheme(R.style.AppTheme);
-        }
-
         setContentView(R.layout.activity_new_entry);
+
+        super.initMenuButtons();
 
         mViewModel = ViewModelProviders.of(this).get(NewEntryViewModel.class);
 
@@ -80,8 +63,6 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         initCommentField();
         initLocationField();
 
-//        text_timetamp = findViewById(R.id.text_timestamp);
-//        text_timetamp.setText(String.valueOf(mViewModel.getTimestamp()));
         text_viewCardinal = findViewById(R.id.text_viewCardinal);
         text_setCardinal = findViewById(R.id.text_setCardinal);
 
@@ -93,12 +74,6 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
                 text_viewCardinal.setText(s);
             }
         });
-
-        // Buttons for toolbar
-        button_cancel = findViewById(R.id.button_cancel);
-        button_cancel.setOnClickListener(this);
-        button_createEntry = findViewById(R.id.button_createEntry);
-        button_createEntry.setOnClickListener(this);
     }
 
     @Override
@@ -113,24 +88,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-//        super.onClick(view);
-
-        if (view.equals(button_cancel)) {
-            finish();
-        }
-        // this buttons are instantiated in the NewEntryMenu, but since they need the viewModel,
-        // not so sure how best to abstract it out yet...
-        if (view.equals(button_createEntry)) {
-            // send data to a data filtering/cleaning function first, to return a status code?
-            // then can see if something is left blank that shouldn't be
-            long id = mViewModel.insertEntry();
-
-            if (id != -1) {
-                Toast.makeText(this, "Added entry!", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, GalleryActivity.class);
-                startActivity(i);
-            }
-        } else if (view.equals(button_takePhoto)) {
+        if (view.equals(button_takePhoto)) {
             startCameraActivity();
         } else if (view.equals(button_setCardinal)) {
             Log.i("PLEINAIR_DEBUG", "Set cardinal clicked: " + mCompassViewModel.compassLiveData.getCardinalMessage());

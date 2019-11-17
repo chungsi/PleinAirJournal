@@ -5,10 +5,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class ViewEntryMenu extends AppCompatActivity implements View.OnClickListener{
+public class ViewEntryMenu extends MasterActivity {
 
     ImageButton imageButton_back;
 
@@ -17,31 +18,20 @@ public class ViewEntryMenu extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entry_menu);
 
-        // Find the toolbar view inside the activity layout
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mToolbar_viewEntry);
-        // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
-        setSupportActionBar(toolbar);
-
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(""); //gets rid of default title
-        }
+        super.initToolbar();
+        super.applyColourScheme();
     }
 
-    //connects to buttons in XML, listens for clicks
-    public void findMenuButtons(){
+    /**
+     * Public function that must be called in child activities to instantiate the buttons.
+     * */
+    public void initMenuButtons(){
         imageButton_back = findViewById(R.id.imageButton_back);
-        imageButton_back.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        //Checks if tool bar buttons have been pressed
-        if (view.equals(imageButton_back)) {
-            finish();
-        }
+        imageButton_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

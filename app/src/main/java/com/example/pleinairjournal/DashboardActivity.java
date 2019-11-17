@@ -1,6 +1,5 @@
 package com.example.pleinairjournal;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -8,14 +7,10 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class DashboardActivity extends JournalMenu implements View.OnClickListener {
+public class DashboardActivity extends JournalMenu {
     private CompassViewModel mCompassViewModel;
     private SharedPreferences sharedPrefs;
     TextView text_name, text_viewCardinal;
@@ -24,27 +19,14 @@ public class DashboardActivity extends JournalMenu implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Checks which theme the user has selected
-        //Theme can only be changed before setContentView
-        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-        //checks if user has selected dark colour scheme preference, sets theme if yes
-        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
-        if(darkModeChecked){
-            setTheme(R.style.style_dark);
-        }
-
-        //checks if user has selected light colour scheme preference, sets theme if yes
-        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
-        if(lightModeChecked){
-            setTheme(R.style.AppTheme);
-        }
         setContentView(R.layout.activity_dashboard);
 
-        text_name = findViewById(R.id.text_name);
+        super.initMenuButtonsWithActive("dashboard");
+
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+
         String username = sharedPrefs.getString("USERNAME", "");
+        text_name = findViewById(R.id.text_name);
         text_name.setText(username + "!");
 
         text_viewCardinal = findViewById(R.id.text_compass);
@@ -57,12 +39,6 @@ public class DashboardActivity extends JournalMenu implements View.OnClickListen
                 text_viewCardinal.setText("You're facing " + s);
             }
         });
-
-        findMenuButtons();
-
-        //Changes colour of icon for current page
-        imageButton_home = findViewById(R.id.imageButton_home);
-        imageButton_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
     }
 
     @Override

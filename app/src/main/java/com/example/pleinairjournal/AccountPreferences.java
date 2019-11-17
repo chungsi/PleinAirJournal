@@ -1,7 +1,6 @@
 package com.example.pleinairjournal;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +9,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
-public class AccountPreferences extends JournalMenu implements View.OnClickListener {
+public class AccountPreferences extends JournalMenu {
 
     SharedPreferences sharedPrefs;
     EditText editText_name;
@@ -27,36 +24,21 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Checks which theme the user has selected
-        //Theme can only be changed before setContentView
-        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-        //checks if user has selected dark colour scheme preference, sets theme if yes
-        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
-        if(darkModeChecked){
-            setTheme(R.style.style_dark);
-        }
-
-        //checks if user has selected light colour scheme preference, sets theme if yes
-        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
-        if(lightModeChecked){
-            setTheme(R.style.AppTheme);
-        }
-
         setContentView(R.layout.activity_account_preferences);
+        super.initMenuButtonsWithActive("settings");
 
-        editText_name = findViewById(R.id.editText_name);
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+
         String username = sharedPrefs.getString("USERNAME", "");
+        editText_name = findViewById(R.id.editText_name);
         editText_name.setText(username);
 
-        radioButton_light = findViewById(R.id.radioButton_light);
-        radioButton_dark = findViewById(R.id.radioButton_dark);
+        initColourSchemeRadioButtons();
+        initSaveButton();
+    }
 
+    private void initSaveButton() {
         button_save = findViewById(R.id.button_save);
-        button_save.setOnClickListener(this);
-
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,18 +47,18 @@ public class AccountPreferences extends JournalMenu implements View.OnClickListe
                 editor.putString("USERNAME", editText_name.getText().toString());
                 editor.putBoolean("LIGHTBUTTONCHECKED", radioButton_light.isChecked());
                 editor.putBoolean("DARKBUTTONCHECKED", radioButton_dark.isChecked());
-                editor.commit();
+                editor.apply();
                 AccountPreferences.this.recreate();
             }
         });
-
-        findMenuButtons();
-
-        //Changes colour of icon for current page
-        imageButton_settings = findViewById(R.id.imageButton_settings);
-        imageButton_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
     }
 
+    private void initColourSchemeRadioButtons() {
+        radioButton_light = findViewById(R.id.radioButton_light);
+        radioButton_dark = findViewById(R.id.radioButton_dark);
 
-
+        // Sets radio buttons based on saved values
+        boolean isDarkButtonChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
+        if (isDarkButtonChecked) radioButton_dark.setChecked(true);
+    }
 }
