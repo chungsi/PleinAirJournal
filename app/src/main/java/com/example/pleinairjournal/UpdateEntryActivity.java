@@ -34,10 +34,10 @@ public class UpdateEntryActivity extends ViewEntryMenu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_entry);
 
-        super.initMenuButtons();
-
         mEntryId = getIntent().getLongExtra("id", -1);
         mViewModel = ViewModelProviders.of(this).get(UpdateEntryViewModel.class);
+        super.initMenuButtons(mViewModel);
+
         Log.i("PLEINAIR_DEBUG", "intent id from UpdateEntry: " + mEntryId);
 
         text_date = findViewById(R.id.text_date);

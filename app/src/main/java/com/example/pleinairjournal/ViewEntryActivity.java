@@ -21,7 +21,6 @@ public class ViewEntryActivity extends ViewEntryMenu {
     static final int UPDATE_ENTRY = 2;
 
     private TextView text_location, text_comment, text_date, text_time, text_cardinal;
-    private Button button_deleteEntry, button_updateEntry;
     private ViewEntryViewModel mViewModel;
     private ImageView image_photoPreview;
 
@@ -33,25 +32,24 @@ public class ViewEntryActivity extends ViewEntryMenu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entry);
 
-        super.initMenuButtons();
-
+        mViewModel = ViewModelProviders.of(this).get(ViewEntryViewModel.class);
         mEntryId = getIntent().getLongExtra("id", -1);
         mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);
+
+        super.initMenuButtons(mViewModel);
+        super.initMenuDeleteButton(mViewModel, mGalleryAdapterPosition);
 
         text_location = findViewById(R.id.text_viewLocation);
         text_comment = findViewById(R.id.text_viewComment);
         text_date = findViewById(R.id.text_date);
         text_time = findViewById(R.id.text_time);
         text_cardinal = findViewById(R.id.text_cardinal);
-        button_deleteEntry = findViewById(R.id.button_deleteEntry);
-        button_updateEntry = findViewById(R.id.button_updateEntry);
         image_photoPreview = findViewById(R.id.image_viewPhotoPreview);
 
-        buttonClickListeners();
+//        buttonClickListeners();
 
 
         // ViewModel to handle updating of information when "Update" action is performed by the user.
-        mViewModel = ViewModelProviders.of(this).get(ViewEntryViewModel.class);
         mViewModel.getEntry(mEntryId).observe(this, new Observer<JournalEntry>() {
             @Override
             public void onChanged(JournalEntry entry) {
@@ -98,29 +96,10 @@ public class ViewEntryActivity extends ViewEntryMenu {
     }
 
     private void buttonUpdateEntryClickListener() {
-        button_updateEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), UpdateEntryActivity.class);
-                i.putExtra("id", mViewModel.getEntryId());
-                Log.i("PLEINAIR_DEBUG", "intent id from ViewEntry: " + mViewModel.getEntryId());
-                startActivityForResult(i, UPDATE_ENTRY);
-            }
-        });
+
     }
 
     private void buttonDeleteEntryClickListener() {
-        button_deleteEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewModel.deleteEntry(mViewModel.getEntryId());
 
-                Intent replyIntent = new Intent();
-                replyIntent.putExtra("id", mViewModel.getEntryId());
-                replyIntent.putExtra("position", mGalleryAdapterPosition);
-                setResult(RESULT_OK, replyIntent);
-                finish();
-            }
-        });
     }
 }

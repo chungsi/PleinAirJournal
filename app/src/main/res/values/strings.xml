@@ -12,6 +12,8 @@
     <string name="button_create_entry">Create</string>
     <string name="button_update_entry">Edit</string>
 
+    <string name="compass_preamble">You\'re facing</string>
+
     <string name="prompt_comment">How was your drawing session?</string>
     <string name="prompt_location">Where did you draw at?</string>
 

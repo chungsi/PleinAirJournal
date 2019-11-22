@@ -1,10 +1,10 @@
 package com.example.pleinairjournal;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat;
 public class JournalMenu extends MasterActivity {
 
     ImageButton button_home, button_settings, button_create;
-    TextView text_menuAdditional;
+    TextView text_compassDegree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +40,19 @@ public class JournalMenu extends MasterActivity {
         }
     }
 
-    public void initAdditionalTextForCompass() {
-        text_menuAdditional = findViewById(R.id.text_menuAdditional);
-        Drawable icon = getApplicationContext().getResources().getDrawable(R.drawable.ic_icon_compass, getTheme());
-        text_menuAdditional.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+    /**
+     * Initializes the compass display layout in the toolbar by setting it to visible.
+     * Also binds the TextView for inputting the compass coordinates.
+     * */
+    public void initCompassDisplay() {
+        LinearLayout layout_compass = findViewById(R.id.layout_toolbarCompass);
+        layout_compass.setVisibility(View.VISIBLE);
+
+        text_compassDegree = findViewById(R.id.text_compassDegree);
     }
 
     public TextView getCompassTextView() {
-        return text_menuAdditional;
+        return text_compassDegree;
     }
 
     // JournalMenu icons are inflated just as they were with actionbar

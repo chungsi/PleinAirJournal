@@ -68,29 +68,6 @@
                     android:text="Comment"
                     android:textSize="@dimen/bodyTextSize" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:gravity="bottom"
-                    android:orientation="horizontal"
-                    tools:visibility="gone">
-
-                    <Button
-                        android:id="@+id/button_deleteEntry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Delete" />
-
-                    <Button
-                        android:id="@+id/button_updateEntry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Edit" />
-                </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>

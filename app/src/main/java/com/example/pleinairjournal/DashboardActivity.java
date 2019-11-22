@@ -35,7 +35,7 @@ public class DashboardActivity extends JournalMenu {
         setContentView(R.layout.activity_dashboard);
 
         super.initMenuButtonsWithActive("dashboard");
-        super.initAdditionalTextForCompass();
+        super.initCompassDisplay();
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
