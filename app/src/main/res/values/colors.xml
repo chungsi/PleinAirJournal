@@ -15,4 +15,7 @@
     <color name="darkTextColorPrimary">#FFFFFF</color>
     <color name="darkColorAccent">#9ACBFF</color>
 
+
+    <color name="transparent">#00000000</color>
+
 </resources>

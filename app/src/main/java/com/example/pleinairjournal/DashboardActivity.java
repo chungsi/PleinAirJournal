@@ -3,16 +3,27 @@ package com.example.pleinairjournal;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class DashboardActivity extends JournalMenu {
     private CompassViewModel mCompassViewModel;
     private SharedPreferences sharedPrefs;
+    private GalleryViewModel mGalleryViewModel;
+    private GalleryAdapter mAdapter;
+
+    private long mEntryId;
+    private int mGalleryAdapterPosition;
+
     TextView text_name, text_viewCardinal;
 
 
@@ -37,6 +48,24 @@ public class DashboardActivity extends JournalMenu {
             @Override
             public void onChanged(String s) {
                 text_viewCardinal.setText("You're facing " + s);
+            }
+        });
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
+        mAdapter = new GalleryAdapter(this);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        mEntryId = getIntent().getLongExtra("id", -1);
+        mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);
+
+        // Working with the ViewModel, and setting a listener on it to observe data changes
+        mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
+        mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
+            @Override
+            public void onChanged(List<JournalEntry> journalEntries) {
+                Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
+                mAdapter.setEntries(journalEntries);
             }
         });
     }
