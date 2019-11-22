@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
-    <include
-        android:id="@+id/mToolbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        layout="@layout/activity_menu"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,5 +68,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_gallery"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/mToolbar"
+            layout="@layout/menu_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

@@ -11,12 +11,12 @@ import androidx.core.content.ContextCompat;
 
 public class JournalMenu extends MasterActivity {
 
-    ImageButton imageButton_home, imageButton_gallery, imageButton_settings, imageButton_create;
+    ImageButton button_home, button_settings, button_create, button_gallery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.menu_default);
 
         super.initToolbar();
         super.applyColourScheme();
@@ -32,13 +32,14 @@ public class JournalMenu extends MasterActivity {
     public void initMenuButtonsWithActive(String act) {
         initMenuButtons();
 
-        if (act.equals("gallery")) {
-            imageButton_gallery.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
-        } else if (act.equals("dashboard")) {
-            imageButton_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+        if (act.equals("dashboard")) {
+            button_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
         } else if (act.equals("settings")) {
-            imageButton_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+            button_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
         }
+//      else if (act.equals("gallery")) {
+//            button_gallery.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+//        }
     }
 
     // JournalMenu icons are inflated just as they were with actionbar
@@ -52,12 +53,12 @@ public class JournalMenu extends MasterActivity {
      * Public function that must be called in child activities to instantiate the buttons.
      * */
     private void initMenuButtons(){
-        imageButton_settings = findViewById(R.id.imageButton_settings);
-        imageButton_home = findViewById(R.id.imageButton_home);
-        imageButton_gallery = findViewById(R.id.imageButton_gallery);
-        imageButton_create = findViewById(R.id.imageButton_create);
+        button_settings = findViewById(R.id.button_settings);
+        button_home = findViewById(R.id.button_home);
+        button_create = findViewById(R.id.button_create);
+//        button_gallery = findViewById(R.id.button_gallery);
 
-        imageButton_home.setOnClickListener(new View.OnClickListener(){
+        button_home.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
@@ -65,15 +66,7 @@ public class JournalMenu extends MasterActivity {
                 overridePendingTransition(0, 0); //removes sliding animation
             }
         });
-        imageButton_gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
-                startActivity(i);
-                overridePendingTransition(0, 0); //removes sliding animation
-            }
-        });
-        imageButton_settings.setOnClickListener(new View.OnClickListener() {
+        button_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), AccountPreferences.class);
@@ -81,7 +74,7 @@ public class JournalMenu extends MasterActivity {
                 overridePendingTransition(0, 0); //removes sliding animation
             }
         });
-        imageButton_create.setOnClickListener(new View.OnClickListener() {
+        button_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
@@ -89,5 +82,13 @@ public class JournalMenu extends MasterActivity {
                 overridePendingTransition(0, 0); //removes sliding animation
             }
         });
+//        button_gallery.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
+//                startActivity(i);
+//                overridePendingTransition(0, 0); //removes sliding animation
+//            }
+//        });
     }
 }

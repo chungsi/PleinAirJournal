@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/mToolbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        layout="@layout/activity_menu"/>
 
     <TextView
         android:id="@+id/text_hello"
@@ -47,7 +42,8 @@
         android:gravity="bottom"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:paddingTop="20dp">
+        android:paddingTop="20dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/text_compass"
@@ -62,5 +58,18 @@
             android:text="You're facing ..."
             android:textSize="@dimen/bodyTextSize" />
     </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/mToolbar"
+            layout="@layout/menu_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
