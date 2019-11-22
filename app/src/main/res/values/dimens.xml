@@ -7,8 +7,10 @@
     <dimen name="spacing_bottomBarOffset">64dp</dimen>
     <dimen name="spacing_bottomBarColourOffset">52dp</dimen>
 
-    <dimen name="elevation_bottomBar">3dp</dimen>
-    <dimen name="elevation_bottomBarToolbar">4dp</dimen>
-    <dimen name="elevation_bottomBarButtons">6dp</dimen>
+    <dimen name="spacing_bottonBarButtonsMarginBottom">16dp</dimen>
+
+    <dimen name="elevation_bottomBar">2dp</dimen>
+    <dimen name="elevation_bottomBarToolbar">3dp</dimen>
+    <dimen name="elevation_bottomBarButtons">4dp</dimen>
 
 </resources>

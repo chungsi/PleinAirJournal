@@ -24,4 +24,14 @@
         <item name="android:buttonTint">@color/darkColorAccent</item>
     </style>
 
+    <style name="bottomToolbarButton">
+        <item name="android:layout_width">128dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#ffffff</item>
+        <item name="android:drawableTint">#000000</item>
+        <item name="android:elevation">@dimen/elevation_bottomBarButtons</item>
+        <item name="android:outlineProvider">background</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
 </resources>

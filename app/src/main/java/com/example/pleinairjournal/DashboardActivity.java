@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class DashboardActivity extends JournalMenu {
@@ -33,6 +35,7 @@ public class DashboardActivity extends JournalMenu {
         setContentView(R.layout.activity_dashboard);
 
         super.initMenuButtonsWithActive("dashboard");
+        super.initAdditionalTextForCompass();
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
@@ -40,14 +43,15 @@ public class DashboardActivity extends JournalMenu {
         text_name = findViewById(R.id.text_name);
         text_name.setText(username + "!");
 
-        text_viewCardinal = findViewById(R.id.text_compass);
+//        text_viewCardinal = findViewById(R.id.text_compass);
+        text_viewCardinal = super.getCompassTextView();
 
         // Compass view model to display and update the cardinal direction view
         mCompassViewModel = ViewModelProviders.of(this).get(CompassViewModel.class);
         mCompassViewModel.compassLiveData.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                text_viewCardinal.setText("You're facing " + s);
+                text_viewCardinal.setText(s);
             }
         });
 

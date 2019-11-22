@@ -1,0 +1,98 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="#E0E0E0"
+        android:elevation="@dimen/elevation_bottomBar"
+        android:gravity="center_vertical"
+        android:outlineProvider="bounds"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="@dimen/elevation_bottomBarToolbar"
+        android:gravity="end"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="@dimen/spacing_bottonBarButtonsMarginBottom"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageButton
+                    android:id="@+id/button_back"
+                    style="@style/bottomToolbarButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="#000000"
+                    app:srcCompat="@drawable/ic_icon_backarrow" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/button_deleteEntry"
+                        style="@style/bottomToolbarButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:elevation="@dimen/elevation_bottomBarButtons"
+                        android:stateListAnimator="@null"
+                        android:tint="#000000"
+                        app:srcCompat="@drawable/ic_icon_settings" />
+
+                    <Button
+                        android:id="@+id/button_updateEntry"
+                        style="@style/bottomToolbarButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:drawableLeft="@drawable/ic_icon_settings"
+                        android:elevation="@dimen/elevation_bottomBarButtons"
+                        android:paddingHorizontal="36dp"
+                        android:stateListAnimator="@null"
+                        android:text="@string/button_update_entry" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

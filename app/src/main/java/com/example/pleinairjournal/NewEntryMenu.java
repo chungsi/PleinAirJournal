@@ -17,7 +17,7 @@ public class NewEntryMenu extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_entry_menu);
+        setContentView(R.layout.menu_new_entry);
 
         super.initToolbar();
         super.applyColourScheme();
@@ -27,8 +27,8 @@ public class NewEntryMenu extends MasterActivity {
         // also access the newEntryViewModel
         final NewEntryViewModel mViewModel = ViewModelProviders.of(this).get(NewEntryViewModel.class);
 
-        button_cancel = findViewById(R.id.button_cancel);
-        button_createEntry = findViewById(R.id.button_createEntry);
+        button_cancel = findViewById(R.id.button_entryCancel);
+        button_createEntry = findViewById(R.id.button_entryCreate);
 
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

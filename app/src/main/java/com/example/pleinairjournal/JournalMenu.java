@@ -1,17 +1,18 @@
 package com.example.pleinairjournal;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 public class JournalMenu extends MasterActivity {
 
-    ImageButton button_home, button_settings, button_create, button_gallery;
+    ImageButton button_home, button_settings, button_create;
+    TextView text_menuAdditional;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,19 @@ public class JournalMenu extends MasterActivity {
         } else if (act.equals("settings")) {
             button_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
         }
-//      else if (act.equals("gallery")) {
-//            button_gallery.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
-//        }
+    }
+
+    public void initAdditionalTextForCompass() {
+        text_menuAdditional = findViewById(R.id.text_menuAdditional);
+        Drawable icon = getApplicationContext().getResources().getDrawable(R.drawable.ic_icon_compass, getTheme());
+        text_menuAdditional.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+    }
+
+    public TextView getCompassTextView() {
+        return text_menuAdditional;
     }
 
     // JournalMenu icons are inflated just as they were with actionbar
-
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         return true;
@@ -55,8 +62,7 @@ public class JournalMenu extends MasterActivity {
     private void initMenuButtons(){
         button_settings = findViewById(R.id.button_settings);
         button_home = findViewById(R.id.button_home);
-        button_create = findViewById(R.id.button_create);
-//        button_gallery = findViewById(R.id.button_gallery);
+        button_create = findViewById(R.id.button_entryCreate);
 
         button_home.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -82,13 +88,5 @@ public class JournalMenu extends MasterActivity {
                 overridePendingTransition(0, 0); //removes sliding animation
             }
         });
-//        button_gallery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
-//                startActivity(i);
-//                overridePendingTransition(0, 0); //removes sliding animation
-//            }
-//        });
     }
 }
