@@ -14,4 +14,6 @@
     <dimen name="elevation_bottomBarToolbar">3dp</dimen>
     <dimen name="elevation_bottomBarButtons">4dp</dimen>
 
+    <dimen name="actionBarHeight">40dp</dimen>
+
 </resources>

@@ -15,6 +15,13 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:buttonTint">@color/colorAccent</item>
+
+        <!--Action bar style-->
+        <item name="android:actionBarSize">@dimen/actionBarHeight</item>
+        <item name="actionBarSize">@dimen/actionBarHeight</item>
+
+        <item name="titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
 
     <!-- Dark App Theme-->
@@ -31,6 +38,10 @@
         <item name="colorAccent">@color/darkColorAccent</item>
         <item name="backgroundTint">@color/darkButtonBackground</item>
         <item name="android:buttonTint">@color/colorAccent</item>
+
+        <!--Action bar style-->
+        <item name="android:actionBarSize">@dimen/actionBarHeight</item>
+        <item name="actionBarSize">@dimen/actionBarHeight</item>
     </style>
 
     <style name="bottomToolbarButton">
@@ -48,6 +59,10 @@
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">@color/text_chip_state_list</item>
         <item name="chipStrokeColor">#000000</item>
+    </style>
+
+    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/bodyTextSize</item>
     </style>
 
 </resources>
