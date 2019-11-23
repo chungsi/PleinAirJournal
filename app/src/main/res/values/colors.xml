@@ -8,16 +8,20 @@
     <color name="buttonColor">#BCBCBC</color>
     <color name="white">#FFFFFF</color>
     <color name="darkBlue">#3D5166</color>
-    <color name="meta">#FF8D8D8D</color>
+    <color name="meta">#8D8D8D</color>
 
     <!--  Dark Theme Colours  -->
-    <color name="darkWindowBackground">#242424</color>
-    <color name="darkColorPrimary">#1E1E1E</color>
+    <color name="darkWindowBackground">#3C3C3C</color>
+    <color name="darkColorPrimary">#3D5166</color>
     <color name="darkTextColorPrimary">#FFFFFF</color>
     <color name="darkColorAccent">#9ACBFF</color>
+    <color name="darkTextColor">#FFFFFF</color>
+    <color name="buttonTextColor">#2F2F2F</color>
+    <color name="darkButtonBackground">#5B5B5B</color>
 
 
     <color name="transparent">#00000000</color>
+    <color name="fadedBar">#809ACBFF</color>
 
 
 </resources>

@@ -17,10 +17,10 @@ public class NewEntryMenu extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.applyColourScheme();
         setContentView(R.layout.menu_new_entry);
 
         super.initToolbar();
-        super.applyColourScheme();
     }
 
     public void initMenuButtons() {

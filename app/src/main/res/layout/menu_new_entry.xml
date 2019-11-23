@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="#E0E0E0"
+        android:background="?android:attr/colorPrimary"
         android:elevation="@dimen/elevation_bottomBar"
         android:gravity="center_vertical"
         android:outlineProvider="bounds"
@@ -18,7 +18,7 @@
         android:stateListAnimator="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#ffffff"
                         android:drawableStart="@drawable/ic_icon_create"
-                        android:drawableTint="#000000"
+                        android:drawableTint="#808080"
                         android:elevation="@dimen/elevation_bottomBarButtons"
                         android:outlineProvider="background"
                         android:stateListAnimator="@null"

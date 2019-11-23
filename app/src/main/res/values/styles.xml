@@ -1,28 +1,36 @@
 <resources>
 
     <!-- Base application theme. -->
-<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light">-->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize theme here. -->
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
 
         <!--colours-->
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
+
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:buttonTint">@color/colorAccent</item>
     </style>
 
     <!-- Dark App Theme-->
-    <style name="style_dark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="style_dark" parent="Theme.MaterialComponents.DayNight">
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="colorPrimary">@color/darkColorPrimary</item>
-        <item name="android:textColor">@color/darkTextColorPrimary</item>
-        <item name="android:textColorPrimary">@color/darkTextColorPrimary</item>
-        <item name="android:background">@color/darkWindowBackground</item>
+        <item name="colorPrimaryDark">@color/darkColorPrimary</item>
+
+        <item name="android:textColor">@color/darkTextColor</item>
+        <item name="android:windowBackground">@color/darkWindowBackground</item>
         <item name="colorAccent">@color/darkColorAccent</item>
-        <item name="android:buttonTint">@color/darkColorAccent</item>
+        <item name="backgroundTint">@color/darkButtonBackground</item>
+        <item name="android:buttonTint">@color/colorAccent</item>
     </style>
 
     <style name="bottomToolbarButton">

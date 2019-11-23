@@ -74,7 +74,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Set" />
+                android:backgroundTint="?android:attr/buttonTint"
+                android:text="Set"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/text_setCardinal"
@@ -147,7 +149,8 @@
                 android:gravity="start|top"
                 android:hint="@string/prompt_comment"
                 android:inputType="textMultiLine"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:textColorHint="@color/meta" />
 
         </LinearLayout>
 

@@ -19,7 +19,6 @@ public class AccountPreferences extends JournalMenu {
     RadioGroup radioGroup_colourScheme;
     RadioButton radioButton_light, radioButton_dark;
     Button button_save;
-    ImageButton imageButton_home, imageButton_gallery, imageButton_settings, imageButton_create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
