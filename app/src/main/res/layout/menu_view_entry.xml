@@ -85,7 +85,8 @@
                         android:paddingStart="28dp"
                         android:paddingEnd="36dp"
                         android:stateListAnimator="@null"
-                        android:text="@string/button_update_entry" />
+                        android:text="@string/button_update_entry"
+                        android:textColor="@color/buttonTextColor" />
 
                 </LinearLayout>
 

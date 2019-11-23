@@ -42,9 +42,9 @@
         android:id="@+id/layout_galleryTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
+        android:paddingHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_welcome"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,11 +56,19 @@
             android:layout_height="wrap_content"
             android:text="Your escapades" />
 
-        <Button
-            android:id="@+id/button_openFilterDialog"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Filter" />
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button_openFilterDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
