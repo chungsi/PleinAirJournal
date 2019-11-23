@@ -17,10 +17,10 @@ public class JournalMenu extends MasterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.applyColourScheme();
         setContentView(R.layout.menu_default);
 
         super.initToolbar();
-        super.applyColourScheme();
     }
 
     /**
@@ -34,9 +34,9 @@ public class JournalMenu extends MasterActivity {
         initMenuButtons();
 
         if (act.equals("dashboard")) {
-            button_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+            button_home.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
         } else if (act.equals("settings")) {
-            button_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.darkBlue));
+            button_settings.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
         }
     }
 

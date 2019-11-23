@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="#E0E0E0"
+        android:background="?android:attr/colorPrimary"
         android:elevation="@dimen/elevation_bottomBar"
         android:gravity="center_vertical"
         android:outlineProvider="bounds"
@@ -54,7 +54,7 @@
                     style="@style/bottomToolbarButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="#000000"
+                    android:tint="#808080"
                     app:srcCompat="@drawable/ic_icon_backarrow" />
 
                 <LinearLayout
@@ -71,16 +71,16 @@
                         android:backgroundTint="#FFFFFF"
                         android:elevation="@dimen/elevation_bottomBarButtons"
                         android:stateListAnimator="@null"
-                        android:tint="#000000"
-                        app:srcCompat="@drawable/ic_icon_settings" />
+                        android:tint="#808080"
+                        app:srcCompat="@drawable/ic_icon_trash" />
 
                     <Button
                         android:id="@+id/button_updateEntry"
-                        style="@style/bottomToolbarButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FFFFFF"
-                        android:drawableLeft="@drawable/ic_icon_settings"
+                        android:drawableLeft="@drawable/ic_icon_edit"
+                        android:drawableTint="#808080"
                         android:elevation="@dimen/elevation_bottomBarButtons"
                         android:paddingHorizontal="36dp"
                         android:stateListAnimator="@null"
