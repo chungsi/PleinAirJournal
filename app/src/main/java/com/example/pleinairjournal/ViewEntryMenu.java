@@ -25,52 +25,42 @@ public class ViewEntryMenu extends MasterActivity {
     /**
      * Public function that must be called in child activities to instantiate the buttons.
      * */
-    public void initMenuButtons(final ViewEntryViewModel mViewModel){
+    public void initMenuButtons(){
         button_back = findViewById(R.id.button_back);
+        button_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         button_updateEntry = findViewById(R.id.button_updateEntry);
-
-        button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        button_updateEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), UpdateEntryActivity.class);
-                i.putExtra("id", mViewModel.getEntryId());
-                Log.i("PLEINAIR_DEBUG", "intent id from ViewEntry: " + mViewModel.getEntryId());
-                startActivityForResult(i, UPDATE_ENTRY);
-            }
-        });
-    }
-
-    public void initMenuButtons(final UpdateEntryViewModel mViewModel) {
-        button_back = findViewById(R.id.button_back);
-        button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-    }
-
-    public void initMenuDeleteButton(final ViewEntryViewModel mViewModel, final int mGalleryAdapterPosition) {
         button_deleteEntry = findViewById(R.id.button_deleteEntry);
+    }
 
-        button_deleteEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewModel.deleteEntry(mViewModel.getEntryId());
+    /**
+     * For the specific views that use similar buttons, but the text will be somewhat different.
+     * */
+    public void initMenuButtonsFor(String activity) {
+        if (activity.equals("view")) {
+            initMenuButtons();
+        } else if (activity.equals("update")) {
+            initMenuButtons();
+            button_updateEntry.setText(R.string.button_save_update_entry);
+        }
+    }
 
-                Intent replyIntent = new Intent();
-                replyIntent.putExtra("id", mViewModel.getEntryId());
-                replyIntent.putExtra("position", mGalleryAdapterPosition);
-                setResult(RESULT_OK, replyIntent);
-                finish();
-            }
-        });
+    /**
+     * The update button must have their own click listeners instantiated in the activity itself.
+     * */
+    public Button getMenuUpdateButton() {
+        return button_updateEntry;
+    }
+
+    /**
+     * The delete button must have their own click listeners instantiated in the activity itself.
+     * */
+    public ImageButton getMenuDeleteButton() {
+        return button_deleteEntry;
     }
 }

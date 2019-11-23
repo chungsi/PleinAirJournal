@@ -194,21 +194,24 @@ public class JournalDb {
         String[] column = { JournalEntry.LOCATION };
 
         Cursor cursor = db.query(
+                true,
                 JournalEntry.TABLE_NAME,
                 column,
                 null,
                 null,
+                JournalEntry.LOCATION,
                 null,
-                null,
-                ORDER_CHRONOLOGICAL
+                ORDER_CHRONOLOGICAL,
+                null
         );
 
         List<String> locations = new ArrayList<>();
         locations.add(""); // instantiate a default empty value
         while(cursor.moveToNext()) {
             String thisLocation = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
+            locations.add(thisLocation);
             // only add the location if it hasn't been already added
-            if (!locations.contains(thisLocation)) locations.add(thisLocation);
+//            if (!locations.contains(thisLocation)) locations.add(thisLocation);
         }
         cursor.close();
 
@@ -242,7 +245,7 @@ public class JournalDb {
             else selection += " AND " + selectionList.get(i);
         }
 
-        Log.i("PLEINAIR_DEBUG", "query: " + selection + "; value: " + year);
+//        Log.i("PLEINAIR_DEBUG", "query: " + selection + "; value: " + year);
 
         Cursor cursor = db.query(
                 JournalEntry.TABLE_NAME,

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="true"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:minWidth="400dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter" />
+
+        <LinearLayout
+            android:id="@+id/layout_spinners"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:prompt="@string/spinner_prompt_month" />
+
+            <Spinner
+                android:id="@+id/spinner_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:prompt="@string/spinner_prompt_year" />
+
+            <Spinner
+                android:id="@+id/spinner_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:prompt="@string/spinner_prompt_location" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spinner_prompt_year" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="4dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_year_2019"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="2019"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_year_2018"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="2018"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/spinner_prompt_month" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="4dp"
+            app:chipSpacingVertical="-8dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/january"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="January"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/february"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="February"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/march"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="March"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/april"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="April"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/may"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="May"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/june"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="June"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/july"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="July"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/august"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="August"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/september"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="September"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/october"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="October"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/november"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="November"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/december"
+                style="@style/filterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="December"
+                android:textColor="@color/text_chip_state_list"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipIconVisible="false"
+                app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_cancelFilter"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="Cancel" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_resetFilters"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:text="Reset" />
+
+                <Button
+                    android:id="@+id/button_applyFilters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Go" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:nestedScrollingEnabled="false">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

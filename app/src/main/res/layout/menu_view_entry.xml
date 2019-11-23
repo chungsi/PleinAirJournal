@@ -82,7 +82,8 @@
                         android:backgroundTint="#FFFFFF"
                         android:drawableLeft="@drawable/ic_icon_settings"
                         android:elevation="@dimen/elevation_bottomBarButtons"
-                        android:paddingHorizontal="36dp"
+                        android:paddingStart="28dp"
+                        android:paddingEnd="36dp"
                         android:stateListAnimator="@null"
                         android:text="@string/button_update_entry" />
 

@@ -11,11 +11,17 @@
     <string name="button_retake_photo">Retake the photo</string>
     <string name="button_create_entry">Create</string>
     <string name="button_update_entry">Edit</string>
+    <string name="button_save_update_entry">Save</string>
 
     <string name="compass_preamble">You\'re facing</string>
 
     <string name="prompt_comment">How was your drawing session?</string>
     <string name="prompt_location">Where did you draw at?</string>
+
+    <string name="dialog_delete_entry_title">Deletion imminent?</string>
+    <string name="dialog_delete_entry_message">You want to release this drawing into oblivion (delete it)?</string>
+    <string name="dialog_delete_entry_confirm">Yes!</string>
+    <string name="dialog_delete_entry_cancel">Nevermind</string>
 
     <string-array name="year_array">
         <item></item>

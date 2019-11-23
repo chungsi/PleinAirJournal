@@ -33,10 +33,10 @@ public class UpdateEntryActivity extends ViewEntryMenu {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_entry);
+        super.initMenuButtonsFor("update");
 
         mEntryId = getIntent().getLongExtra("id", -1);
         mViewModel = ViewModelProviders.of(this).get(UpdateEntryViewModel.class);
-        super.initMenuButtons(mViewModel);
 
         Log.i("PLEINAIR_DEBUG", "intent id from UpdateEntry: " + mEntryId);
 
@@ -67,10 +67,8 @@ public class UpdateEntryActivity extends ViewEntryMenu {
     }
 
     private void initUpdateButton() {
-        button_updateEntry = findViewById(R.id.button_updateEntry);
-
         // When Update button is clicked, updates entry and sends intent back to the ViewEntryActivity.
-        button_updateEntry.setOnClickListener(new View.OnClickListener() {
+        super.getMenuUpdateButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mViewModel.updateEntry(
@@ -78,6 +76,19 @@ public class UpdateEntryActivity extends ViewEntryMenu {
                         edit_updateComment.getText().toString());
 
                 Intent replyIntent = new Intent();
+                setResult(RESULT_OK, replyIntent);
+                finish();
+            }
+        });
+
+        super.getMenuDeleteButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewModel.deleteEntry(mViewModel.getEntryId());
+
+                Intent replyIntent = new Intent();
+                replyIntent.putExtra("id", mViewModel.getEntryId());
+                replyIntent.putExtra("position", mEntryId);
                 setResult(RESULT_OK, replyIntent);
                 finish();
             }

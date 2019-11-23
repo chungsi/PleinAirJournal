@@ -43,7 +43,7 @@ public class NewEntryMenu extends MasterActivity {
 
                 if (id != -1) {
                     Toast.makeText(getApplicationContext(), "Added entry!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), GalleryActivity.class);
+                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                     startActivity(i);
                 }
             }

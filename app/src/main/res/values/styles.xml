@@ -1,7 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -15,7 +16,7 @@
     </style>
 
     <!-- Dark App Theme-->
-    <style name="style_dark" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="style_dark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/darkColorPrimary</item>
         <item name="android:textColor">@color/darkTextColorPrimary</item>
         <item name="android:textColorPrimary">@color/darkTextColorPrimary</item>
@@ -32,6 +33,13 @@
         <item name="android:elevation">@dimen/elevation_bottomBarButtons</item>
         <item name="android:outlineProvider">background</item>
         <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="filterChip">
+        <item name="chipBackgroundColor">@color/bg_chip_state_list</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">@color/text_chip_state_list</item>
+        <item name="chipStrokeColor">#000000</item>
     </style>
 
 </resources>

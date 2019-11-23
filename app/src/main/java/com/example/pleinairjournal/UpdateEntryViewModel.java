@@ -25,8 +25,16 @@ public class UpdateEntryViewModel extends AndroidViewModel {
         return mEntry;
     }
 
+    public long getEntryId() {
+        return mId;
+    }
+
     public long updateEntry(String location, String comment) {
         return mDb.updateEntry(mId, location, comment);
+    }
+
+    public void deleteEntry(long id) {
+        mDb.deleteEntry(id);
     }
 
     public List<String> getAllLocations() { return mDb.getAllLocations(); }
