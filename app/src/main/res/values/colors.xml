@@ -11,13 +11,13 @@
     <color name="meta">#8D8D8D</color>
 
     <!--  Dark Theme Colours  -->
-    <color name="darkWindowBackground">#3C3C3C</color>
-    <color name="darkColorPrimary">#3D5166</color>
+    <color name="darkWindowBackground">#252525</color>
+    <color name="darkColorPrimary">#1D1D1D</color>
     <color name="darkTextColorPrimary">#FFFFFF</color>
     <color name="darkColorAccent">#9ACBFF</color>
     <color name="darkTextColor">#FFFFFF</color>
     <color name="buttonTextColor">#2F2F2F</color>
-    <color name="darkButtonBackground">#5B5B5B</color>
+    <color name="darkButtonBackground">#3D5166</color>
 
     <color name="icon">@color/colorAccent</color>
     <color name="transparent">#00000000</color>

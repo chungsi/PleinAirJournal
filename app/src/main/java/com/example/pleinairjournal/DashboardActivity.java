@@ -48,7 +48,7 @@ public class DashboardActivity extends JournalMenu
 
         String username = sharedPrefs.getString("USERNAME", "");
         text_name = findViewById(R.id.text_name);
-        text_name.setText(username + "!");
+        text_name.setText(username + "'s ");
 
         initFilterButton();
         text_viewCardinal = super.getCompassTextView();
