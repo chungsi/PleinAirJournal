@@ -65,8 +65,8 @@ public class NewEntryViewModel extends AndroidViewModel {
         return image;
     }
 
-    public long insertEntry() {
+    public void insertEntry() {
         Log.i("PLEINAIR_DEBUG", "insertEntry in NewEntryViewModel");
-        return mDb.insertEntry(mTimestamp, mLocation, mComment, mImageFilePath, mCardinalDegree, mCardinal);
+        mDb.insertEntry(mTimestamp, mLocation, mComment, mImageFilePath, mCardinalDegree, mCardinal);
     }
 }

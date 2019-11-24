@@ -27,6 +27,8 @@
     <string name="dialog_delete_entry_confirm">Yes!</string>
     <string name="dialog_delete_entry_cancel">Nevermind</string>
 
+    <string name="prompt_create_entry_error">Sorry, you either haven\'t taken a photo or input a location!</string>
+
     <string-array name="year_array">
         <item></item>
         <item>2019</item>

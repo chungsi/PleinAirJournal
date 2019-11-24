@@ -6,218 +6,229 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp"
+        android:layout_marginBottom="@dimen/spacing_bottomBarColourOffset"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_newEntryImagePreview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/image_newPhotoPreview"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="#FFE0E0E0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_constraintLeft_toLeftOf="parent" />
-
-            <Button
-                android:id="@+id/button_takePhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="?android:attr/buttonTint"
-                android:gravity="center"
-                android:text="@string/button_take_photo"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/image_newPhotoPreview"
-                app:layout_constraintEnd_toEndOf="@id/image_newPhotoPreview"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/image_newPhotoPreview" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="@dimen/iconLarge"
-                android:layout_height="@dimen/iconLarge"
-                android:layout_marginLeft="-4dp"
-                android:tint="@color/icon"
-                app:srcCompat="@drawable/ic_icon_compass" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_newEntryImagePreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_newPhotoPreview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="#FFE0E0E0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_constraintLeft_toLeftOf="parent" />
+
+                <Button
+                    android:id="@+id/button_takePhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="?android:attr/buttonTint"
+                    android:gravity="center"
+                    android:text="@string/button_take_photo"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/image_newPhotoPreview"
+                    app:layout_constraintEnd_toEndOf="@id/image_newPhotoPreview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/image_newPhotoPreview" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp">
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cardinal Direction"
-                        android:textColor="@color/meta"
-                        android:textSize="@dimen/bodyTextSize"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/text_viewCardinal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="N"
-                        android:textColor="@color/meta"
-                        android:textSize="@dimen/bodyTextSize"
-                        app:layout_constraintStart_toEndOf="@+id/textView10"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/text_setCardinal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="SetDirection"
-                        android:textSize="@dimen/largeBodyTextSize"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <Button
-                            android:id="@+id/button_setCardinal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="?android:attr/buttonTint"
-                            android:insetLeft="12dp"
-                            android:insetTop="8dp"
-                            android:insetRight="12dp"
-                            android:insetBottom="8dp"
-                            android:text="Set"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="@dimen/iconLarge"
+                    android:layout_height="@dimen/iconLarge"
+                    android:layout_marginLeft="-4dp"
+                    android:tint="@color/icon"
+                    app:srcCompat="@drawable/ic_icon_compass" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cardinal Direction"
+                            android:textColor="@color/meta"
+                            android:textSize="@dimen/bodyTextSize"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_viewCardinal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="N"
+                            android:textColor="@color/meta"
+                            android:textSize="@dimen/bodyTextSize"
+                            app:layout_constraintStart_toEndOf="@+id/textView10"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_setCardinal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="-"
+                            android:textSize="@dimen/largeBodyTextSize"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <Button
+                                android:id="@+id/button_setCardinal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="?android:attr/buttonTint"
+                                android:insetLeft="12dp"
+                                android:insetTop="8dp"
+                                android:insetRight="12dp"
+                                android:insetBottom="8dp"
+                                android:text="Set"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="@dimen/iconMedium"
+                    android:layout_height="@dimen/iconMedium"
+                    app:srcCompat="@drawable/ic_icon_location" />
 
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="@dimen/iconMedium"
-                android:layout_height="@dimen/iconMedium"
-                app:srcCompat="@drawable/ic_icon_location" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="-3dp"
+                        android:text="@string/spinner_prompt_location"
+                        android:textColor="@color/meta"
+                        android:textSize="@dimen/bodyTextSize" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textColor" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView4"
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="@dimen/iconLarge"
+                    android:layout_height="@dimen/iconLarge"
+                    android:layout_marginLeft="-5dp"
+                    android:tint="@color/icon"
+                    app:srcCompat="@drawable/ic_icon_comment" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="-3dp"
-                    android:text="@string/spinner_prompt_location"
-                    android:textColor="@color/meta"
-                    android:textSize="@dimen/bodyTextSize" />
+                    android:orientation="vertical">
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="Comment"
+                        android:textColor="@color/meta"
+                        android:textSize="@dimen/bodyTextSize" />
+
+                    <EditText
+                        android:id="@+id/edit_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="@string/prompt_comment"
+                        android:inputType="textMultiLine"
+                        android:singleLine="false"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="@color/meta" />
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="@dimen/iconLarge"
-                android:layout_height="@dimen/iconLarge"
-                android:layout_marginLeft="-5dp"
-                android:tint="@color/icon"
-                app:srcCompat="@drawable/ic_icon_comment" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:text="Comment"
-                    android:textColor="@color/meta"
-                    android:textSize="@dimen/bodyTextSize" />
-
-                <EditText
-                    android:id="@+id/edit_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:hint="@string/prompt_comment"
-                    android:inputType="textMultiLine"
-                    android:singleLine="false"
-                    android:textColorHint="@color/meta" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <include
         android:id="@+id/mToolbar"

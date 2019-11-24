@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class JournalDb {
@@ -49,7 +51,7 @@ public class JournalDb {
         return 0;
     }
 
-    public long insertEntry(
+    public void insertEntry(
             long timestamp,
             String location,
             String comment,
@@ -57,20 +59,31 @@ public class JournalDb {
             int cardinalDegree,
             String cardinalDirec
     ) {
+        JournalEntry entry = new JournalEntry(timestamp, location, comment, imageFilePath, cardinalDegree, cardinalDirec);
         mDb = mHelper.getWritableDatabase();
+        new insertEntryTask(mDb).execute(entry);
+    }
 
-//        Log.i("PLEINAIR_DEBUG", "inside insertEntry, imagefilepath: " + imageFilePath);
+    public class insertEntryTask extends AsyncTask<JournalEntry, Void, Void> {
+        private SQLiteDatabase mDb;
 
-        ContentValues cv = new ContentValues();
-        cv.put(JournalEntry.TIMESTAMP, timestamp);
-//        cv.put(JournalEntry.DATE, );
-        cv.put(JournalEntry.LOCATION, location);
-        cv.put(JournalEntry.COMMENT, comment);
-        cv.put(JournalEntry.IMAGEFILEPATH, imageFilePath);
-        cv.put(JournalEntry.CARDINAL_DEGREE, cardinalDegree);
-        cv.put(JournalEntry.CARDINAL_DIRECTION, cardinalDirec);
+        insertEntryTask(SQLiteDatabase dbHelper) {
+            mDb = dbHelper;
+        }
 
-        return mDb.insert(JournalEntry.TABLE_NAME, null, cv);
+        @Override
+        protected Void doInBackground(JournalEntry... journalEntries) {
+            ContentValues cv = new ContentValues();
+            cv.put(JournalEntry.TIMESTAMP, journalEntries[0].getTimestamp());
+            cv.put(JournalEntry.LOCATION, journalEntries[0].getLocation());
+            cv.put(JournalEntry.COMMENT, journalEntries[0].getComment());
+            cv.put(JournalEntry.IMAGEFILEPATH, journalEntries[0].getImageFilePath());
+            cv.put(JournalEntry.CARDINAL_DEGREE, journalEntries[0].getCardinalDegree());
+            cv.put(JournalEntry.CARDINAL_DIRECTION, journalEntries[0].getCardinalDirection());
+
+            mDb.insert(JournalEntry.TABLE_NAME, null, cv);
+            return null;
+        }
     }
 
     public long updateEntry(long id, String location, String comment) {

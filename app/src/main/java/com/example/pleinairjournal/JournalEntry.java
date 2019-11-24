@@ -33,6 +33,26 @@ public class JournalEntry {
     // Empty JournalEntry
     public JournalEntry() {}
 
+    public JournalEntry(
+            long timestamp,
+            String location,
+            String comment,
+            String imageFilePath,
+            int cardinalDegree,
+            String cardinalDirection) {
+        mId = -1;
+        mTimestamp = timestamp;
+        mFullDate = new SimpleDateFormat("EEEE, LLLL d, YYYY").format(timestamp);
+        mDate = new SimpleDateFormat("LLLL d, YYYY").format(timestamp);
+        mShortDate = new SimpleDateFormat("LLLL d").format(timestamp);
+        mTime = new SimpleDateFormat("h:mm a").format(timestamp);
+        mLocation = location;
+        mComment = comment;
+        mImageFilePath = imageFilePath;
+        mCardinalDegree = cardinalDegree;
+        mCardinalDirection = cardinalDirection;
+    }
+
     // TODO: more fields will be added as needed while developing
     public JournalEntry(
             long id,

@@ -51,6 +51,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         setContentView(R.layout.activity_new_entry);
 
         super.initMenuButtons();
+        initCreateEntryButton();
 
         mViewModel = ViewModelProviders.of(this).get(NewEntryViewModel.class);
 
@@ -77,16 +78,6 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onClick(View view) {
         if (view.equals(button_takePhoto)) {
             startCameraActivity();
@@ -108,6 +99,35 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
             Log.i("PLEINAIR_DEBUG", "onAcitivityResult successfull");
             displayImagePreview();
         }
+    }
+
+    private void initCreateEntryButton() {
+        super.getCreateEntryButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (areAllRequiredFieldsCheckedOut()) {
+                    mViewModel.insertEntry();
+                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getApplication(), R.string.prompt_create_entry_error, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    /*
+    * Checks that the required fields are filled out.
+    * Namely, there is a photo and a location input. Other fields are voluntary.
+    * */
+    private boolean areAllRequiredFieldsCheckedOut() {
+        if (!mHasTakenFirstPhoto && mViewModel.getImageFilePath().isEmpty()) {
+            return false;
+        }
+        if (autoComplete_location.getText().toString().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     /**

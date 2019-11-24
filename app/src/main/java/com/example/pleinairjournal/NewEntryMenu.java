@@ -38,17 +38,9 @@ public class NewEntryMenu extends MasterActivity {
                 finish();
             }
         });
-        button_createEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                long id = mViewModel.insertEntry();
+    }
 
-                if (id != -1) {
-                    Toast.makeText(getApplicationContext(), "Added entry!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-                    startActivity(i);
-                }
-            }
-        });
+    public Button getCreateEntryButton() {
+        return button_createEntry;
     }
 }
