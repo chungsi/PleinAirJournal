@@ -5,14 +5,16 @@
     <dimen name="largeBodyTextSize">16sp</dimen>
     <dimen name="bodyTextSize">14sp</dimen>
     <dimen name="smallTextSize">12sp</dimen>
+    <dimen name="tinyTextSize">10sp</dimen>
 
     <dimen name="iconSmall">20dp</dimen>
     <dimen name="iconMedium">24dp</dimen>
+    <dimen name="iconLarge">28dp</dimen>
 
     <dimen name="spacing_bottomBarOffset">64dp</dimen>
     <dimen name="spacing_bottomBarColourOffset">52dp</dimen>
-
     <dimen name="spacing_bottonBarButtonsMarginBottom">16dp</dimen>
+    <dimen name="bottomBarButton_smallestWidth">48dp</dimen>
 
     <dimen name="elevation_bottomBar">2dp</dimen>
     <dimen name="elevation_bottomBarToolbar">3dp</dimen>

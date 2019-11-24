@@ -25,7 +25,6 @@ public class UpdateEntryActivity extends ViewEntryMenu {
     private ImageView image_photoPreview;
     private EditText edit_updateComment;
     private AutoCompleteTextView autoComplete_location;
-    private Button button_updateEntry;
     private long mEntryId;
     private UpdateEntryViewModel mViewModel;
 
@@ -50,7 +49,7 @@ public class UpdateEntryActivity extends ViewEntryMenu {
         mViewModel.getEntry(mEntryId).observe(this, new Observer<JournalEntry>() {
             @Override
             public void onChanged(JournalEntry journalEntry) {
-                text_date.setText(journalEntry.getDate());
+                text_date.setText(journalEntry.getShortDate());
                 text_time.setText(journalEntry.getTime());
                 text_cardinal.setText(journalEntry.getCardinalString());
                 autoComplete_location.setText(journalEntry.getLocation());

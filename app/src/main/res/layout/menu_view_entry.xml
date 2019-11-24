@@ -52,9 +52,9 @@
                 <ImageButton
                     android:id="@+id/button_back"
                     style="@style/bottomToolbarButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/bottomBarButton_smallestWidth"
                     android:layout_height="wrap_content"
-                    android:tint="#808080"
+                    android:tint="@color/icon_bottomBar"
                     app:srcCompat="@drawable/ic_icon_backarrow" />
 
                 <LinearLayout
@@ -65,12 +65,12 @@
 
                     <ImageButton
                         android:id="@+id/button_deleteEntry"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/bottomBarButton_smallestWidth"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#ffffff"
                         android:elevation="@dimen/elevation_bottomBarButtons"
                         android:stateListAnimator="@null"
-                        android:tint="#808080"
+                        android:tint="@color/icon_bottomBar"
                         app:srcCompat="@drawable/ic_icon_trash" />
 
                     <Button
@@ -79,14 +79,15 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="#ffffff"
                         android:drawableLeft="@drawable/ic_icon_edit"
-                        android:drawableTint="#808080"
+                        android:drawableTint="@color/icon_bottomBar"
                         android:elevation="@dimen/elevation_bottomBarButtons"
-                        android:paddingStart="28dp"
-                        android:paddingEnd="36dp"
+                        android:letterSpacing="0"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="32dp"
                         android:stateListAnimator="@null"
                         android:text="@string/button_update_entry"
-                        android:tint="#808080"
-                        android:textColor="@color/buttonTextColor" />
+                        android:textColor="@color/bottomBar_buttonText"
+                        android:tint="#808080" />
 
                 </LinearLayout>
 

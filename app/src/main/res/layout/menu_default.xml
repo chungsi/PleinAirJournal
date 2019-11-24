@@ -124,7 +124,7 @@
                     android:outlineProvider="background"
                     android:src="@drawable/ic_icon_settings"
                     android:stateListAnimator="@null"
-                    android:tint="#808080" />
+                    android:tint="@color/icon_bottomBar" />
 
                 <ImageButton
                     android:id="@+id/button_home"
@@ -136,7 +136,7 @@
                     android:outlineProvider="background"
                     android:src="@drawable/ic_icon_home"
                     android:stateListAnimator="@null"
-                    android:tint="#808080" />
+                    android:tint="@color/icon_bottomBar" />
 
                 <ImageButton
                     android:id="@+id/button_entryCreate"
@@ -148,7 +148,7 @@
                     android:outlineProvider="background"
                     android:src="@drawable/ic_icon_create"
                     android:stateListAnimator="@null"
-                    android:tint="#808080" />
+                    android:tint="@color/icon_bottomBar" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

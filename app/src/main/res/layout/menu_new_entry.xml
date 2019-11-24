@@ -53,16 +53,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <Button
+                <ImageButton
                     android:id="@+id/button_entryCancel"
-                    android:layout_width="wrap_content"
+                    style="@style/bottomToolbarButton"
+                    android:layout_width="@dimen/bottomBarButton_smallestWidth"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#ffffff"
-                    android:elevation="@dimen/elevation_bottomBarButtons"
-                    android:outlineProvider="background"
-                    android:stateListAnimator="@null"
-                    android:text="@android:string/cancel"
-                    android:textColor="@color/buttonTextColor" />
+                    android:tint="#808080"
+                    app:srcCompat="@drawable/ic_icon_backarrow" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -72,16 +69,18 @@
 
                     <Button
                         android:id="@+id/button_entryCreate"
-                        android:layout_width="128dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#ffffff"
-                        android:drawableStart="@drawable/ic_icon_create"
-                        android:drawableTint="#808080"
+                        android:drawableLeft="@drawable/ic_icon_create"
+                        android:drawableTint="@color/bottomBar_icon"
                         android:elevation="@dimen/elevation_bottomBarButtons"
+                        android:letterSpacing="0"
                         android:outlineProvider="background"
+                        android:paddingRight="30dp"
                         android:stateListAnimator="@null"
                         android:text="@string/button_create_entry"
-                        android:textColor="@color/buttonTextColor" />
+                        android:textColor="@color/bottomBar_buttonText" />
                 </LinearLayout>
 
             </LinearLayout>

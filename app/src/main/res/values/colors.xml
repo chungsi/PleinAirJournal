@@ -17,9 +17,15 @@
     <color name="darkColorAccent">#9ACBFF</color>
     <color name="darkTextColor">#FFFFFF</color>
     <color name="buttonTextColor">#2F2F2F</color>
+    <color name="darkButtonTextColor">#2F2F2F</color>
     <color name="darkButtonBackground">#3D5166</color>
 
     <color name="icon">@color/colorAccent</color>
+    <color name="icon_bottomBar">#808080</color>
+
+    <color name="bottomBar_buttonText">@color/icon_bottomBar</color>
+    <color name="bottomBar_icon">@color/icon_bottomBar</color>
+
     <color name="transparent">#00000000</color>
     <color name="fadedBar">#809ACBFF</color>
 
