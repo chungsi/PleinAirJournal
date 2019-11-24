@@ -1,10 +1,11 @@
 package com.example.pleinairjournal;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,31 +13,35 @@ import androidx.fragment.app.DialogFragment;
 
 public class DeleteConfirmationDialogFragment extends DialogFragment {
 
-    @NonNull
+    @Nullable
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_delete_confirmation_dialog, container);
+    }
 
-        builder.setMessage(R.string.dialog_delete_entry_message)
-                .setTitle(R.string.dialog_delete_entry_title);
-        builder.setNegativeButton(R.string.dialog_delete_entry_cancel, new DialogInterface.OnClickListener() {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button button_nevermindDelete = view.findViewById(R.id.button_nevermindDelete);
+        Button button_confirmDelete = view.findViewById(R.id.button_confirmDelete);
+
+        button_nevermindDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //
+            public void onClick(View view) {
                 dismiss();
             }
         });
-        builder.setPositiveButton(R.string.dialog_delete_entry_confirm, new DialogInterface.OnClickListener() {
+        button_confirmDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //
+            public void onClick(View view) {
                 listener.onDialogConfirmDeleteClick();
             }
         });
-
-        return builder.create();
     }
 
+    /**
+     * Interface to communicate with activity implementing this fragment.
+     * */
     public interface DeleteConfirmationDialogListener {
         void onDialogConfirmDeleteClick();
     }

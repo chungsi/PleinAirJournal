@@ -22,7 +22,7 @@
     <string name="dialog_filter_button">Go!</string>
     <string name="dialog_filter_reset_button">Reset</string>
     <string name="dialog_filter_cancel_button">Cancel</string>
-    <string name="dialog_delete_entry_title">Deletion imminent?</string>
+    <string name="dialog_delete_entry_title">Deletion imminent</string>
     <string name="dialog_delete_entry_message">You want to release this drawing into oblivion (delete it)?</string>
     <string name="dialog_delete_entry_confirm">Yes!</string>
     <string name="dialog_delete_entry_cancel">Nevermind</string>
