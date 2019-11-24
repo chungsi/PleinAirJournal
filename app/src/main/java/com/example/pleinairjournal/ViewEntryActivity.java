@@ -22,7 +22,7 @@ public class ViewEntryActivity extends ViewEntryMenu
                                implements DeleteConfirmationDialogFragment.DeleteConfirmationDialogListener {
     static final int UPDATE_ENTRY = 2;
 
-    private TextView text_location, text_comment, text_date, text_time, text_cardinal;
+    private TextView text_location, text_comment, text_date, text_cardinal;
     private ViewEntryViewModel mViewModel;
     private ImageView image_photoPreview;
 
@@ -43,7 +43,6 @@ public class ViewEntryActivity extends ViewEntryMenu
         text_location = findViewById(R.id.text_viewLocation);
         text_comment = findViewById(R.id.text_viewComment);
         text_date = findViewById(R.id.text_date);
-        text_time = findViewById(R.id.text_time);
         text_cardinal = findViewById(R.id.text_cardinal);
         image_photoPreview = findViewById(R.id.image_viewPhotoPreview);
 
@@ -55,8 +54,7 @@ public class ViewEntryActivity extends ViewEntryMenu
             public void onChanged(JournalEntry entry) {
                 text_location.setText(entry.getLocation());
                 text_comment.setText(entry.getComment());
-                text_date.setText(entry.getDate());
-                text_time.setText(entry.getTime());
+                text_date.setText(entry.getDisplayDate());
                 text_cardinal.setText(entry.getCardinalString());
 
                 // Here we use the Glide library to efficiently load Bitmap images at the right
@@ -79,8 +77,7 @@ public class ViewEntryActivity extends ViewEntryMenu
             mViewModel.refreshEntry();
             text_location.setText(mViewModel.getLocation());
             text_comment.setText(mViewModel.getComment());
-            text_date.setText(mViewModel.getDate());
-            text_time.setText(mViewModel.getTime());
+            text_date.setText(mViewModel.getDisplayDate());
             text_cardinal.setText(mViewModel.getCardinalString());
 
             Glide.with(getApplicationContext())

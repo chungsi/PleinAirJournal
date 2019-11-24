@@ -19,7 +19,7 @@
     <color name="buttonTextColor">#2F2F2F</color>
     <color name="darkButtonBackground">#5B5B5B</color>
 
-
+    <color name="icon">@color/colorAccent</color>
     <color name="transparent">#00000000</color>
     <color name="fadedBar">#809ACBFF</color>
 

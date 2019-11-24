@@ -24,7 +24,7 @@ public class JournalEntry {
      * TODO: determine if setter methods are necessary, as we are using the object as an interface
      * */
     private long mId, mTimestamp;
-    private String mLocation, mComment, mImageFilePath, mDate, mFullDate, mTime;
+    private String mLocation, mComment, mImageFilePath, mDate, mFullDate, mTime, mShortDate;
     private String mCardinalDirection, mCardinalString;
     private int mCardinalDegree;
 //    private Date mSqlDate;
@@ -47,6 +47,7 @@ public class JournalEntry {
         mTimestamp = timestamp;
         mFullDate = new SimpleDateFormat("EEEE, LLLL d, YYYY").format(timestamp);
         mDate = new SimpleDateFormat("LLLL d, YYYY").format(timestamp);
+        mShortDate = new SimpleDateFormat("LLLL d").format(timestamp);
         mTime = new SimpleDateFormat("h:mm a").format(timestamp);
 //        mSqlDate = new Date(timestamp);
         mLocation = location;
@@ -67,7 +68,9 @@ public class JournalEntry {
     public long getId() { return mId; }
     public long getTimestamp() { return mTimestamp; }
     public String getFullDate() { return mFullDate; }
+    public String getShortDate() { return mShortDate; }
     public String getDate() { return mDate; }
+    public String getDisplayDate() { return mShortDate + ", " + mTime; }
     public String getTime() { return mTime; }
     public String getLocation() { return mLocation; }
     public String getComment() { return mComment; }

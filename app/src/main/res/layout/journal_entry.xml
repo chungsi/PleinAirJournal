@@ -53,7 +53,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="-3dp"
-                    android:text="Location" />
+                    android:text="Location"
+                    android:textSize="@dimen/bodyTextSize" />
 
                 <TextView
                     android:id="@+id/text_galleryEntryDate"

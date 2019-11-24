@@ -2,8 +2,12 @@
 <resources>
     <dimen name="largeHeadingTextSize">30sp</dimen>
     <dimen name="headingTextSize">20sp</dimen>
+    <dimen name="largeBodyTextSize">16sp</dimen>
     <dimen name="bodyTextSize">14sp</dimen>
     <dimen name="smallTextSize">12sp</dimen>
+
+    <dimen name="iconSmall">20dp</dimen>
+    <dimen name="iconMedium">24dp</dimen>
 
     <dimen name="spacing_bottomBarOffset">64dp</dimen>
     <dimen name="spacing_bottomBarColourOffset">52dp</dimen>

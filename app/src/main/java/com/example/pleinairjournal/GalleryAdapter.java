@@ -57,13 +57,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public void onBindViewHolder(@NonNull GalleryViewHolder holder, int position) {
         final JournalEntry entry = mEntriesList.get(position);
         holder.text_entryLocation.setText(entry.getLocation());
-        holder.text_entryDate.setText(entry.getDate());
+        holder.text_entryDate.setText(entry.getShortDate());
 
         Glide.with(mContext)
                 .load(entry.getImageFilePath())
                 .transition(withCrossFade())
                 .into(holder.squareImage_photoPreview);
-//                .into(holder.image_photoPreview);
     }
 
     @Override
@@ -92,7 +91,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         private GalleryAdapter mAdapter;
 
         private TextView text_entryLocation, text_entryDate, text_entryDaysSinceCreated;
-        private ImageView image_photoPreview;
         private SquareImageView squareImage_photoPreview;
         private final Context mContext;
 
@@ -104,7 +102,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
             text_entryLocation = mLayout.findViewById(R.id.text_galleryEntryLocation);
             text_entryDate = mLayout.findViewById(R.id.text_galleryEntryDate);
-            image_photoPreview = mLayout.findViewById(R.id.image_viewPhotoPreview);
             squareImage_photoPreview = mLayout.findViewById(R.id.squareImage_photoPreview);
 
             v.setOnClickListener(this);

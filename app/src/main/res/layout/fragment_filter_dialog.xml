@@ -19,7 +19,7 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter" />
+            android:text="@string/spinner_prompt_location" />
 
         <LinearLayout
             android:id="@+id/layout_spinners"
@@ -34,13 +34,15 @@
                 android:id="@+id/spinner_month"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:prompt="@string/spinner_prompt_month" />
+                android:prompt="@string/spinner_prompt_month"
+                android:visibility="gone" />
 
             <Spinner
                 android:id="@+id/spinner_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:prompt="@string/spinner_prompt_year" />
+                android:prompt="@string/spinner_prompt_year"
+                android:visibility="gone" />
 
             <Spinner
                 android:id="@+id/spinner_location"
@@ -261,6 +263,21 @@
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
         </com.google.android.material.chip.ChipGroup>
+
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cardinal Direction" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_cardinal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="4dp"
+            app:chipSpacingVertical="-8dp"
+            app:singleSelection="true"></com.google.android.material.chip.ChipGroup>
 
         <LinearLayout
             android:id="@+id/linearLayout"

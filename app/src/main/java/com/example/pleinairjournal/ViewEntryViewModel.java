@@ -44,7 +44,7 @@ public class ViewEntryViewModel extends AndroidViewModel {
         return mEntry.getValue().getComment();
     }
     public String getImageFilePath() { return mEntry.getValue().getImageFilePath(); }
-    public String getDate() { return mEntry.getValue().getDate(); }
+    public String getDisplayDate() { return mEntry.getValue().getDisplayDate(); }
     public String getTime() { return mEntry.getValue().getTime(); }
     public String getCardinalString() { return mEntry.getValue().getCardinalString(); }
 
