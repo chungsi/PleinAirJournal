@@ -6,6 +6,7 @@
         <!-- Customize theme here. -->
         <item name="windowNoTitle">false</item>
         <item name="windowActionBar">true</item>
+        <item name="android:windowBackground">@color/white</item>
 
         <!--colours-->
         <item name="android:textColorPrimary">@color/white</item>
@@ -19,7 +20,6 @@
         <!--Action bar style-->
         <item name="android:actionBarSize">@dimen/actionBarHeight</item>
         <item name="actionBarSize">@dimen/actionBarHeight</item>
-
         <item name="titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
@@ -36,12 +36,14 @@
         <item name="android:textColor">@color/darkTextColor</item>
         <item name="android:windowBackground">@color/darkWindowBackground</item>
         <item name="colorAccent">@color/darkColorAccent</item>
-        <item name="backgroundTint">@color/darkButtonBackground</item>
-        <item name="android:buttonTint">@color/colorAccent</item>
+<!--        <item name="backgroundTint">@color/darkButtonBackground</item>-->
+        <item name="android:buttonTint">@color/darkButtonBackground</item>
 
         <!--Action bar style-->
         <item name="android:actionBarSize">@dimen/actionBarHeight</item>
         <item name="actionBarSize">@dimen/actionBarHeight</item>
+        <item name="titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
 
     <style name="bottomToolbarButton">
