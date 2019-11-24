@@ -11,6 +11,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class GalleryViewModel extends AndroidViewModel {
@@ -64,20 +67,41 @@ public class GalleryViewModel extends AndroidViewModel {
         mLocationFilter = location;
     }
 
-    public void setFilterValues(String year, int yearI,
-                                String month, int monthI,
-                                String location, int locationI) {
-        mYearFilter = year;
-        mYearIndex = yearI;
-        mMonthFilter = month;
-        mMonthIndex = monthI;
-        mLocationFilter = location;
-        mLocationIndex = locationI;
+    public void resetFilterValuesByTag(String tag) {
+        if (tag.equals("year")) {
+            mYearFilter = "";
+            setChipYearIds(null);
+        }
+        else if (tag.equals("month")) {
+            mMonthFilter = "";
+            setChipMonthIds(null);
+        }
+        else if (tag.equals("location")) mLocationFilter = "";
     }
+
+//    public void setFilterValues(String year, int yearI,
+//                                String month, int monthI,
+//                                String location, int locationI) {
+//        mYearFilter = year;
+//        mYearIndex = yearI;
+//        mMonthFilter = month;
+//        mMonthIndex = monthI;
+//        mLocationFilter = location;
+//        mLocationIndex = locationI;
+//    }
 
     public int getYearIndex() { return mYearIndex; }
     public int getMonthIndex() { return mMonthIndex; }
     public int getLocationIndex() { return mLocationIndex; }
+
+    public HashMap<String, List<String>> getAppliedFilters() {
+        HashMap<String, List<String>> list = new HashMap<>();
+        list.put("year", Arrays.asList(mYearFilter));
+        list.put("month", Arrays.asList(mMonthFilter));
+        list.put("location", Arrays.asList(mLocationFilter));
+
+        return list;
+    }
 
     public void filter() {
         mAllEntries.setValue(mDb.filterBy(mYearFilter, mMonthFilter, mLocationFilter));

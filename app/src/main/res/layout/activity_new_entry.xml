@@ -102,6 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="SetDirection"
+                        android:textSize="@dimen/largeBodyTextSize"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -182,9 +183,11 @@
 
             <ImageView
                 android:id="@+id/imageView10"
-                android:layout_width="@dimen/iconMedium"
-                android:layout_height="@dimen/iconMedium"
-                app:srcCompat="@drawable/ic_icon_location" />
+                android:layout_width="@dimen/iconLarge"
+                android:layout_height="@dimen/iconLarge"
+                android:layout_marginLeft="-5dp"
+                android:tint="@color/icon"
+                app:srcCompat="@drawable/ic_icon_comment" />
 
             <LinearLayout
                 android:layout_width="match_parent"

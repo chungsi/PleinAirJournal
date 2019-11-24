@@ -5,15 +5,27 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:nestedScrollingEnabled="true"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryLightest"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:text="@string/dialog_filter_title"
+        android:textSize="@dimen/largeBodyTextSize"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:minWidth="400dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/textView9"
@@ -25,9 +37,8 @@
             android:id="@+id/layout_spinners"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
             <Spinner
@@ -61,6 +72,7 @@
             android:id="@+id/chipGroup_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             app:chipSpacingHorizontal="4dp"
             app:singleSelection="true">
 
@@ -71,10 +83,11 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:text="2019"
-                android:textColor="@color/text_chip_state_list"
+                android:textColor="@color/filterChip_text"
                 app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipBackgroundColor="@color/filterChip_bg"
                 app:chipIconVisible="false"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -85,9 +98,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="2018"
-                android:textColor="@color/text_chip_state_list"
+                android:textColor="@color/filterChip_text"
                 app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipBackgroundColor="@color/filterChip_bg"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
         </com.google.android.material.chip.ChipGroup>
@@ -102,7 +116,7 @@
             android:id="@+id/chipGroup_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:chipSpacingHorizontal="4dp"
+            app:chipSpacingHorizontal="1dp"
             app:chipSpacingVertical="-8dp"
             app:singleSelection="true">
 
@@ -112,11 +126,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="January"
+                android:letterSpacing="0"
+                android:tag="January"
+                android:text="Jan"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipBackgroundColor="#EFF5FF"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -125,11 +144,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="February"
+                android:letterSpacing="0"
+                android:tag="February"
+                android:text="Feb"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -138,11 +162,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="March"
+                android:letterSpacing="0"
+                android:tag="March"
+                android:text="Mar"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -151,11 +180,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="April"
+                android:letterSpacing="0"
+                android:tag="April"
+                android:text="Apr"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -164,11 +198,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
+                android:letterSpacing="0"
+                android:tag="May"
                 android:text="May"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -177,11 +216,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="June"
+                android:letterSpacing="0"
+                android:tag="June"
+                android:text="Jun"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -190,11 +234,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="July"
+                android:letterSpacing="0"
+                android:tag="July"
+                android:text="Jul"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -203,11 +252,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="August"
+                android:letterSpacing="0"
+                android:tag="August"
+                android:text="Aug"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -216,11 +270,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="September"
+                android:letterSpacing="0"
+                android:tag="September"
+                android:text="Sep"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -229,11 +288,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="October"
+                android:letterSpacing="0"
+                android:tag="October"
+                android:text="Oct"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -242,11 +306,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="November"
+                android:letterSpacing="0"
+                android:tag="November"
+                android:text="Nov"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
             <com.google.android.material.chip.Chip
@@ -255,35 +324,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="December"
+                android:letterSpacing="0"
+                android:tag="December"
+                android:text="Dec"
                 android:textColor="@color/text_chip_state_list"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/bg_chip_state_list"
+                app:chipEndPadding="3dp"
                 app:chipIconVisible="false"
+                app:chipStartPadding="3dp"
+                app:chipStrokeColor="@color/filterChip_stroke"
                 app:chipStrokeWidth="1dp"></com.google.android.material.chip.Chip>
 
         </com.google.android.material.chip.ChipGroup>
 
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cardinal Direction" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup_cardinal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:chipSpacingHorizontal="4dp"
-            app:chipSpacingVertical="-8dp"
-            app:singleSelection="true"></com.google.android.material.chip.ChipGroup>
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
             <Button
@@ -292,7 +352,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:text="Cancel" />
+                android:letterSpacing="0"
+                android:text="Cancel"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -306,13 +368,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
-                    android:text="Reset" />
+                    android:letterSpacing="0"
+                    android:text="@string/dialog_filter_reset_button" />
 
                 <Button
                     android:id="@+id/button_applyFilters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Go" />
+                    android:letterSpacing="0"
+                    android:text="@string/dialog_filter_button" />
             </LinearLayout>
 
         </LinearLayout>

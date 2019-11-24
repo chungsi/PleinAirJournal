@@ -2,7 +2,10 @@
 <resources>
     <!--  Base Application Colours  -->
     <color name="colorPrimary">#9ACBFF</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#4D8CD5</color>
+    <color name="colorPrimaryDarkest">#FF163C68</color>
+    <color name="colorPrimaryLight">#FFDEECFC</color>
+    <color name="colorPrimaryLightest">#FFEFF5FF</color>
     <color name="colorAccent">#9ACBFF</color>
     <color name="textColor">#2F2F2F</color>
     <color name="buttonColor">#BCBCBC</color>
@@ -29,5 +32,8 @@
     <color name="transparent">#00000000</color>
     <color name="fadedBar">#809ACBFF</color>
 
-
+    <color name="filterChipApplied">@color/colorPrimaryLightest</color>
+    <color name="filterChip_stroke">@color/colorPrimaryLight</color>
+    <color name="filterChip_bg">@color/bg_chip_state_list</color>
+    <color name="filterChip_text">@color/text_chip_state_list</color>
 </resources>

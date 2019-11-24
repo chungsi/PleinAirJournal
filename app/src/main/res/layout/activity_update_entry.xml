@@ -134,10 +134,12 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView7"
-                        android:layout_width="@dimen/iconMedium"
-                        android:layout_height="@dimen/iconMedium"
-                        app:srcCompat="@drawable/ic_icon_location" />
+                        android:id="@+id/imageView12"
+                        android:layout_width="@dimen/iconLarge"
+                        android:layout_height="@dimen/iconLarge"
+                        android:layout_marginLeft="-5dp"
+                        android:tint="@color/icon"
+                        app:srcCompat="@drawable/ic_icon_comment" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

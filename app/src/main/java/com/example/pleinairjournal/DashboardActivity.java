@@ -19,9 +19,15 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.TextView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class DashboardActivity extends JournalMenu
         implements FilterDialogFragment.FilterDialogListener {
@@ -29,6 +35,7 @@ public class DashboardActivity extends JournalMenu
     private SharedPreferences sharedPrefs;
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
+    private ChipGroup chipGroup_appliedFilters;
 
 //    private long mEntryId;
 //    private int mGalleryAdapterPosition;
@@ -43,42 +50,16 @@ public class DashboardActivity extends JournalMenu
 
         super.initMenuButtonsWithActive("dashboard");
         super.initCompassDisplay();
+        initCompass();
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-
         String username = sharedPrefs.getString("USERNAME", "");
         text_name = findViewById(R.id.text_name);
         text_name.setText(username + "'s ");
 
+        initGallery();
         initFilterButton();
-        text_viewCardinal = super.getCompassTextView();
-
-        // Compass view model to display and update the cardinal direction view
-        mCompassViewModel = ViewModelProviders.of(this).get(CompassViewModel.class);
-        mCompassViewModel.compassLiveData.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                text_viewCardinal.setText(s);
-            }
-        });
-
-        RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
-        mAdapter = new GalleryAdapter(this);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-//        mEntryId = getIntent().getLongExtra("id", -1);
-//        mGalleryAdapterPosition = getIntent().getIntExtra("position", -1);
-
-        // Working with the ViewModel, and setting a listener on it to observe data changes
-        mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
-        mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
-            @Override
-            public void onChanged(List<JournalEntry> journalEntries) {
-                Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
-                mAdapter.setEntries(journalEntries);
-            }
-        });
+        initAppliedFilters();
     }
 
     @Override
@@ -100,11 +81,90 @@ public class DashboardActivity extends JournalMenu
         });
     }
 
+    private void initGallery() {
+        RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
+        mAdapter = new GalleryAdapter(this);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        // Working with the ViewModel, and setting a listener on it to observe data changes
+        mGalleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
+        mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
+            @Override
+            public void onChanged(List<JournalEntry> journalEntries) {
+                Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
+                mAdapter.setEntries(journalEntries);
+            }
+        });
+    }
+
+    private void initCompass() {
+        text_viewCardinal = super.getCompassTextView();
+
+        // Compass view model to display and update the cardinal direction view
+        mCompassViewModel = ViewModelProviders.of(this).get(CompassViewModel.class);
+        mCompassViewModel.compassLiveData.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                text_viewCardinal.setText(s);
+            }
+        });
+    }
+
+    private void initAppliedFilters() {
+        chipGroup_appliedFilters = findViewById(R.id.chipGroup_appliedFilters);
+//        chipGroup_appliedFilters.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(ChipGroup group, int checkedId) {
+//                Chip removedChip = findViewById(checkedId);
+//                String filterTag = removedChip.getTag().toString();
+////                String filterVal = removedChip.getText().toString();
+//
+//                group.removeView(removedChip);
+//                Log.i("PLEINAIR_DEBUG", "chip: " + removedChip.toString());
+//                Log.i("PLEINAIR_DEBUG", "chip tag: " + filterTag);
+//                mGalleryViewModel.resetFilterValuesByTag(filterTag);
+//                mGalleryViewModel.filter();
+//            }
+//        });
+    }
+
     /**
      * Implementing interface method of the FilterDialogFragment listener.
      * */
     @Override
     public void onDialogApplyFilterClick(DialogFragment dialog) {
         mGalleryViewModel.filter();
+        showAppliedFilters();
+    }
+
+    private void showAppliedFilters() {
+        chipGroup_appliedFilters.removeAllViewsInLayout();
+        HashMap<String, List<String>> appliedFiltersList = mGalleryViewModel.getAppliedFilters();
+
+        for (Map.Entry<String, List<String>> entry : appliedFiltersList.entrySet()) {
+            for (String s : entry.getValue()) {
+                if (!s.isEmpty()) {
+
+                    // adds a chip for each entry, and sets a click listener
+                    Chip chip = (Chip) getLayoutInflater().inflate(R.layout.layout_chip_applied_filter, chipGroup_appliedFilters, false);
+                    chip.setText(s);
+                    chip.setTag(entry.getKey());
+
+                    chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String filterTag = view.getTag().toString();
+
+                            ((ChipGroup)view.getParent()).removeView(view);
+                            mGalleryViewModel.resetFilterValuesByTag(filterTag);
+                            mGalleryViewModel.filter();
+                        }
+                    });
+
+                    chipGroup_appliedFilters.addView(chip);
+                }
+            }
+        }
     }
 }

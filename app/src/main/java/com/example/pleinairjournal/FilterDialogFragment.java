@@ -83,9 +83,11 @@ public class FilterDialogFragment extends DialogFragment {
         button_resetFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinner_year.setSelection(0, true);
-                spinner_month.setSelection(0, true);
+//                spinner_year.setSelection(0, true);
+//                spinner_month.setSelection(0, true);
                 spinner_location.setSelection(0, true);
+                chipGroup_year.clearCheck();
+                chipGroup_month.clearCheck();
             }
         });
         button_cancelFilter.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +165,7 @@ public class FilterDialogFragment extends DialogFragment {
             public void onCheckedChanged(ChipGroup group, int checkedId) {
                 Chip chip = group.findViewById(checkedId);
                 if (chip != null && chip.isChecked()) {
-                    mMonth = chip.getText().toString();
+                    mMonth = chip.getTag().toString();
                 } else {
                     mMonth = "";
                 }

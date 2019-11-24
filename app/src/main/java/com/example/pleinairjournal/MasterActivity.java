@@ -3,6 +3,7 @@ package com.example.pleinairjournal;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Window;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,8 @@ public class MasterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -29,6 +32,7 @@ public class MasterActivity extends AppCompatActivity {
             getSupportActionBar().setLogo(R.drawable.ic_logo);
             getSupportActionBar().setDisplayUseLogoEnabled(true);
             getSupportActionBar().setTitle("Plein Air Journal");
+//            getSupportActionBar().setHideOnContentScrollEnabled(true);
         }
     }
 
