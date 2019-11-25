@@ -3,11 +3,9 @@ package com.example.pleinairjournal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,9 +68,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         return mEntriesList.size();
     }
 
+    /**
+     * The parent activity will send the intent response to this adapter to check if the intent
+     * was for an entry deletion. If so, the adapter must also update its own data to show changes
+     * to the UI.
+     * */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("PLEINAIR_DEBUG", "Gallery received intent from deleted entry");
-
         // An intent has been returned that an entry has been deleted
         if (resultCode == Activity.RESULT_OK && requestCode == DELETE_ENTRY) {
             int position = data.getIntExtra("position", -1);
@@ -90,7 +91,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         private LinearLayout mLayout;
         private GalleryAdapter mAdapter;
 
-        private TextView text_entryLocation, text_entryDate, text_entryDaysSinceCreated;
+        private TextView text_entryLocation, text_entryDate;
         private SquareImageView squareImage_photoPreview;
         private final Context mContext;
 
@@ -106,10 +107,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
             v.setOnClickListener(this);
         }
-
-//        public Context getContext() {
-//            return mContext;
-//        }
 
         @Override
         public void onClick(View view) {

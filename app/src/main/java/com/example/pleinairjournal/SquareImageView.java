@@ -6,6 +6,9 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+/**
+ * Custom ImageView that displays as a square.
+ * */
 public class SquareImageView extends AppCompatImageView {
 
     public SquareImageView(Context context) {

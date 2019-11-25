@@ -25,29 +25,10 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Checks which theme the user has selected
-        //Theme can only be changed before setContentView
-        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-        //checks if user has selected dark colour scheme preference, sets theme if yes
-        boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
-        if(darkModeChecked){
-            setTheme(R.style.style_dark);
-        }
-
-        //checks if user has selected light colour scheme preference, sets theme if yes
-        boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);
-        if(lightModeChecked){
-            setTheme(R.style.AppTheme);
-        }
-
         setContentView(R.layout.activity_onboarding);
 
-        //changes background image
-        LinearLayout linearLayout_background = (LinearLayout) findViewById(R.id.linearLayout_background);
-        linearLayout_background.setBackgroundResource(R.drawable.ic_bg_onboarding);
+        sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
 
         // Test function below call to clear SharedPrefs to show the onboarding module!
 //        editor.clear().apply();
@@ -58,6 +39,10 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);
         }
+
+        //changes background image
+        LinearLayout linearLayout_background = (LinearLayout) findViewById(R.id.linearLayout_background);
+        linearLayout_background.setBackgroundResource(R.drawable.ic_bg_onboarding);
 
         //creates an array for 3 images in drawable folder
         imageView2 = findViewById(R.id.imageView2);

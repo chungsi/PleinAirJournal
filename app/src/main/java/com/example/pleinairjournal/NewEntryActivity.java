@@ -1,16 +1,11 @@
 package com.example.pleinairjournal;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -82,7 +77,6 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         if (view.equals(button_takePhoto)) {
             startCameraActivity();
         } else if (view.equals(button_setCardinal)) {
-            Log.i("PLEINAIR_DEBUG", "Set cardinal clicked: " + mCompassViewModel.compassLiveData.getCardinalMessage());
             text_setCardinal.setText(mCompassViewModel.compassLiveData.getCardinalMessage());
 
             // sets the cardinal direction and degree of the new entry in the viewModel
@@ -96,7 +90,6 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            Log.i("PLEINAIR_DEBUG", "onAcitivityResult successfull");
             displayImagePreview();
         }
     }
@@ -116,7 +109,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
         });
     }
 
-    /*
+    /**
     * Checks that the required fields are filled out.
     * Namely, there is a photo and a location input. Other fields are voluntary.
     * */
@@ -142,8 +135,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
             try {
                 photoFile = mViewModel.createImageFile();
             } catch (IOException e) {
-                // catch exception if image can't be taken
-                Log.d("PLEINAIR_DEBUG", e.getMessage());
+                e.printStackTrace();
             }
 
             if (photoFile != null) {

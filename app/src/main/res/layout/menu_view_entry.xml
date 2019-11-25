@@ -75,9 +75,9 @@
 
                     <Button
                         android:id="@+id/button_updateEntry"
+                        style="@style/bottomToolbarButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#ffffff"
                         android:drawableLeft="@drawable/ic_icon_edit"
                         android:drawableTint="@color/icon_bottomBar"
                         android:elevation="@dimen/elevation_bottomBarButtons"

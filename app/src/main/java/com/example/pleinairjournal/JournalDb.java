@@ -16,12 +16,15 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class JournalDb {
     private SQLiteDatabase mDb;
     private Context mContext;
     private final JournalDbHelper mHelper;
+
+    private List<JournalEntry> mListOfEntries;
 
     private String[] mAllColumns = {
             JournalEntry._ID,
@@ -51,6 +54,9 @@ public class JournalDb {
         return 0;
     }
 
+    /**
+     * Inserts a JournalEntry into the DB. Calls the AsyncTask to complete.
+     * */
     public void insertEntry(
             long timestamp,
             String location,
@@ -64,6 +70,9 @@ public class JournalDb {
         new insertEntryTask(mDb).execute(entry);
     }
 
+    /**
+     * AsyncTask to insert entries.
+     * */
     public class insertEntryTask extends AsyncTask<JournalEntry, Void, Void> {
         private SQLiteDatabase mDb;
 
@@ -86,6 +95,9 @@ public class JournalDb {
         }
     }
 
+    /**
+     * Updates the entry's location and comment.
+     * */
     public long updateEntry(long id, String location, String comment) {
         mDb = mHelper.getWritableDatabase();
 
@@ -103,6 +115,9 @@ public class JournalDb {
         );
     }
 
+    /**
+     * Delete an entry by its id.
+     * */
     public void deleteEntry(long id) {
         SQLiteDatabase db = mHelper.getWritableDatabase();
         db.delete(JournalEntry.TABLE_NAME,
@@ -111,6 +126,9 @@ public class JournalDb {
         Log.i("PLEINAIR_DEBUG", "An entry has been deleted from the db");
     }
 
+    /**
+     * Delete an entry by passing in a JournalEntry object.
+     * */
     public void deleteEntry(JournalEntry entry) {
         SQLiteDatabase db = mHelper.getWritableDatabase();
         db.delete(JournalEntry.TABLE_NAME,
@@ -119,6 +137,9 @@ public class JournalDb {
         Log.i("PLEINAIR_DEBUG", "An entry has been deleted from the db");
     }
 
+    /**
+     * Get an entry by its id.
+     * */
     public JournalEntry getEntry(long id) {
         SQLiteDatabase db = mHelper.getWritableDatabase();
         String[] thisId = {String.valueOf(id)};
@@ -150,6 +171,9 @@ public class JournalDb {
         return entry;
     }
 
+    /**
+     * Return a LiveData instance of a JournalEntry by its id.
+     * */
     public LiveData<JournalEntry> getLiveDataEntry(long id) {
         SQLiteDatabase db = mHelper.getWritableDatabase();
         String[] thisId = {String.valueOf(id)};
@@ -185,10 +209,24 @@ public class JournalDb {
         return liveDataEntry;
     }
 
-
     /**
-     * TODO: make db access in an AsyncTask task, and maybe show loading sign in the meanwhile
-     * Test method to use LiveData objects with a ViewModel
+     * Get all entries and return them in a list.
+     * */
+    private List<JournalEntry> getAllEntries() {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        Cursor cursor = db.query(
+                JournalEntry.TABLE_NAME,
+                mAllColumns,
+                null,
+                null,
+                null,
+                null,
+                ORDER_CHRONOLOGICAL
+        );
+        return getJournalEntriesFromCursor(cursor);
+    }
+
+    /** Get a LiveData instance of the list of all JournalEntries.
      * */
     public LiveData<List<JournalEntry>> getAllLiveDataEntries() {
         List<JournalEntry> entries = getAllEntries();
@@ -258,8 +296,6 @@ public class JournalDb {
             else selection += " AND " + selectionList.get(i);
         }
 
-//        Log.i("PLEINAIR_DEBUG", "query: " + selection + "; value: " + year);
-
         Cursor cursor = db.query(
                 JournalEntry.TABLE_NAME,
                 mAllColumns,
@@ -272,23 +308,6 @@ public class JournalDb {
 
         Log.i("PLEINAIR_DEBUG", "how many returned: " + cursor.getCount());
 
-        return getJournalEntriesFromCursor(cursor);
-    }
-
-    /**
-     * Get all entries and return them in a list.
-     * */
-    private List<JournalEntry> getAllEntries() {
-        SQLiteDatabase db = mHelper.getWritableDatabase();
-        Cursor cursor = db.query(
-                JournalEntry.TABLE_NAME,
-                mAllColumns,
-                null,
-                null,
-                null,
-                null,
-                ORDER_CHRONOLOGICAL
-        );
         return getJournalEntriesFromCursor(cursor);
     }
 
@@ -314,12 +333,12 @@ public class JournalDb {
     }
 
     /**
-     * @param value The value appended at the end of the query. Can be '?' or a literal string.
-     * @return The query string for filtering again a year value.
-     *
      * The below date-time query methods are to handle timestamps for SQLite.
      * Currently, timestamps are stored as milliseconds, but SQLite parses seconds, so that is
      * computed. As well, the timestamps are formatted to be in unixepoch format.
+     *
+     * @param value The value appended at the end of the query. Can be '?' or a literal string.
+     * @return The query string for filtering again a year value.
      * */
     private String getYearQuery(String value) {
         return "strftime('%Y', date(" + JournalEntry.TIMESTAMP + "/1000, 'unixepoch')) = '" + value + "'";

@@ -68,6 +68,10 @@ public class ViewEntryActivity extends ViewEntryMenu
 
     }
 
+    /**
+     * Listens for the event that the entry has been updated successfully, and then updates all
+     * views with the new information.
+     * */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -114,6 +118,10 @@ public class ViewEntryActivity extends ViewEntryMenu
         });
     }
 
+    /**
+     * Implements interface for the deletion dialog. Will delete the view and send the user back to
+     * the dashboard.
+     * */
     @Override
     public void onDialogConfirmDeleteClick() {
         mViewModel.deleteEntry(mViewModel.getEntryId());

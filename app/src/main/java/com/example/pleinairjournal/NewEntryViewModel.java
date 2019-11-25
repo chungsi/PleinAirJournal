@@ -2,15 +2,12 @@ package com.example.pleinairjournal;
 
 import android.app.Application;
 import android.os.Environment;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +22,6 @@ public class NewEntryViewModel extends AndroidViewModel {
 
     public NewEntryViewModel(@NonNull Application application) {
         super(application);
-        Log.i("PLEINAIR_DEBUG", "NewEntryViewModel created");
 
         mDb = new JournalDb(application);
         mTimestamp = System.currentTimeMillis();
@@ -41,9 +37,6 @@ public class NewEntryViewModel extends AndroidViewModel {
     public void setCardinalDegree(int deg) { mCardinalDegree = deg; }
     public void setCardinal(String cardinal) { mCardinal = cardinal; }
     public void setImageFilePath(String fp) { mImageFilePath = fp; }
-//    public long getTimestamp() {
-//        return mTimestamp;
-//    }
     public String getImageFilePath() { return mImageFilePath; }
     public List<String> getAllLocations() { return mDb.getAllLocations(); }
 
@@ -66,7 +59,6 @@ public class NewEntryViewModel extends AndroidViewModel {
     }
 
     public void insertEntry() {
-        Log.i("PLEINAIR_DEBUG", "insertEntry in NewEntryViewModel");
         mDb.insertEntry(mTimestamp, mLocation, mComment, mImageFilePath, mCardinalDegree, mCardinal);
     }
 }

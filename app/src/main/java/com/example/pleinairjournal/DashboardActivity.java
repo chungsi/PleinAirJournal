@@ -13,19 +13,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Filter;
 import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +31,6 @@ public class DashboardActivity extends JournalMenu
     private GalleryViewModel mGalleryViewModel;
     private GalleryAdapter mAdapter;
     private ChipGroup chipGroup_appliedFilters;
-
-//    private long mEntryId;
-//    private int mGalleryAdapterPosition;
 
     TextView text_name, text_viewCardinal;
     Button button_openFilterDialog;
@@ -70,6 +62,9 @@ public class DashboardActivity extends JournalMenu
         mAdapter.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Initializes the filter button to show the filter dialog when clicked.
+     * */
     private void initFilterButton() {
         button_openFilterDialog = findViewById(R.id.button_openFilterDialog);
         button_openFilterDialog.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +76,9 @@ public class DashboardActivity extends JournalMenu
         });
     }
 
+    /**
+     * Initializes the gallery view, with the GalleryViewModel that updates the RecyclerView adapter.
+     * */
     private void initGallery() {
         RecyclerView recyclerView = findViewById(R.id.recycler_gallery);
         mAdapter = new GalleryAdapter(this);
@@ -92,12 +90,14 @@ public class DashboardActivity extends JournalMenu
         mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
             @Override
             public void onChanged(List<JournalEntry> journalEntries) {
-                Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
                 mAdapter.setEntries(journalEntries);
             }
         });
     }
 
+    /**
+     * Initializes the CompassViewModel and related UI views to bind data changes.
+     * */
     private void initCompass() {
         text_viewCardinal = super.getCompassTextView();
 
@@ -113,20 +113,6 @@ public class DashboardActivity extends JournalMenu
 
     private void initAppliedFilters() {
         chipGroup_appliedFilters = findViewById(R.id.chipGroup_appliedFilters);
-//        chipGroup_appliedFilters.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(ChipGroup group, int checkedId) {
-//                Chip removedChip = findViewById(checkedId);
-//                String filterTag = removedChip.getTag().toString();
-////                String filterVal = removedChip.getText().toString();
-//
-//                group.removeView(removedChip);
-//                Log.i("PLEINAIR_DEBUG", "chip: " + removedChip.toString());
-//                Log.i("PLEINAIR_DEBUG", "chip tag: " + filterTag);
-//                mGalleryViewModel.resetFilterValuesByTag(filterTag);
-//                mGalleryViewModel.filter();
-//            }
-//        });
     }
 
     /**
@@ -138,6 +124,10 @@ public class DashboardActivity extends JournalMenu
         showAppliedFilters();
     }
 
+    /**
+     * Creates and adds chips for the applied filters from the filter dialog.
+     * Will clear all chips first, and re-add the necessary chips.
+     * */
     private void showAppliedFilters() {
         chipGroup_appliedFilters.removeAllViewsInLayout();
         HashMap<String, List<String>> appliedFiltersList = mGalleryViewModel.getAppliedFilters();

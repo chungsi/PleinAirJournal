@@ -1,18 +1,13 @@
 package com.example.pleinairjournal;
 
 import android.app.Application;
-import android.graphics.Bitmap;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,9 +15,6 @@ public class GalleryViewModel extends AndroidViewModel {
     private JournalDb mDb;
     private MutableLiveData<List<JournalEntry>> mAllEntries = new MutableLiveData<>();
     private List<String> mLocationsList;
-//    private ArrayList<String> mYearFilters = new ArrayList<>(),
-//                              mMonthFilters = new ArrayList<>(),
-//                              mLocationFilters = new ArrayList<>();
     private String mYearFilter = "",
             mMonthFilter = "",
             mLocationFilter = "";
@@ -67,6 +59,9 @@ public class GalleryViewModel extends AndroidViewModel {
         mLocationFilter = location;
     }
 
+    /**
+     * Resets the filter values of the tag passed in from the ViewModel.
+     * */
     public void resetFilterValuesByTag(String tag) {
         if (tag.equals("year")) {
             mYearFilter = "";
@@ -79,21 +74,13 @@ public class GalleryViewModel extends AndroidViewModel {
         else if (tag.equals("location")) mLocationFilter = "";
     }
 
-//    public void setFilterValues(String year, int yearI,
-//                                String month, int monthI,
-//                                String location, int locationI) {
-//        mYearFilter = year;
-//        mYearIndex = yearI;
-//        mMonthFilter = month;
-//        mMonthIndex = monthI;
-//        mLocationFilter = location;
-//        mLocationIndex = locationI;
-//    }
-
     public int getYearIndex() { return mYearIndex; }
     public int getMonthIndex() { return mMonthIndex; }
     public int getLocationIndex() { return mLocationIndex; }
 
+    /**
+     * Get all applied filters in a HashMap.
+     * */
     public HashMap<String, List<String>> getAppliedFilters() {
         HashMap<String, List<String>> list = new HashMap<>();
         list.put("year", Arrays.asList(mYearFilter));

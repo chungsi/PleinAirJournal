@@ -9,12 +9,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+/**
+ * The overarching class for all our activities. Contains functions to initialize the toolbar
+ * and colour scheme.
+ * */
 public class MasterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-
         super.onCreate(savedInstanceState);
     }
 
@@ -24,15 +26,12 @@ public class MasterActivity extends AppCompatActivity {
      * This function must be called after the child activity's applyColourScheme and setContentView.
      * */
     public void initToolbar() {
-//        Toolbar toolbar = findViewById(R.id.mToolbar);
-//        setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setLogo(R.drawable.ic_logo);
             getSupportActionBar().setDisplayUseLogoEnabled(true);
             getSupportActionBar().setTitle("Plein Air Journal");
-//            getSupportActionBar().setHideOnContentScrollEnabled(true);
         }
     }
 
@@ -43,7 +42,6 @@ public class MasterActivity extends AppCompatActivity {
      */
     public void applyColourScheme() {
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPrefs.edit();
 
         boolean darkModeChecked = sharedPrefs.getBoolean("DARKBUTTONCHECKED", false);
         boolean lightModeChecked = sharedPrefs.getBoolean("LIGHTBUTTONCHECKED", false);

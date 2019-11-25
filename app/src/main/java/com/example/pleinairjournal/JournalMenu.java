@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+/**
+ * The class for the main menu bar. Handles setting the button behaviours and setting the compass
+ * view for the activity to handle displaying data.
+ * */
 public class JournalMenu extends MasterActivity {
 
     ImageButton button_home, button_settings, button_create;
@@ -24,11 +28,11 @@ public class JournalMenu extends MasterActivity {
     }
 
     /**
-     * @param act is the string of the active activity. Accepted values are: gallery, dashboard,
-     *            and settings.
-     *
      * Public method to be called that sets one of the items as the active activity by changing the
      * icon colour.
+     *
+     * @param act is the string of the active activity. Accepted values are: gallery, dashboard,
+     *            and settings.
      * */
     public void initMenuButtonsWithActive(String act) {
         initMenuButtons();

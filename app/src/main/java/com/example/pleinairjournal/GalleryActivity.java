@@ -2,14 +2,12 @@ package com.example.pleinairjournal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -47,7 +45,6 @@ public class GalleryActivity extends JournalMenu  {
         mGalleryViewModel.getAllEntries().observe(this, new Observer<List<JournalEntry>>() {
             @Override
             public void onChanged(List<JournalEntry> journalEntries) {
-                Log.i("PLEINAIR_DEBUG", "something in the db has changed.");
                 mAdapter.setEntries(journalEntries);
             }
         });

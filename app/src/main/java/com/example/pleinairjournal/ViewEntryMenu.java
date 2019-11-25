@@ -1,14 +1,11 @@
 package com.example.pleinairjournal;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 public class ViewEntryMenu extends MasterActivity {
-    static final int UPDATE_ENTRY = 2;
 
     private ImageButton button_back, button_deleteEntry;
     private Button button_updateEntry;

@@ -8,11 +8,11 @@
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
         android:text="@string/dialog_delete_entry_title"
+        android:textColor="@color/textColor"
         android:textSize="@dimen/largeBodyTextSize"
         android:textStyle="bold" />
 

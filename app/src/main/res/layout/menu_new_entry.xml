@@ -69,9 +69,9 @@
 
                     <Button
                         android:id="@+id/button_entryCreate"
+                        style="@style/bottomToolbarButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#ffffff"
                         android:drawableLeft="@drawable/ic_icon_create"
                         android:drawableTint="@color/bottomBar_icon"
                         android:elevation="@dimen/elevation_bottomBarButtons"

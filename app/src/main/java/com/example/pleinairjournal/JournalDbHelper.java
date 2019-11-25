@@ -15,7 +15,6 @@ public class JournalDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " +
                     JournalEntry.TABLE_NAME + " (" +
                     JournalEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                    JournalEntry.DATE + " TEXT, " +
                     JournalEntry.TIMESTAMP + " TEXT, " +
                     JournalEntry.IMAGEFILEPATH + " TEXT, " +
                     JournalEntry.LOCATION + " TEXT, " +
@@ -37,7 +36,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(CREATE_TABLE);
         } catch (SQLException e) {
-            // catch the exception
+            e.printStackTrace();
         }
     }
 
@@ -47,7 +46,7 @@ public class JournalDbHelper extends SQLiteOpenHelper {
             db.execSQL(DELETE_TABLE);
             onCreate(db);
         } catch (SQLException e) {
-            // catch exception
+            e.printStackTrace();
         }
     }
 }

@@ -1,15 +1,9 @@
 package com.example.pleinairjournal;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class NewEntryMenu extends MasterActivity {
 
@@ -26,9 +20,6 @@ public class NewEntryMenu extends MasterActivity {
     }
 
     public void initMenuButtons() {
-        // also access the newEntryViewModel
-        final NewEntryViewModel mViewModel = ViewModelProviders.of(this).get(NewEntryViewModel.class);
-
         button_cancel = findViewById(R.id.button_entryCancel);
         button_createEntry = findViewById(R.id.button_entryCreate);
 

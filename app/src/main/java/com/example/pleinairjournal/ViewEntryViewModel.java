@@ -1,7 +1,6 @@
 package com.example.pleinairjournal;
 
 import android.app.Application;
-import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -13,7 +12,6 @@ public class ViewEntryViewModel extends AndroidViewModel {
     private JournalDb mDb;
     private long mId;
     private LiveData<JournalEntry> mEntry;
-    private Bitmap mImage;
 
     public ViewEntryViewModel(@NonNull Application application) {
         super(application);
@@ -30,7 +28,6 @@ public class ViewEntryViewModel extends AndroidViewModel {
     public LiveData<JournalEntry> getEntry(long id) {
         mId = id;
         mEntry = mDb.getLiveDataEntry(id);
-//        mImage = mEntry.getValue().getBitmapImage();
         return mEntry;
     }
 

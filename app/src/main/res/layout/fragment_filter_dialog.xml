@@ -11,11 +11,11 @@
         android:id="@+id/textView17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
         android:text="@string/dialog_filter_title"
+        android:textColor="@color/textColor"
         android:textSize="@dimen/largeBodyTextSize"
         android:textStyle="bold" />
 
@@ -67,7 +67,8 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/spinner_prompt_year" />
+            android:text="@string/spinner_prompt_year"
+            android:textColor="@color/textColor" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup_year"
@@ -111,7 +112,8 @@
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/spinner_prompt_month" />
+            android:text="@string/spinner_prompt_month"
+            android:textColor="@color/textColor" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup_month"

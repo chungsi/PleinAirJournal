@@ -59,15 +59,6 @@ public class FilterDialogFragment extends DialogFragment {
         button_applyFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mGalleryViewModel.setFilterValues(
-//                        spinner_year.getSelectedItem().toString(),
-//                        spinner_year.getSelectedItemPosition(),
-//                        spinner_month.getSelectedItem().toString(),
-//                        spinner_month.getSelectedItemPosition(),
-//                        spinner_location.getSelectedItem().toString(),
-//                        spinner_location.getSelectedItemPosition()
-//                );
-
                 mGalleryViewModel.setChipYearIds(chipGroup_year.getCheckedChipIds());
                 mGalleryViewModel.setChipMonthIds(chipGroup_month.getCheckedChipIds());
                 mGalleryViewModel.setFilterValues(
@@ -83,8 +74,6 @@ public class FilterDialogFragment extends DialogFragment {
         button_resetFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                spinner_year.setSelection(0, true);
-//                spinner_month.setSelection(0, true);
                 spinner_location.setSelection(0, true);
                 chipGroup_year.clearCheck();
                 chipGroup_month.clearCheck();
@@ -99,21 +88,7 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void initFilterSpinners(View view) {
-        spinner_year = view.findViewById(R.id.spinner_year);
-        spinner_month = view.findViewById(R.id.spinner_month);
         spinner_location = view.findViewById(R.id.spinner_location);
-
-        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
-                getActivity(),
-                R.array.year_array,
-                android.R.layout.simple_spinner_dropdown_item);
-        spinner_year.setAdapter(arrayAdapter);
-
-        arrayAdapter = ArrayAdapter.createFromResource(
-                getActivity(),
-                R.array.month_array,
-                android.R.layout.simple_spinner_dropdown_item);
-        spinner_month.setAdapter(arrayAdapter);
 
         // To get all locations, need to call the viewModel's function to get all locations from db.
         List<String> locationsList = mGalleryViewModel.getAllLocations();
@@ -127,26 +102,16 @@ public class FilterDialogFragment extends DialogFragment {
     }
 
     private void restoreFilterSpinnerPositions() {
-        spinner_year.setSelection(mGalleryViewModel.getYearIndex());
-        spinner_month.setSelection(mGalleryViewModel.getMonthIndex());
         spinner_location.setSelection(mGalleryViewModel.getLocationIndex());
     }
 
+    /**
+     * Initializes the chip groups and sets change listeners to them. Also restores previously
+     * saved chips.
+     * */
     private void initChipGroups(View view) {
         chipGroup_year = view.findViewById(R.id.chipGroup_year);
         chipGroup_month = view.findViewById(R.id.chipGroup_month);
-
-        if (mGalleryViewModel.getChipYearIds() != null) {
-            for (Integer i : mGalleryViewModel.getChipYearIds()) {
-                chipGroup_year.check(i);
-            }
-        }
-
-        if (mGalleryViewModel.getChipMonthIds() != null) {
-            for (Integer i : mGalleryViewModel.getChipMonthIds()) {
-                chipGroup_month.check(i);
-            }
-        }
 
         chipGroup_year.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
@@ -171,6 +136,25 @@ public class FilterDialogFragment extends DialogFragment {
                 }
             }
         });
+
+        restoreChipGroupFilters();
+    }
+
+    /**
+     * Checks if filters were previously checked last time the filer dialog was opened, and if so,
+     * will re-check them again.
+     * */
+    private void restoreChipGroupFilters() {
+        if (mGalleryViewModel.getChipYearIds() != null) {
+            for (Integer i : mGalleryViewModel.getChipYearIds()) {
+                chipGroup_year.check(i);
+            }
+        }
+        if (mGalleryViewModel.getChipMonthIds() != null) {
+            for (Integer i : mGalleryViewModel.getChipMonthIds()) {
+                chipGroup_month.check(i);
+            }
+        }
     }
 
     /**
