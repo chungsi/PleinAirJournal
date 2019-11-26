@@ -13,14 +13,17 @@
     <color name="darkBlue">#3D5166</color>
     <color name="meta">#8D8D8D</color>
 
+    <color name="popupWindowBackground">#ffffff</color>
+
     <!--  Dark Theme Colours  -->
+    <color name="darkPopupWindowBackground">#FF2F3135</color>
     <color name="darkWindowBackground">#252525</color>
     <color name="darkColorPrimary">#1D1D1D</color>
     <color name="darkTextColorPrimary">#FFFFFF</color>
     <color name="darkColorAccent">#9ACBFF</color>
     <color name="darkTextColor">#FFFFFF</color>
     <color name="buttonTextColor">#2F2F2F</color>
-    <color name="darkButtonTextColor">#2F2F2F</color>
+    <color name="darkButtonTextColor">#ffffff</color>
     <color name="darkButtonBackground">#3D5166</color>
 
     <color name="icon">@color/colorAccent</color>

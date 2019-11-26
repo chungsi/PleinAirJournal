@@ -138,6 +138,7 @@
                         android:layout_width="@dimen/iconLarge"
                         android:layout_height="@dimen/iconLarge"
                         android:layout_marginLeft="-5dp"
+                        android:layout_marginTop="-2dp"
                         android:tint="@color/icon"
                         app:srcCompat="@drawable/ic_icon_comment" />
 

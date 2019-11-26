@@ -2,9 +2,7 @@ package com.example.pleinairjournal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +26,7 @@ public class ViewEntryActivity extends ViewEntryMenu
 
     long mEntryId;
     int mGalleryAdapterPosition;
+    private boolean hasEntryBeenUpdated = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +76,14 @@ public class ViewEntryActivity extends ViewEntryMenu
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == UPDATE_ENTRY) {
-            Toast.makeText(this, "Entry updated", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Entry updated", Toast.LENGTH_SHORT).show();
             mViewModel.refreshEntry();
             text_location.setText(mViewModel.getLocation());
             text_comment.setText(mViewModel.getComment());
             text_date.setText(mViewModel.getDisplayDate());
             text_cardinal.setText(mViewModel.getCardinalString());
+
+            hasEntryBeenUpdated = true; // set flag for back button behaviour
 
             Glide.with(getApplicationContext())
                     .load(mViewModel.getImageFilePath())
@@ -94,6 +95,7 @@ public class ViewEntryActivity extends ViewEntryMenu
     private void buttonClickListeners() {
         buttonUpdateEntryClickListener();
         buttonDeleteEntryClickListener();
+        buttonBackClickListener();
     }
 
     private void buttonUpdateEntryClickListener() {
@@ -102,7 +104,6 @@ public class ViewEntryActivity extends ViewEntryMenu
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), UpdateEntryActivity.class);
                 i.putExtra("id", mViewModel.getEntryId());
-                Log.i("PLEINAIR_DEBUG", "intent id from ViewEntry: " + mViewModel.getEntryId());
                 startActivityForResult(i, UPDATE_ENTRY);
             }
         });
@@ -118,17 +119,31 @@ public class ViewEntryActivity extends ViewEntryMenu
         });
     }
 
+    private void buttonBackClickListener() {
+        super.getMenuBackButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (hasEntryBeenUpdated) {
+                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                    startActivity(i);
+                } else {
+                    finish();
+                }
+            }
+        });
+    }
+
     /**
      * Implements interface for the deletion dialog. Will delete the view and send the user back to
      * the dashboard.
      * */
     @Override
     public void onDialogConfirmDeleteClick() {
-        mViewModel.deleteEntry(mViewModel.getEntryId());
-
         Intent replyIntent = new Intent();
         replyIntent.putExtra("id", mViewModel.getEntryId());
         replyIntent.putExtra("position", mGalleryAdapterPosition);
+
+        mViewModel.deleteEntry(mViewModel.getEntryId());
         setResult(RESULT_OK, replyIntent);
         finish();
     }

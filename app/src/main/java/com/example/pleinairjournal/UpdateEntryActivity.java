@@ -89,6 +89,13 @@ public class UpdateEntryActivity extends ViewEntryMenu {
                 finish();
             }
         });
+
+        super.getMenuBackButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initLocationField() {
@@ -97,7 +104,7 @@ public class UpdateEntryActivity extends ViewEntryMenu {
 
         ArrayAdapter<String> locationsArrayAdapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_spinner_dropdown_item,
+                R.layout.spinner_item,
                 locationsList);
 
         autoComplete_location.setAdapter(locationsArrayAdapter);

@@ -226,7 +226,7 @@ public class NewEntryActivity extends NewEntryMenu implements View.OnClickListen
 
         ArrayAdapter<String> locationsArrayAdapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_spinner_dropdown_item,
+                R.layout.spinner_item,
                 locationsList);
 
         autoComplete_location.setAdapter(locationsArrayAdapter);

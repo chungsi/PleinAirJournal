@@ -60,6 +60,7 @@
                 android:id="@+id/spinner_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dropDownWidth="match_parent"
                 android:prompt="@string/spinner_prompt_location" />
         </LinearLayout>
 

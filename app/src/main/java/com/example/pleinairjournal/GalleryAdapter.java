@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -113,8 +112,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             JournalEntry entry = mAdapter.getEntryAtPosition(getLayoutPosition());
 
             if (view.equals(mLayout)) {
-                Toast.makeText(mContext, "Item clicked", Toast.LENGTH_SHORT).show();
-
                 Intent i = new Intent(mContext, ViewEntryActivity.class);
                 i.putExtra("position", getLayoutPosition());
                 i.putExtra("id", entry.getId());

@@ -24,13 +24,6 @@ public class ViewEntryMenu extends MasterActivity {
      * */
     public void initMenuButtons(){
         button_back = findViewById(R.id.button_back);
-        button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         button_updateEntry = findViewById(R.id.button_updateEntry);
         button_deleteEntry = findViewById(R.id.button_deleteEntry);
     }
@@ -60,4 +53,9 @@ public class ViewEntryMenu extends MasterActivity {
     public ImageButton getMenuDeleteButton() {
         return button_deleteEntry;
     }
+
+    /**
+     * The back button must have their own click listeners instantiated in the activity.
+     * */
+    public ImageButton getMenuBackButton() { return button_back; }
 }

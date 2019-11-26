@@ -89,7 +89,8 @@
         android:layout_marginBottom="@dimen/spacing_bottomBarOffset"
         android:gravity="end"
         android:orientation="horizontal"
-        android:padding="20dp"
+        android:paddingHorizontal="13dp"
+        android:paddingVertical="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

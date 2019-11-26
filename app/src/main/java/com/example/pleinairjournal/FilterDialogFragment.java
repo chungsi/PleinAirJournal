@@ -94,7 +94,7 @@ public class FilterDialogFragment extends DialogFragment {
         List<String> locationsList = mGalleryViewModel.getAllLocations();
         ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(
                 getActivity(),
-                android.R.layout.simple_spinner_dropdown_item,
+                R.layout.spinner_item,
                 locationsList);
         spinner_location.setAdapter(locationArrayAdapter);
 

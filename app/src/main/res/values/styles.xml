@@ -65,6 +65,12 @@
         <item name="chipStrokeColor">#000000</item>
     </style>
 
+    <style name="dropdownListDarkStyle">
+        <item name="android:background">@color/darkPopupWindowBackground</item>
+        <item name="android:listChoiceBackgroundIndicator">@color/darkColorPrimary</item>
+        <item name="android:listChoiceIndicatorSingle">@color/darkColorPrimary</item>
+    </style>
+
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">@dimen/bodyTextSize</item>
     </style>
