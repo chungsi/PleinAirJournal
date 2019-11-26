@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class OnboardingActivity extends AppCompatActivity implements View.OnClickListener {
+public class OnboardingActivity extends MasterActivity implements View.OnClickListener {
 
     private SharedPreferences sharedPrefs;
     EditText edit_name;
@@ -26,6 +26,7 @@ public class OnboardingActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
+        super.initToolbar();
 
         sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
