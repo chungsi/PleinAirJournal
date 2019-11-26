@@ -12,6 +12,11 @@ import androidx.lifecycle.LiveData;
 
 import static android.content.Context.SENSOR_SERVICE;
 
+/**
+ * The CompassViewModel holds all the functionality of the compass.
+ * The view model exposes a live data object for the activity/view/fragment to observe data changes
+ * (sensor data updating) and perform the UI updates in the applicable activity.
+ * */
 public class CompassViewModel extends AndroidViewModel {
     public CompassLiveData compassLiveData = new CompassLiveData();
 

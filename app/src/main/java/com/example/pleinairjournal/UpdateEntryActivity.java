@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -17,7 +18,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class UpdateEntryActivity extends ViewEntryMenu {
+public class UpdateEntryActivity extends ViewEntryMenu
+        implements DeleteConfirmationDialogFragment.DeleteConfirmationDialogListener {
 
     private TextView text_date, text_time, text_cardinal;
     private ImageView image_photoPreview;
@@ -33,8 +35,8 @@ public class UpdateEntryActivity extends ViewEntryMenu {
         super.initMenuButtonsFor("update");
         initMenuButtonsForActivity();
 
-        mEntryId = getIntent().getLongExtra("id", -1);
         mViewModel = ViewModelProviders.of(this).get(UpdateEntryViewModel.class);
+        mEntryId = getIntent().getLongExtra("id", -1);
 
         text_date = findViewById(R.id.text_date);
         text_time = findViewById(R.id.text_time);
@@ -80,13 +82,8 @@ public class UpdateEntryActivity extends ViewEntryMenu {
         super.getMenuDeleteButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewModel.deleteEntry(mViewModel.getEntryId());
-
-                Intent replyIntent = new Intent();
-                replyIntent.putExtra("id", mViewModel.getEntryId());
-                replyIntent.putExtra("position", mEntryId);
-                setResult(RESULT_OK, replyIntent);
-                finish();
+                DialogFragment dialog = new DeleteConfirmationDialogFragment();
+                dialog.show(getSupportFragmentManager(), "deleteConfirmationDialog");
             }
         });
 
@@ -109,5 +106,22 @@ public class UpdateEntryActivity extends ViewEntryMenu {
 
         autoComplete_location.setAdapter(locationsArrayAdapter);
         autoComplete_location.setThreshold(1);
+    }
+
+    /**
+     * When user confirms deleting the entry from this activity, it will send a flag back to the
+     * view entry activity, where the actual deletion will be carried out. This allows the gallery
+     * adapter to also update gracefully with animations as they can receive the intent from the
+     * view entry activity.
+     * */
+    @Override
+    public void onDialogConfirmDeleteClick() {
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra("id", mViewModel.getEntryId());
+        replyIntent.putExtra("position", mEntryId);
+        replyIntent.putExtra("isDeleteEntry", true);
+
+        setResult(RESULT_OK, replyIntent);
+        finish();
     }
 }

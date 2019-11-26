@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -75,7 +74,13 @@ public class ViewEntryActivity extends ViewEntryMenu
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == UPDATE_ENTRY) {
+        // if the update entry has set the flag that it should be deleted
+        if (resultCode == RESULT_OK &&
+                requestCode == UPDATE_ENTRY &&
+                data.hasExtra("isDeleteEntry")) {
+            deleteEntryAndGoToDashboard();
+        }
+        else if (resultCode == RESULT_OK && requestCode == UPDATE_ENTRY) {
 //            Toast.makeText(this, "Entry updated", Toast.LENGTH_SHORT).show();
             mViewModel.refreshEntry();
             text_location.setText(mViewModel.getLocation());
@@ -98,6 +103,9 @@ public class ViewEntryActivity extends ViewEntryMenu
         buttonBackClickListener();
     }
 
+    /**
+     * Will send the user to the UpdateEntryActivity
+     * */
     private void buttonUpdateEntryClickListener() {
         super.getMenuUpdateButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +117,9 @@ public class ViewEntryActivity extends ViewEntryMenu
         });
     }
 
+    /**
+     * Opens the delete confirmation dialog
+     * */
     private void buttonDeleteEntryClickListener() {
         super.getMenuDeleteButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +130,11 @@ public class ViewEntryActivity extends ViewEntryMenu
         });
     }
 
+    /**
+     * If the entry has been updated, will send the user back to the dashboard as a new intent,
+     * in order to force the data to be updated.
+     * Otherwise, just go back using cached data.
+     * */
     private void buttonBackClickListener() {
         super.getMenuBackButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +155,16 @@ public class ViewEntryActivity extends ViewEntryMenu
      * */
     @Override
     public void onDialogConfirmDeleteClick() {
+        deleteEntryAndGoToDashboard();
+    }
+
+    /**
+     * Deletes the current entry and takes the user back to the previous activity in the stack.
+     * It's a separate function because this action can be taken in two cases:
+     * 1. when the user accepts the delete dialog from this activity, or
+     * 2. when the user has confirmed deleting the entry from the update activity.
+     * */
+    private void deleteEntryAndGoToDashboard() {
         Intent replyIntent = new Intent();
         replyIntent.putExtra("id", mViewModel.getEntryId());
         replyIntent.putExtra("position", mGalleryAdapterPosition);

@@ -1,15 +1,10 @@
 package com.example.pleinairjournal;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -26,12 +21,10 @@ import java.util.List;
 
 public class FilterDialogFragment extends DialogFragment {
 
-    private Spinner spinner_year, spinner_month, spinner_location;
+    private Spinner spinner_location;
     private ChipGroup chipGroup_year, chipGroup_month;
     private GalleryViewModel mGalleryViewModel;
-    private int mYearIndex, mMonthIndex, mLocationIndex;
     private String mYear = "", mMonth = "";
-//    private View mDialog;
 
     public FilterDialogFragment() {}
 

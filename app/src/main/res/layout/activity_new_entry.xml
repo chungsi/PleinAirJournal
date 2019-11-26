@@ -50,6 +50,7 @@
                     android:layout_margin="10dp"
                     android:backgroundTint="?android:attr/buttonTint"
                     android:gravity="center"
+                    android:letterSpacing="0"
                     android:text="@string/button_take_photo"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@id/image_newPhotoPreview"
@@ -131,6 +132,7 @@
                                 android:insetTop="8dp"
                                 android:insetRight="12dp"
                                 android:insetBottom="8dp"
+                                android:letterSpacing="0"
                                 android:text="Set"
                                 android:textColor="@color/white" />
                         </LinearLayout>

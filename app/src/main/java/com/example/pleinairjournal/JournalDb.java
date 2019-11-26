@@ -4,19 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.text.SimpleDateFormat;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class JournalDb {
@@ -123,7 +117,6 @@ public class JournalDb {
         db.delete(JournalEntry.TABLE_NAME,
                 JournalEntry._ID + " = ?",
                 new String[]{String.valueOf(id)});
-        Log.i("PLEINAIR_DEBUG", "An entry has been deleted from the db");
     }
 
     /**
@@ -134,7 +127,6 @@ public class JournalDb {
         db.delete(JournalEntry.TABLE_NAME,
                 JournalEntry._ID + " = ?",
                 new String[]{String.valueOf(entry.getId())});
-        Log.i("PLEINAIR_DEBUG", "An entry has been deleted from the db");
     }
 
     /**
@@ -238,7 +230,7 @@ public class JournalDb {
     }
 
     /**
-     * Gets all locations entered by the user.
+     * Gets all distinct locations entered by the user, drawing from the LOCATION column.
      * */
     public List<String> getAllLocations() {
         SQLiteDatabase db = mHelper.getWritableDatabase();
@@ -261,8 +253,6 @@ public class JournalDb {
         while(cursor.moveToNext()) {
             String thisLocation = cursor.getString(cursor.getColumnIndexOrThrow(JournalEntry.LOCATION));
             locations.add(thisLocation);
-            // only add the location if it hasn't been already added
-//            if (!locations.contains(thisLocation)) locations.add(thisLocation);
         }
         cursor.close();
 
@@ -305,8 +295,6 @@ public class JournalDb {
                 null,
                 ORDER_CHRONOLOGICAL
         );
-
-        Log.i("PLEINAIR_DEBUG", "how many returned: " + cursor.getCount());
 
         return getJournalEntriesFromCursor(cursor);
     }

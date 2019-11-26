@@ -18,9 +18,7 @@ public class GalleryViewModel extends AndroidViewModel {
     private String mYearFilter = "",
             mMonthFilter = "",
             mLocationFilter = "";
-    private int mYearIndex = 0,
-            mMonthIndex = 0,
-            mLocationIndex = 0;
+    private int mLocationIndex = 0;
     private List<Integer> chipYearIds, chipMonthIds;
 
     /**
@@ -37,10 +35,6 @@ public class GalleryViewModel extends AndroidViewModel {
 
     public LiveData<List<JournalEntry>> getAllEntries() {
         return mAllEntries;
-    }
-
-    public void deleteEntry(JournalEntry entry) {
-        mDb.deleteEntry(entry);
     }
 
     public void refreshEntries() {
@@ -74,8 +68,6 @@ public class GalleryViewModel extends AndroidViewModel {
         else if (tag.equals("location")) mLocationFilter = "";
     }
 
-    public int getYearIndex() { return mYearIndex; }
-    public int getMonthIndex() { return mMonthIndex; }
     public int getLocationIndex() { return mLocationIndex; }
 
     /**

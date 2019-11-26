@@ -11,7 +11,6 @@ public class JournalEntry {
     public static final String DATE = "date";
     public static final String TIMESTAMP = "timestamp";
     public static final String LOCATION = "location";
-    public static final String LONGLAT = "longlat";
     public static final String COMMENT = "comment";
     public static final String IMAGEFILEPATH = "image";
     public static final String CARDINAL_DIRECTION = "cardinal_direction";
@@ -70,7 +69,6 @@ public class JournalEntry {
         mDate = new SimpleDateFormat("LLLL d, YYYY").format(timestamp);
         mShortDate = new SimpleDateFormat("LLLL d").format(timestamp);
         mTime = new SimpleDateFormat("h:mm a").format(timestamp);
-//        mSqlDate = new Date(timestamp);
         mLocation = location;
         mComment = comment;
         mImageFilePath = imageFilePath;
